@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}{{ translations['title'] }}{% endblock %}
+
+{% block content %}
+<section>
+    <article>
+        <h1>{{ translations['about_me'] }}</h1>
+        <div id="project">
+<div id="sidephoto">
+    <img src="{{ url_for('static', filename='images/mpio.jpeg') }}" width="350" alt="Moje zdjęcie">
+</div>            <div id="sidetext">
+                {{ translations['about_me_content'] }}
+            </div>
+        </div>
+    </article>
+</section>
+{% endblock %}
