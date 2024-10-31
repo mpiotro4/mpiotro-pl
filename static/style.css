@@ -4,8 +4,19 @@
     color: whitesmoke;
 }
 
+html, body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
 body {
-    background-color: #191d21;
+    background: linear-gradient(to bottom, #191d21, #2F3336);
+}
+
+#content {
+    flex: 1;
 }
 
 /* Header Styles */
@@ -19,36 +30,9 @@ header {
     font-size: 30px;
 }
 
-#top_img {
-    display: inline-block;
-}
-
 #top_title {
     vertical-align: top;
     display: inline-block;
-}
-
-
-/* Project Section */
-#project {
-    display: flex;
-    align-items: center;
-}
-
-#sidephoto {
-    margin-right: 20px;
-}
-
-#sidetext {
-    flex: 1;
-    text-align: justify;
-
-}
-
-/* Wrapper */
-#wrapper {
-    margin: 0 auto;
-    width: 50%;
 }
 
 /* Navigation */
@@ -70,11 +54,61 @@ a.first {
     border-left: 1px dashed #2F3336;
 }
 
+a.menu.active {
+    background-color: #2F3336;
+    color: #ffffff;
+    border-radius: 10px;
+}
+
+/* Project Section */
+#project {
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+#sidephoto, #sidetext {
+    flex: 1;
+}
+
+#sidephoto img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+#sidephoto {
+    margin-right: 20px;
+}
+
+#sidetext {
+    text-align: justify;
+}
+
+#sidetext.text-box {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #2F3336;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Wrapper */
+#wrapper {
+    margin: 0 auto;
+    width: 50%;
+}
+
 /* Article */
 article {
     padding-top: 30px;
     padding-bottom: 30px;
-    background-color: #191d21;
 }
 
 article h1 {
@@ -120,119 +154,12 @@ footer {
     font-size: 15px;
     line-height: 40px;
     text-align: center;
-    background-color: #2F3336;
+    background-color: #191d21;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 100px;
 }
 
-/* Active Menu Item */
-a.menu.active {
-    background-color: #2F3336;
-    color: #ffffff;
-}
-
-/* Hide the hamburger menu on larger screens */
 .hamburger {
     display: none;
-}
-
-#sidephoto img {
-    border-radius: 15px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
-    transition: transform 0.3s ease; /* Smooth transition for transform */
-}
-
-/* Mobile Styles */
-@media (max-width: 600px) {
-    .hamburger {
-        display: block;
-        cursor: pointer;
-        padding: 10px;
-        background-color: rgb(100, 124, 100);
-        text-align: center;
-    }
-
-    body {
-        font-size: 16px;
-    }
-
-    header {
-        font-size: 30px;
-    }
-
-    #bottom_ttile {
-        font-size: 20px;
-    }
-
-    #wrapper {
-        width: 90%;
-    }
-
-    nav {
-        display: none; /* Hide the navbar by default */
-        flex-direction: column;
-        align-items: center;
-        background-color: rgb(100, 124, 100);
-        width: 100%;
-    }
-
-    nav.active {
-        display: flex; /* Show the navbar when active */
-    }
-
-    a.menu, div.menu {
-        width: 100%;
-        padding: 10px;
-        border-right: none;
-        border-bottom: 1px dashed #2F3336;
-        text-align: center;
-    }
-
-    a.first {
-        border-left: none;
-    }
-
-    .hamburger {
-        display: block;
-        cursor: pointer;
-        padding: 10px;
-        background-color: rgb(100, 124, 100);
-        text-align: center;
-    }
-
-    article {
-        padding: 20px 10px;
-    }
-
-    article h1 {
-        font-size: 24px;
-        margin: 0 5% 20px;
-    }
-
-    #project {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
-    }
-
-    #sidephoto {
-        width: auto;
-        margin-right: 10px;
-    }
-
-    #sidetext {
-        flex: 1;
-        margin-left: 0;
-        text-align: justify;
-
-    }
-
-    footer {
-        width: 90%;
-    }
-}
-
-img {
-    max-width: 100%;
-    height: auto;
 }

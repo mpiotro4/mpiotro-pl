@@ -1,0 +1,85 @@
+@media (max-width: 600px) {
+    .hamburger {
+        display: block;
+        cursor: pointer;
+        padding: 10px;
+        background-color: rgb(100, 124, 100);
+        text-align: center;
+    }
+
+    body {
+        font-size: 16px;
+    }
+
+    header {
+        font-size: 30px;
+    }
+
+    #bottom_ttile {
+        font-size: 20px;
+    }
+
+    #wrapper {
+        width: 90%;
+    }
+
+    nav {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgb(100, 124, 100);
+        width: 100%;
+    }
+
+    nav.active {
+        display: flex;
+    }
+
+    a.menu, div.menu {
+        width: 100%;
+        padding: 10px;
+        border-right: none;
+        border-bottom: 1px dashed #2F3336;
+        text-align: center;
+    }
+
+    a.first {
+        border-left: none;
+    }
+
+    article {
+        padding: 20px 10px;
+    }
+
+    article h1 {
+        font-size: 24px;
+        margin: 0 5% 20px;
+    }
+
+    #project {
+        display: flex;
+        flex-direction: column; /* Change to column direction */
+        align-items: center;
+    }
+
+    #sidephoto {
+        width: 100%; /* Ensure the image takes up the full width */
+        margin-right: 0; /* Remove right margin */
+        margin-bottom: 10px; /* Add bottom margin for spacing */
+    }
+
+    #sidetext {
+        width: 100%; /* Ensure the text box takes up the full width */
+        margin-left: 0; /* Remove left margin */
+        text-align: justify;
+    }
+
+    footer {
+        width: 90%;
+    }
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}

@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='mobile-style.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
           integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
@@ -30,8 +31,10 @@
         <a href="{{ url_for('set_language', language='en') }}">EN</a>
     </div>
 </nav>
-<div id="wrapper">
-    {% block content %}{% endblock %}
+<div id="content">
+    <div id="wrapper">
+        {% block content %}{% endblock %}
+    </div>
 </div>
 <footer>
     <a href="https://github.com/mpiotro4" target="_blank"><i class="fa fa-github"></i></a> &nbsp;&nbsp;&nbsp;&nbsp;

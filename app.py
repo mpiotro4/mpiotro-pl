@@ -1,7 +1,9 @@
+import os
+
 from flask import Flask, render_template, redirect, url_for, session
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Upewnij się, że używasz silnego klucza
+app.secret_key = os.environ.get('SECRET_KEY', 'default_secret_key')
 
 translations = {
     'pl': {
@@ -65,4 +67,4 @@ def kontakt():
     return render_template('contact.html', lang=lang, translations=translations[lang])
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
