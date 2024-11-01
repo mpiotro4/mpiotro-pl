@@ -43,7 +43,7 @@ translations = {
 
 @app.route('/')
 def home():
-    lang = session.get('lang', 'en')  # Domyślnie język polski
+    lang = session.get('lang', 'en')
     return render_template('index.html', lang=lang, translations=translations[lang])
 
 @app.route('/set_language/<language>')
@@ -51,19 +51,21 @@ def set_language(language):
     session['lang'] = language
     return redirect(url_for('home'))
 
-@app.route('/projekty')
-def projekty():
-    lang = session.get('lang', 'pl')
+from flask import render_template
+
+@app.route('/projects')
+def projects():
+    lang = session.get('lang', 'en')
     return render_template('projects.html', lang=lang, translations=translations[lang])
 
 @app.route('/cv')
 def cv():
-    lang = session.get('lang', 'pl')
+    lang = session.get('lang', 'en')
     return render_template('cv.html', lang=lang, translations=translations[lang])
 
-@app.route('/kontakt')
-def kontakt():
-    lang = session.get('lang', 'pl')
+@app.route('/contact')
+def contact():
+    lang = session.get('lang', 'en')
     return render_template('contact.html', lang=lang, translations=translations[lang])
 
 if __name__ == '__main__':

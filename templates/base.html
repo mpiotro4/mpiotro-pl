@@ -20,12 +20,12 @@
 <nav>
     <a class="menu {% if request.endpoint == 'home' %}active{% endif %} first"
        href="{{ url_for('home') }}">{{ translations['about_me'] }}</a>
-    <a class="menu {% if request.endpoint == 'projekty' %}active{% endif %}"
-       href="{{ url_for('projekty') }}">{{ translations['projects'] }}</a>
+    <a class="menu {% if request.endpoint == 'projects' %}active{% endif %}"
+       href="{{ url_for('projects') }}">{{ translations['projects'] }}</a>
     <a class="menu {% if request.endpoint == 'cv' %}active{% endif %}"
        href="{{ url_for('cv') }}">{{ translations['cv'] }}</a>
-    <a class="menu {% if request.endpoint == 'kontakt' %}active{% endif %}"
-       href="{{ url_for('kontakt') }}">{{ translations['contact'] }}</a>
+    <a class="menu {% if request.endpoint == 'contact' %}active{% endif %}"
+       href="{{ url_for('contact') }}">{{ translations['contact'] }}</a>
     <div class="menu">
         <a href="{{ url_for('set_language', language='pl') }}">PL</a> |
         <a href="{{ url_for('set_language', language='en') }}">EN</a>

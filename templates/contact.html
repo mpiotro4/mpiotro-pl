@@ -3,8 +3,32 @@
 {% block title %}{{ translations['contact'] }} - Marcin Piotrowski{% endblock %}
 
 {% block content %}
-<section>
-    <h1>{{ translations['contact'] }}</h1>
-    <p>{{ translations['my_contact'] }}</p>
-</section>
+    <section>
+        <article>
+            <h1>{{ translations['contact'] }}</h1>
+            <div class="card-container">
+                <div class="card">
+                    <div class="card-content">
+                        <i class="fa fa-github"></i> <a href="https://github.com/mpiotro4" target="_blank">mpiotro4</a>
+                        <br>
+                        <br>
+                        <i class="fa fa-linkedin"></i> <a href="https://www.linkedin.com/in/marcin-piotrowski"
+                                                          target="_blank">Marcin Piotrowski</a>
+                        <br>
+                        <br>
+                        <i class="fa fa-envelope"></i> <span id="email"></span>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var user = 'mpiotro4';
+            var domain = 'outlook.com';
+            var email = user + '@' + domain;
+            document.getElementById('email').innerHTML = '<a href="mailto:' + email + '">' + email + '</a>';
+        });
+    </script>
 {% endblock %}

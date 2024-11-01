@@ -3,8 +3,16 @@
 {% block title %}{{ translations['cv'] }} - Marcin Piotrowski{% endblock %}
 
 {% block content %}
-<section>
-    <h1>{{ translations['cv'] }}</h1>
-    <p>{{ translations['my_cv'] }}</p>
-</section>
+    <section>
+        <article>
+            <h1>{{ translations['cv'] }}</h1>
+            <div class="pdf-container">
+                {% if g.locale == 'pl' %}
+                    <iframe src="{{ url_for('static', filename='Marcin_Piotrowski_CV_pl.pdf') }}" class="responsive-iframe"></iframe>
+                {% else %}
+                    <iframe src="{{ url_for('static', filename='Marcin_Piotrowski_CV_en.pdf') }}" class="responsive-iframe"></iframe>
+                {% endif %}
+            </div>
+        </article>
+    </section>
 {% endblock %}
