@@ -1,0 +1,13 @@
+{% macro project_card(project, lang) %}
+<div class="project-card-container">
+    <div class="project-card">
+        <div class="project-photo">
+            <img src="{{ project.project_image_url }}" alt="{{ project.project_title[lang] }}">
+        </div>
+        <div class="project-content">
+            <h2>{{ project.project_title[lang] }}</h2>
+            <p>{{ project.project_description[lang] }}</p>
+        </div>
+    </div>
+</div>
+{% endmacro %}

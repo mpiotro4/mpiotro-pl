@@ -56,7 +56,25 @@ from flask import render_template
 @app.route('/projects')
 def projects():
     lang = session.get('lang', 'en')
-    return render_template('projects.html', lang=lang, translations=translations[lang])
+    projects = [
+        {
+            'project_title': {'en': 'Uniklon', 'pl': 'Uniklon'},
+            'project_image_url': 'static/images/Uniklon1.JPG',
+            'project_description': {'en': 'Description of Project 1', 'pl': 'Opis Projektu 1'}
+        },
+        {
+            'project_title': {'en': 'Lunar Lander', 'pl': 'Lądownik Księżycowy'},
+            'project_image_url': 'static/images/Lunar.png',
+            'project_description': {'en': 'Description of Project 2', 'pl': 'Opis Projektu 2'}
+        },
+        {
+            'project_title': {'en': 'Nixie clock', 'pl': 'Zegar Nixie'},
+            'project_image_url': 'static/images/nixie.jpeg',
+            'project_description': {'en': 'Description of Project 3', 'pl': 'Opis Projektu 3'}
+        },
+        # Add more projects as needed
+    ]
+    return render_template('projects.html', lang=lang, translations=translations[lang], projects=projects)
 
 @app.route('/cv')
 def cv():

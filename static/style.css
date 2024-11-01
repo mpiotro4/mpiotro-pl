@@ -203,3 +203,39 @@ footer {
     height: 100%;
     border: none;
 }
+
+.project-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.project-card {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 800px;
+    width: 100%;
+}
+
+.project-photo {
+    flex: 2; /* Increase the flex value to make the photo container larger */
+    margin-right: 20px;
+}
+
+.project-photo img {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.project-content {
+    flex: 2;
+    text-align: justify;
+    font-size: 16px;
+    color: whitesmoke;
+}

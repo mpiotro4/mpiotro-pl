@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 
+{% from "project_card.html" import project_card %}
+
 {% block title %}{{ translations['projects'] }} - Marcin Piotrowski{% endblock %}
 
 {% block content %}
     <section>
         <article>
             <h1>{{ translations['projects'] }}</h1>
-            <p>{{ translations['my_projects'] }}</p>
+            {% for project in projects %}
+                {{ project_card(project, lang) }}
+            {% endfor %}
         </article>
     </section>
 {% endblock %}
