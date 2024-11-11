@@ -243,3 +243,16 @@ footer {
     height: 100%;
     border: none;
 }
+
+.project-year {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.project-divider {
+    border: 0;
+    height: 2px;
+    background: rgb(100, 124, 100); /* Match the green color of the UI */
+    width: 50%; /* Make the line shorter */
+}

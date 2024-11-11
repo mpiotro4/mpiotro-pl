@@ -8,9 +8,32 @@
     <section>
         <article>
             <h1>{{ translations['projects'] }}</h1>
-            {% for project in projects %}
-                {{ project_card(project, lang) }}
-            {% endfor %}
+            <div class="project-year">2024</div>
+            <hr class="project-divider">
+            {{ project_card({
+            'project_title': {'en': 'Uniklon', 'pl': 'Uniklon'},
+            'project_image_url': 'static/images/Uniklon1.JPG',
+            'project_description': {'en': 'Description of Project 1', 'pl': 'Opis Projektu 1'}
+            }, lang) }}
+
+            <div class="project-year">2023</div>
+            <hr class="project-divider">
+
+
+            <div class="project-year">2022</div>
+            <hr class="project-divider">
+
+
+            <div class="project-year">2021</div>
+            <hr class="project-divider">
+
+
+            <div class="project-year">2020</div>
+            <hr class="project-divider">
+
+
+            <div class="project-year">2019</div>
+            <hr class="project-divider">
         </article>
     </section>
 {% endblock %}
