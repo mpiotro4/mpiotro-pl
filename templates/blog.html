@@ -8,10 +8,10 @@
 {% if posts %}
     {% for post in posts %}
     <div style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #ddd;">
-        <h2>{{ post.title[lang] }}</h2>
+        <h2><a href="{{ url_for('blog_post', slug=post.slug) }}" style="color: inherit; text-decoration: none;">{{ post.title[lang] }}</a></h2>
         <p style="color: #666; font-size: 0.9em;">{{ post.date }} - {{ post.author }}</p>
-        <p>{{ (post.content[lang]|striptags)[:200] }}{% if (post.content[lang]|striptags)|length > 200 %}...{% endif %}</p>
-        <a href="{{ url_for('blog_post', slug=post.slug) }}" style="color: #007bff; text-decoration: none;">{{ translations['read_more'] }} →</a>
+        <p style="color: #666;">{{ (post.content[lang]|striptags)[:200] }}{% if (post.content[lang]|striptags)|length > 200 %}...{% endif %}</p>
+        <a href="{{ url_for('blog_post', slug=post.slug) }}" style="color: inherit; text-decoration: none;">{{ translations['read_more'] }} →</a>
     </div>
     {% endfor %}
 {% else %}

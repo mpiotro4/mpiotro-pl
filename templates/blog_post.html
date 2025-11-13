@@ -3,8 +3,8 @@
 {% block title %}{{ post.title[lang] }} - Marcin Piotrowski{% endblock %}
 
 {% block content %}
-<div style="margin-bottom: 20px;">
-    <a href="{{ url_for('blog') }}" style="color: #007bff; text-decoration: none;">← {{ translations['back_to_blog'] }}</a>
+<div style="margin-bottom: 30px;">
+    <a href="{{ url_for('blog') }}" style="color: inherit; text-decoration: none;">← {{ translations['back_to_blog'] }}</a>
 </div>
 
 <article>
@@ -13,8 +13,4 @@
 
     <div style="line-height: 1.8;">{{ post.content[lang]|safe }}</div>
 </article>
-
-<div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd;">
-    <a href="{{ url_for('blog') }}" style="color: #007bff; text-decoration: none;">← {{ translations['back_to_blog'] }}</a>
-</div>
 {% endblock %}
