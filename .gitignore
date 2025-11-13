@@ -8,4 +8,4 @@ dist/
 build/
 .venv/
 venv/
-idea/
+.idea/
