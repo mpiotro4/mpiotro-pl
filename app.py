@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from datetime import datetime
 
-from flask import Flask, render_template, redirect, url_for, session
+from flask import Flask, render_template, redirect, url_for, session, request
 
 # Try to import markdown, fallback to simple converter if not available
 try:
@@ -171,7 +171,8 @@ def home():
 @app.route('/set_language/<language>')
 def set_language(language):
     session['lang'] = language
-    return redirect(url_for('home'))
+    # Redirect to the previous page, or home if no referrer
+    return redirect(request.referrer or url_for('home'))
 
 @app.route('/projekty')
 def projekty():
