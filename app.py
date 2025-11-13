@@ -16,7 +16,7 @@ app.secret_key = os.environ.get('SECRET_KEY', 'default_secret_key')
 
 # Blog helper functions
 def parse_blog_post(filepath):
-    """Parse markdown file with front matter"""
+    """Parse markdown file with front matter and multilingual content"""
     with open(filepath, 'r', encoding='utf-8') as f:
         content = f.read()
 
@@ -26,7 +26,7 @@ def parse_blog_post(filepath):
         return None
 
     front_matter = parts[1].strip()
-    post_content = parts[2].strip()
+    post_content = '---'.join(parts[2:]).strip()  # Rejoin in case content has ---
 
     # Parse front matter
     metadata = {}
@@ -34,6 +34,24 @@ def parse_blog_post(filepath):
         if ':' in line:
             key, value = line.split(':', 1)
             metadata[key.strip()] = value.strip()
+
+    # Parse multilingual content (split by ## PL and ## EN)
+    content_pl = ''
+    content_en = ''
+
+    if '## PL' in post_content and '## EN' in post_content:
+        # Extract Polish content
+        pl_start = post_content.find('## PL') + len('## PL')
+        pl_end = post_content.find('## EN')
+        content_pl = post_content[pl_start:pl_end].strip()
+
+        # Extract English content
+        en_start = post_content.find('## EN') + len('## EN')
+        content_en = post_content[en_start:].strip()
+    else:
+        # Fallback: use same content for both languages
+        content_pl = post_content
+        content_en = post_content
 
     # Create slug from filename
     filename = Path(filepath).stem
@@ -46,7 +64,8 @@ def parse_blog_post(filepath):
         'date': metadata.get('date', ''),
         'description_pl': metadata.get('description_pl', ''),
         'description_en': metadata.get('description_en', ''),
-        'content': post_content
+        'content_pl': content_pl,
+        'content_en': content_en
     }
 
 def get_all_posts():
@@ -182,8 +201,10 @@ def blog_post(slug):
     if not post:
         return render_template('404.html', lang=lang, translations=translations[lang]), 404
 
-    # Convert markdown content to HTML
-    html_content = markdown_to_html(post['content'])
+    # Convert markdown content to HTML (use appropriate language)
+    content_key = 'content_pl' if lang == 'pl' else 'content_en'
+    content_text = post.get(content_key, '')
+    html_content = markdown_to_html(content_text)
     post['html_content'] = html_content
 
     return render_template('blog_post.html', lang=lang, translations=translations[lang], post=post)
