@@ -4,6 +4,13 @@ from datetime import datetime
 
 from flask import Flask, render_template, redirect, url_for, session
 
+# Try to import markdown, fallback to simple converter if not available
+try:
+    import markdown
+    HAS_MARKDOWN = True
+except ImportError:
+    HAS_MARKDOWN = False
+
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'default_secret_key')
 
@@ -65,28 +72,31 @@ def get_post_by_slug(slug):
         return parse_blog_post(filepath)
     return None
 
-# Simple markdown to HTML converter
+# Markdown to HTML converter
 def markdown_to_html(text):
-    """Convert basic markdown to HTML"""
-    lines = text.split('\n')
-    html = []
-    in_code = False
+    """Convert markdown to HTML using markdown library or simple fallback"""
+    if HAS_MARKDOWN:
+        return markdown.markdown(text, extensions=['tables', 'fenced_code'])
+    else:
+        # Fallback simple converter if markdown library is not available
+        lines = text.split('\n')
+        html = []
 
-    for line in lines:
-        if line.startswith('## '):
-            html.append(f'<h2>{line[3:]}</h2>')
-        elif line.startswith('# '):
-            html.append(f'<h1>{line[2:]}</h1>')
-        elif line.startswith('- '):
-            html.append(f'<li>{line[2:]}</li>')
-        elif line.startswith('**') and line.endswith('**'):
-            html.append(f'<strong>{line[2:-2]}</strong>')
-        elif line.strip() == '':
-            html.append('<br>')
-        else:
-            html.append(f'<p>{line}</p>')
+        for line in lines:
+            if line.startswith('## '):
+                html.append(f'<h2>{line[3:]}</h2>')
+            elif line.startswith('# '):
+                html.append(f'<h1>{line[2:]}</h1>')
+            elif line.startswith('- '):
+                html.append(f'<li>{line[2:]}</li>')
+            elif line.startswith('**') and line.endswith('**'):
+                html.append(f'<strong>{line[2:-2]}</strong>')
+            elif line.strip() == '':
+                html.append('<br>')
+            else:
+                html.append(f'<p>{line}</p>')
 
-    return '\n'.join(html)
+        return '\n'.join(html)
 
 translations = {
     'pl': {
