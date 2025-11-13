@@ -17,8 +17,4 @@
 {% else %}
     <p>{{ translations['no_posts'] }}</p>
 {% endif %}
-
-<div style="margin-top: 40px;">
-    <a href="{{ url_for('blog_admin') }}" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">{{ translations['add_post'] }}</a>
-</div>
 {% endblock %}

@@ -1,13 +1,15 @@
 import os
-import json
+import re
 from datetime import datetime
 
-from flask import Flask, render_template, redirect, url_for, session, request, flash
+import markdown
+import yaml
+from flask import Flask, render_template, redirect, url_for, session
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'default_secret_key')
 
-BLOG_POSTS_DIR = 'blog_posts'
+BLOG_DIR = 'blog'
 
 translations = {
     'pl': {
@@ -30,14 +32,6 @@ translations = {
         'read_more': 'Czytaj więcej',
         'back_to_blog': 'Powrót do bloga',
         'no_posts': 'Brak wpisów na blogu.',
-        'add_post': 'Dodaj wpis',
-        'post_title_pl': 'Tytuł (PL)',
-        'post_title_en': 'Tytuł (EN)',
-        'post_content_pl': 'Treść (PL)',
-        'post_content_en': 'Treść (EN)',
-        'post_slug': 'Slug (URL)',
-        'submit': 'Dodaj wpis',
-        'post_added': 'Wpis został dodany!',
     },
     'en': {
         'title': 'Marcin Piotrowski - homepage',
@@ -59,30 +53,68 @@ translations = {
         'read_more': 'Read more',
         'back_to_blog': 'Back to blog',
         'no_posts': 'No blog posts yet.',
-        'add_post': 'Add post',
-        'post_title_pl': 'Title (PL)',
-        'post_title_en': 'Title (EN)',
-        'post_content_pl': 'Content (PL)',
-        'post_content_en': 'Content (EN)',
-        'post_slug': 'Slug (URL)',
-        'submit': 'Add post',
-        'post_added': 'Post has been added!',
     }
 }
 
 
+def parse_markdown_post(content):
+    """Parse markdown file with YAML frontmatter and language sections."""
+    # Split frontmatter and content
+    parts = content.split('---', 2)
+    if len(parts) < 3:
+        return None
+
+    # Parse YAML frontmatter
+    try:
+        metadata = yaml.safe_load(parts[1])
+    except:
+        return None
+
+    # Get content after frontmatter
+    post_content = parts[2].strip()
+
+    # Split content by language markers [PL] and [EN]
+    pl_match = re.search(r'\[PL\](.*?)(?=\[EN\]|$)', post_content, re.DOTALL)
+    en_match = re.search(r'\[EN\](.*?)$', post_content, re.DOTALL)
+
+    content_pl = pl_match.group(1).strip() if pl_match else ''
+    content_en = en_match.group(1).strip() if en_match else ''
+
+    # Convert markdown to HTML
+    md = markdown.Markdown(extensions=['extra', 'codehilite', 'nl2br'])
+    content_pl_html = md.convert(content_pl) if content_pl else ''
+    md.reset()
+    content_en_html = md.convert(content_en) if content_en else ''
+
+    return {
+        'slug': metadata.get('slug', ''),
+        'title': {
+            'pl': metadata.get('title_pl', ''),
+            'en': metadata.get('title_en', '')
+        },
+        'content': {
+            'pl': content_pl_html,
+            'en': content_en_html
+        },
+        'date': metadata.get('date', ''),
+        'author': metadata.get('author', 'Marcin Piotrowski')
+    }
+
+
 def load_blog_posts():
-    """Load all blog posts from JSON files."""
+    """Load all blog posts from Markdown files."""
     posts = []
-    if not os.path.exists(BLOG_POSTS_DIR):
+    if not os.path.exists(BLOG_DIR):
         return posts
 
-    for filename in os.listdir(BLOG_POSTS_DIR):
-        if filename.endswith('.json'):
-            filepath = os.path.join(BLOG_POSTS_DIR, filename)
+    for filename in os.listdir(BLOG_DIR):
+        if filename.endswith('.md'):
+            filepath = os.path.join(BLOG_DIR, filename)
             with open(filepath, 'r', encoding='utf-8') as f:
-                post = json.load(f)
-                posts.append(post)
+                content = f.read()
+                post = parse_markdown_post(content)
+                if post:
+                    posts.append(post)
 
     # Sort by date, newest first
     posts.sort(key=lambda x: x.get('date', ''), reverse=True)
@@ -91,21 +123,12 @@ def load_blog_posts():
 
 def load_blog_post(slug):
     """Load a single blog post by slug."""
-    filepath = os.path.join(BLOG_POSTS_DIR, f"{slug}.json")
+    filepath = os.path.join(BLOG_DIR, f"{slug}.md")
     if os.path.exists(filepath):
         with open(filepath, 'r', encoding='utf-8') as f:
-            return json.load(f)
+            content = f.read()
+            return parse_markdown_post(content)
     return None
-
-
-def save_blog_post(post_data):
-    """Save a blog post to a JSON file."""
-    if not os.path.exists(BLOG_POSTS_DIR):
-        os.makedirs(BLOG_POSTS_DIR)
-
-    filepath = os.path.join(BLOG_POSTS_DIR, f"{post_data['slug']}.json")
-    with open(filepath, 'w', encoding='utf-8') as f:
-        json.dump(post_data, f, ensure_ascii=False, indent=2)
 
 
 @app.route('/')
@@ -146,37 +169,6 @@ def blog_post(slug):
     if not post:
         return "Post not found", 404
     return render_template('blog_post.html', lang=lang, translations=translations[lang], post=post)
-
-@app.route('/blog/admin/add', methods=['GET', 'POST'])
-def blog_admin():
-    lang = session.get('lang', 'pl')
-
-    if request.method == 'POST':
-        slug = request.form.get('slug')
-        title_pl = request.form.get('title_pl')
-        title_en = request.form.get('title_en')
-        content_pl = request.form.get('content_pl')
-        content_en = request.form.get('content_en')
-
-        post_data = {
-            'slug': slug,
-            'title': {
-                'pl': title_pl,
-                'en': title_en
-            },
-            'content': {
-                'pl': content_pl,
-                'en': content_en
-            },
-            'date': datetime.now().strftime('%Y-%m-%d'),
-            'author': 'Marcin Piotrowski'
-        }
-
-        save_blog_post(post_data)
-        flash(translations[lang]['post_added'])
-        return redirect(url_for('blog'))
-
-    return render_template('blog_admin.html', lang=lang, translations=translations[lang])
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)

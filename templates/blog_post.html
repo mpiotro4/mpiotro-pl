@@ -11,7 +11,7 @@
     <h1>{{ post.title[lang] }}</h1>
     <p style="color: #666; font-size: 0.9em; margin-bottom: 30px;">{{ post.date }} - {{ post.author }}</p>
 
-    <div style="line-height: 1.8; white-space: pre-wrap;">{{ post.content[lang] }}</div>
+    <div style="line-height: 1.8;">{{ post.content[lang]|safe }}</div>
 </article>
 
 <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd;">
