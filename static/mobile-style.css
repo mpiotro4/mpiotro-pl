@@ -90,6 +90,8 @@
 
     .blog-post-content {
         font-size: 15px;
+        padding: 15px;
+        margin: 20px 0;
     }
 
     .blog-post-content h1 {
@@ -98,10 +100,6 @@
 
     .blog-post-content h2 {
         font-size: 20px;
-    }
-
-    .blog-post-content {
-        padding: 15px;
     }
 
     .blog-post-content pre {
