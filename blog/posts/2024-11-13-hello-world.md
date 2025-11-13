@@ -32,7 +32,7 @@ planuje dodać tutaj wpis zostawić jakiś ślad, do którego w razie potrzebny 
 Tak na marginesie to nie jest to moje pierwsze podejście do zrobienia bloga. Pierwsza iteracja mojej strony
 internetowej powstała w 2021 roku i był to zbiór statycznych plików html udostępniony na studenckim serwerze mojego
 wydziału. Całość na pierwszy rzut oka była bardzo podobne to stanu z dnia, w którym to piszę, gdyż html i css w dużej
-mierze pozostał ten sam. Pamiętam, że chwaliłem się tą stroną w moim CV, więc myślę, że mogą śiało stwierdzić, 
+mierze pozostał ten sam. Pamiętam, że chwaliłem się tą stroną w moim CV, więc myślę, że mogą śmiało stwierdzić, 
 że ta wczesna wersja bloga pomogła mi w dostaniu mojej pierwszej pracy. Stety bądź niestety pochłonięty pracą i studiami
 na dobre zapomniałem o moim blogu i też nie czułem potrzeby, aby do niego wracać.
 
@@ -47,15 +47,15 @@ I tak ponownie przenosimy się do listopada tym razem roku 2025. Ogólnie to jes
 skupiłem się na pracy oraz znalazłem czas, aby zadbać o wszystkie dotychczas zaniedbane sprawy (Kto by pomyślał, że łącząc
 studia i pracę może go brakować) i jedną z tych spraw najwidoczniej jest ten blog. 
 
-Piszę ten wpis, bo liczę na to, że pozwoli mi przerwać marazm, w którym aktualnie się znajduje. Polega on na tym, że od
-roku jedyne moje zajęcie związane z IT to praca. Nie jestem w stanie zabrać się za rozwijanie własnych projektów bądź
+Piszę ten wpis w długi listopadowy wieczór długiego listopadowego weekendu, bo liczę na to, że pozwoli mi przerwać marazm, w którym aktualnie się znajduje. Polega on na tym, że od
+roku jedyne moje zajęcie związane z IT to moja praca. Nie jestem w stanie zabrać się za rozwijanie własnych projektów bądź
 naukę. Odnoszę wrażenie, że jest to spowodowane tym, że ślad po takich wysiłkach pozostaje znikomy —
 wiedza rzadko zostaje wykorzystana, a projekty kończą jako zapomniane repo na githubie.
 I ponownie docieramy do sedna, czyli bloga, który ma mi w tym pomóc.
 
 Chciałbym po prostu zacząć znowu robić rzeczy motywowany ciekawością i frajdą z tworzenia bez zastanawiania się, czy
 coś jest mi faktycznie potrzebne bądź produktywne. Czuje silną potrzebę, aby rozwijać **coś** 
-i kiedyś spojrzeć na to z góry, aby zobaczyć postęp, jaki zrobiłem.
+i następnie popatrzeć na to z góry, aby zobaczyć postęp, jaki zrobiłem.
 
 ## Gdzie ja w ogóle zacząłem
 
@@ -63,7 +63,7 @@ Dobra, dość tego pierdolenia, bo trochę to brzmi jakbym się tutaj użalał n
 ma być poświęcony informatyce, a ja jedynie piszę ten wpis, bo jakoś trzeba zacząć. Na razie nie narzucam sobie żadnych
 sztywnych ram co do częstotliwości publikacji, mam w głowie parę pomysłów więc pewnie niedługo pojawi się więcej wpisów, a co dalej zobaczymy. 
 
-Może za rok znowu tutaj się spotkamy
+Może za rok znowu tutaj się spotkamy 🤫
 
 ## EN
 
