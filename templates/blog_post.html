@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title[lang] }} - Marcin Piotrowski{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 20px;">
+    <a href="{{ url_for('blog') }}" style="color: #007bff; text-decoration: none;">← {{ translations['back_to_blog'] }}</a>
+</div>
+
+<article>
+    <h1>{{ post.title[lang] }}</h1>
+    <p style="color: #666; font-size: 0.9em; margin-bottom: 30px;">{{ post.date }} - {{ post.author }}</p>
+
+    <div style="line-height: 1.8; white-space: pre-wrap;">{{ post.content[lang] }}</div>
+</article>
+
+<div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd;">
+    <a href="{{ url_for('blog') }}" style="color: #007bff; text-decoration: none;">← {{ translations['back_to_blog'] }}</a>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}{{ translations['blog'] }} - Marcin Piotrowski{% endblock %}
+
+{% block content %}
+<h1>{{ translations['blog_posts'] }}</h1>
+
+{% if posts %}
+    {% for post in posts %}
+    <div style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #ddd;">
+        <h2>{{ post.title[lang] }}</h2>
+        <p style="color: #666; font-size: 0.9em;">{{ post.date }} - {{ post.author }}</p>
+        <p>{{ post.content[lang][:200] }}{% if post.content[lang]|length > 200 %}...{% endif %}</p>
+        <a href="{{ url_for('blog_post', slug=post.slug) }}" style="color: #007bff; text-decoration: none;">{{ translations['read_more'] }} →</a>
+    </div>
+    {% endfor %}
+{% else %}
+    <p>{{ translations['no_posts'] }}</p>
+{% endif %}
+
+<div style="margin-top: 40px;">
+    <a href="{{ url_for('blog_admin') }}" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">{{ translations['add_post'] }}</a>
+</div>
+{% endblock %}

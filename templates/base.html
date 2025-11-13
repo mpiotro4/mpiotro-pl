@@ -24,6 +24,8 @@
        href="{{ url_for('projekty') }}">{{ translations['projects'] }}</a>
     <a class="menu {% if request.endpoint == 'cv' %}active{% endif %}"
        href="{{ url_for('cv') }}">{{ translations['cv'] }}</a>
+    <a class="menu {% if request.endpoint == 'blog' or request.endpoint == 'blog_post' %}active{% endif %}"
+       href="{{ url_for('blog') }}">{{ translations['blog'] }}</a>
     <a class="menu {% if request.endpoint == 'kontakt' %}active{% endif %}"
        href="{{ url_for('kontakt') }}">{{ translations['contact'] }}</a>
     <div class="menu">

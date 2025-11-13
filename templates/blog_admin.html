@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}{{ translations['add_post'] }} - Marcin Piotrowski{% endblock %}
+
+{% block content %}
+<h1>{{ translations['add_post'] }}</h1>
+
+<div style="margin-bottom: 20px;">
+    <a href="{{ url_for('blog') }}" style="color: #007bff; text-decoration: none;">← {{ translations['back_to_blog'] }}</a>
+</div>
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <div style="background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 10px; margin-bottom: 20px; border-radius: 5px;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<form method="POST" style="max-width: 800px;">
+    <div style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: bold;">{{ translations['post_slug'] }}:</label>
+        <input type="text" name="slug" required
+               placeholder="moj-wpis-blogowy"
+               style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;"
+               pattern="[a-z0-9-]+"
+               title="Tylko małe litery, cyfry i myślniki">
+        <small style="color: #666;">Tylko małe litery, cyfry i myślniki (np. moj-pierwszy-post)</small>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: bold;">{{ translations['post_title_pl'] }}:</label>
+        <input type="text" name="title_pl" required
+               style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;">
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: bold;">{{ translations['post_title_en'] }}:</label>
+        <input type="text" name="title_en" required
+               style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;">
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: bold;">{{ translations['post_content_pl'] }}:</label>
+        <textarea name="content_pl" required rows="10"
+                  style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; font-family: inherit;"></textarea>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 5px; font-weight: bold;">{{ translations['post_content_en'] }}:</label>
+        <textarea name="content_en" required rows="10"
+                  style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; font-family: inherit;"></textarea>
+    </div>
+
+    <button type="submit"
+            style="background: #007bff; color: white; padding: 10px 30px; border: none; border-radius: 5px; cursor: pointer; font-size: 1em;">
+        {{ translations['submit'] }}
+    </button>
+</form>
+{% endblock %}
