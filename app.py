@@ -1,69 +1,41 @@
 import os
 from pathlib import Path
-from datetime import datetime
-
 from flask import Flask, render_template, redirect, url_for, session, request
-
-# Try to import markdown, fallback to simple converter if not available
-try:
-    import markdown
-    HAS_MARKDOWN = True
-except ImportError:
-    HAS_MARKDOWN = False
+import markdown
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'default_secret_key')
 
-# Blog helper functions
+import frontmatter
+
 def parse_blog_post(filepath):
     """Parse markdown file with front matter and multilingual content"""
-    with open(filepath, 'r', encoding='utf-8') as f:
-        content = f.read()
+    post = frontmatter.load(filepath)
 
-    # Split by --- to separate front matter from content
-    parts = content.split('---')
-    if len(parts) < 3:
-        return None
-
-    front_matter = parts[1].strip()
-    post_content = '---'.join(parts[2:]).strip()  # Rejoin in case content has ---
-
-    # Parse front matter
-    metadata = {}
-    for line in front_matter.split('\n'):
-        if ':' in line:
-            key, value = line.split(':', 1)
-            metadata[key.strip()] = value.strip()
-
-    # Parse multilingual content (split by ## PL and ## EN)
+    # Parse multilingual content
     content_pl = ''
     content_en = ''
 
-    if '## PL' in post_content and '## EN' in post_content:
-        # Extract Polish content
-        pl_start = post_content.find('## PL') + len('## PL')
-        pl_end = post_content.find('## EN')
-        content_pl = post_content[pl_start:pl_end].strip()
+    if '## PL' in post.content and '## EN' in post.content:
+        pl_start = post.content.find('## PL') + len('## PL')
+        pl_end = post.content.find('## EN')
+        content_pl = post.content[pl_start:pl_end].strip()
 
-        # Extract English content
-        en_start = post_content.find('## EN') + len('## EN')
-        content_en = post_content[en_start:].strip()
+        en_start = post.content.find('## EN') + len('## EN')
+        content_en = post.content[en_start:].strip()
     else:
-        # Fallback: use same content for both languages
-        content_pl = post_content
-        content_en = post_content
+        content_pl = post.content
+        content_en = post.content
 
-    # Create slug from filename
-    filename = Path(filepath).stem
-    slug = filename
+    slug = Path(filepath).stem
 
     return {
         'slug': slug,
-        'title_pl': metadata.get('title_pl', 'Bez tytułu'),
-        'title_en': metadata.get('title_en', 'No title'),
-        'date': metadata.get('date', ''),
-        'description_pl': metadata.get('description_pl', ''),
-        'description_en': metadata.get('description_en', ''),
+        'title_pl': post.get('title_pl', 'Bez tytułu'),
+        'title_en': post.get('title_en', 'No title'),
+        'date': post.get('date', ''),
+        'description_pl': post.get('description_pl', ''),
+        'description_en': post.get('description_en', ''),
         'content_pl': content_pl,
         'content_en': content_en
     }
@@ -91,31 +63,6 @@ def get_post_by_slug(slug):
         return parse_blog_post(filepath)
     return None
 
-# Markdown to HTML converter
-def markdown_to_html(text):
-    """Convert markdown to HTML using markdown library or simple fallback"""
-    if HAS_MARKDOWN:
-        return markdown.markdown(text, extensions=['tables', 'fenced_code'])
-    else:
-        # Fallback simple converter if markdown library is not available
-        lines = text.split('\n')
-        html = []
-
-        for line in lines:
-            if line.startswith('## '):
-                html.append(f'<h2>{line[3:]}</h2>')
-            elif line.startswith('# '):
-                html.append(f'<h1>{line[2:]}</h1>')
-            elif line.startswith('- '):
-                html.append(f'<li>{line[2:]}</li>')
-            elif line.startswith('**') and line.endswith('**'):
-                html.append(f'<strong>{line[2:-2]}</strong>')
-            elif line.strip() == '':
-                html.append('<br>')
-            else:
-                html.append(f'<p>{line}</p>')
-
-        return '\n'.join(html)
 
 translations = {
     'pl': {
@@ -205,7 +152,7 @@ def blog_post(slug):
     # Convert markdown content to HTML (use appropriate language)
     content_key = 'content_pl' if lang == 'pl' else 'content_en'
     content_text = post.get(content_key, '')
-    html_content = markdown_to_html(content_text)
+    html_content = markdown.markdown(content_text, extensions=['tables', 'fenced_code'])
     post['html_content'] = html_content
 
     return render_template('blog_post.html', lang=lang, translations=translations[lang], post=post)
