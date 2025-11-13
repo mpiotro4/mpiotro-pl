@@ -163,3 +163,73 @@ footer {
 .hamburger {
     display: none;
 }
+
+/* Blog Post Code Blocks */
+article pre {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 16px;
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+article code {
+    color: #333;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+}
+
+article pre code {
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    display: block;
+}
+
+article p code {
+    background-color: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 3px;
+    color: #c7254e;
+    font-size: 90%;
+}
+
+/* Blog Post Headings */
+article h2 {
+    color: #333;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+article h3 {
+    color: #555;
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+/* Blog Post Paragraphs */
+article div p {
+    color: #333;
+}
+
+/* Blog Post Lists */
+article ul, article ol {
+    color: #333;
+}
+
+article li {
+    margin: 8px 0;
+}
+
+/* Blog Post Links */
+article a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+article a:hover {
+    text-decoration: underline;
+}

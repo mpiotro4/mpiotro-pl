@@ -7,7 +7,7 @@
     <a href="{{ url_for('blog') }}" style="color: inherit; text-decoration: none;">← {{ translations['back_to_blog'] }}</a>
 </div>
 
-<article>
+<article style="background: #fff; padding: 40px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
     <h1>{{ post.title[lang] }}</h1>
     <p style="color: #666; font-size: 0.9em; margin-bottom: 30px;">{{ post.date }} - {{ post.author }}</p>
 

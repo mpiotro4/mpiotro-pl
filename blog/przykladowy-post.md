@@ -17,12 +17,38 @@ To jest przykładowy wpis na blogu napisany w **Markdown**. Możesz używać ró
 
 ### Przykład kodu
 
+Oto przykład prostej funkcji w Pythonie, która oblicza silnię:
+
 ```python
-def hello_world():
-    print("Hello, World!")
+def factorial(n):
+    """Calculate factorial of n using recursion."""
+    if n == 0 or n == 1:
+        return 1
+    return n * factorial(n - 1)
+
+# Example usage
+result = factorial(5)
+print(f"Factorial of 5 is: {result}")  # Output: 120
 ```
 
-Możesz także dodawać linki: [GitHub](https://github.com/mpiotro4)
+Możesz także używać kodu w innych językach, np. JavaScript:
+
+```javascript
+const fibonacci = (n) => {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+};
+
+console.log(fibonacci(10));  // Output: 55
+```
+
+### Inne elementy
+
+Możesz także dodawać:
+- Linki: [GitHub](https://github.com/mpiotro4)
+- Cytaty
+- Tabele
+- I wiele więcej!
 
 [EN]
 ## Welcome to my blog!
@@ -35,9 +61,35 @@ This is an example blog post written in **Markdown**. You can use various format
 
 ### Code example
 
+Here's an example of a simple Python function that calculates factorial:
+
 ```python
-def hello_world():
-    print("Hello, World!")
+def factorial(n):
+    """Calculate factorial of n using recursion."""
+    if n == 0 or n == 1:
+        return 1
+    return n * factorial(n - 1)
+
+# Example usage
+result = factorial(5)
+print(f"Factorial of 5 is: {result}")  # Output: 120
 ```
 
-You can also add links: [GitHub](https://github.com/mpiotro4)
+You can also use code in other languages, like JavaScript:
+
+```javascript
+const fibonacci = (n) => {
+    if (n <= 1) return n;
+    return fibonacci(n - 1) + fibonacci(n - 2);
+};
+
+console.log(fibonacci(10));  // Output: 55
+```
+
+### Other elements
+
+You can also add:
+- Links: [GitHub](https://github.com/mpiotro4)
+- Quotes
+- Tables
+- And much more!
