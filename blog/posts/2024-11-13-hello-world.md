@@ -1,5 +1,5 @@
 ---
-title_pl: Witaj Świecie - Mój Pierwszy Wpis
+title_pl: Hello World - Mój Pierwszy Wpis
 title_en: Hello World - My First Post
 date: 2024-11-13
 description_pl: Pierwszy wpis na moim blogu. Zapraszam do przeczytania!
@@ -8,84 +8,64 @@ description_en: First post on my blog. Feel free to read!
 
 ## PL
 
-### Witajcie!
+## Gratulacje
 
-To mój pierwszy wpis na blogu. Tutaj będę dzielić się moimi doświadczeniami z programowaniem, projektami i innymi ciekawostkami z branży IT.
+Jak to czytasz — gratulacje. Jeszcze nie wiem jak tu dotarłeś, bo nie mam pojęcia komu i czy w ogóle 
+upublicznie treść tego bloga, w każdym razie nie spodziewam się wielu czytelników.
 
-### Co będzie tutaj?
+Tak naprawdę cały ten blog powstaje tylko i wyłącznie dla mnie. Pomysł ten chodził mi po głowie już od dłuższego
+czasu, bo nie jest tajemnicą, że prowadzenie bloga na rozmaite tematy przynosi znaczną korzyść samemu autorowi, który
+ma szanse utrwalić i uporządkować sobie w głowie to o czym pisze.
 
-- **Artykuły techniczne** - pogrążę się w różnych tematach
-- **Poradniki** - dzielę się wiedzą jak coś zrobić
-- **Refleksje** - myśli i doświadczenia z pracy
 
-### Przykład kodu Python
+## Co tak właściwie chce sobie uporządkować? 
 
-Oto prosty przykład funkcji w Pythonie:
+Przez lata studiów oraz pracy zrobiłem wiele projektów, oraz poświęciłem mnóstwo czasu na naukę rozmaitych zagadnień.
+Na pewno nie był to czas zmarnowany, aczkolwiek gdy próbuje przywołać z pamięci co robiłem parę lat temu są to już jedynie
+mgliste wspomnienia i opuszczone repozytoria na githubie w niewiadomym stanie. Jako iż spodziewam się, że będzie
+tylko gorzej postanowiłem coś z tym zrobić.
 
-```python
-def greet(name):
-    """Funkcja która pozdrawia użytkownika"""
-    message = f"Cześć {name}! Witaj na moim blogu!"
-    return message
+Z tego powodu planuje publikować na tym blogu wpisy związane z branżą IT, w której aktualnie pracuje. 
+Za każdym razem, gdy nauczę się czegoś nowego bądź stworze coś, co można nazwać projektem,
+planuje dodać tutaj wpis zostawić jakiś ślad, do którego w razie potrzebny będę mógł wrócić.
 
-# Użycie funkcji
-result = greet("Marcin")
-print(result)
-```
+Tak na marginesie to nie jest to moje pierwsze podejście do zrobienia bloga. Pierwsza iteracja mojej strony
+internetowej powstała w 2021 roku i był to zbiór statycznych plików html udostępniony na studenckim serwerze mojego
+wydziału. Całość na pierwszy rzut oka była bardzo podobne to stanu z dnia, w którym to piszę, gdyż html i css w dużej
+mierze pozostał ten sam. Pamiętam, że chwaliłem się tą stroną w moim CV, więc myślę, że mogą śiało stwierdzić, 
+że ta wczesna wersja bloga pomogła mi w dostaniu mojej pierwszej pracy. Stety bądź niestety pochłonięty pracą i studiami
+na dobre zapomniałem o moim blogu i też nie czułem potrzeby, aby do niego wracać.
 
-Możesz używać różnych języków programowania w swoich postach: `JavaScript`, `Java`, `Rust` i wiele więcej!
+## Stan obecny
 
-### Markdown features
+I tak przenosimy się do listopada roku 2024 gdzie świeżo po ukończeniu studiów magisterskich w przypływie weny twórczej,
+zamieniłem starego statycznego bloga na pełnoprawną aplikację webową, aby... nigdy tam nie zajrzeć przez kolejny rok 🤡
 
-W swoich postach możesz używać pełnego zestawu **markdown features**:
+## Stan obecniejszy
 
-- Nagłówki (# ## ###)
-- Listy punktowe i numerowane
-- **Bold** i *italic* tekst
-- `inline code`
-- Bloki kodu z syntax highlighting
-- I wiele więcej!
+I tak ponownie przenosimy się do listopada tym razem roku 2025. Ogólnie to jest git, w końcu porządnie
+skupiłem się na pracy oraz znalazłem czas, aby zadbać o wszystkie dotychczas zaniedbane sprawy (Kto by pomyślał, że łącząc
+studia i pracę może go brakować) i jedną z tych spraw najwidoczniej jest ten blog. 
 
-Stay tuned! 🚀
+Piszę ten wpis, bo liczę na to, że pozwoli mi przerwać marazm, w którym aktualnie się znajduje. Polega on na tym, że od
+roku jedyne moje zajęcie związane z IT to praca. Nie jestem w stanie zabrać się za rozwijanie własnych projektów bądź
+naukę. Odnoszę wrażenie, że jest to spowodowane tym, że ślad po takich wysiłkach pozostaje znikomy —
+wiedza rzadko zostaje wykorzystana, a projekty kończą jako zapomniane repo na githubie.
+I ponownie docieramy do sedna, czyli bloga, który ma mi w tym pomóc.
+
+Chciałbym po prostu zacząć znowu robić rzeczy motywowany ciekawością i frajdą z tworzenia bez zastanawiania się, czy
+coś jest mi faktycznie potrzebne bądź produktywne. Czuje silną potrzebę, aby rozwijać **coś** 
+i kiedyś spojrzeć na to z góry, aby zobaczyć postęp, jaki zrobiłem.
+
+## Gdzie ja w ogóle zacząłem
+
+Dobra, dość tego pierdolenia, bo trochę to brzmi jakbym się tutaj użalał nad sobą, a nie taki był tego cel. Ten blog 
+ma być poświęcony informatyce, a ja jedynie piszę ten wpis, bo jakoś trzeba zacząć. Na razie nie narzucam sobie żadnych
+sztywnych ram co do częstotliwości publikacji, mam w głowie parę pomysłów więc pewnie niedługo pojawi się więcej wpisów, a co dalej zobaczymy. 
+
+Może za rok znowu tutaj się spotkamy
 
 ## EN
 
-### Hello!
+Check out PL version, Im to lazy to translate, idk why I decided to add multi language support  xd
 
-This is my first blog post. Here I will share my experiences with programming, projects and other interesting things from the IT industry.
-
-### What will be here?
-
-- **Technical articles** - I'll dive into various topics
-- **Tutorials** - sharing knowledge on how to do things
-- **Reflections** - thoughts and experiences from work
-
-### Python Code Example
-
-Here's a simple example of a function in Python:
-
-```python
-def greet(name):
-    """Function that greets the user"""
-    message = f"Hello {name}! Welcome to my blog!"
-    return message
-
-# Using the function
-result = greet("Marcin")
-print(result)
-```
-
-You can use different programming languages in your posts: `JavaScript`, `Java`, `Rust` and much more!
-
-### Markdown Features
-
-In your posts you can use a full set of **markdown features**:
-
-- Headings (# ## ###)
-- Bullet and numbered lists
-- **Bold** and *italic* text
-- `inline code`
-- Code blocks with syntax highlighting
-- And much more!
-
-Stay tuned! 🚀
