@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}{{ translations['blog'] }} - Marcin Piotrowski{% endblock %}
+
+{% block content %}
+<section>
+    <h1>{{ translations['blog'] }}</h1>
+    <p>{{ translations['my_blog'] }}</p>
+
+    {% if posts %}
+    <div class="blog-list">
+        {% for post in posts %}
+        <article class="blog-card">
+            <h2>
+                {% if lang == 'pl' %}
+                    <a href="/blog/{{ post.slug }}">{{ post.title_pl }}</a>
+                {% else %}
+                    <a href="/blog/{{ post.slug }}">{{ post.title_en }}</a>
+                {% endif %}
+            </h2>
+            <div class="blog-meta">
+                <time>{{ post.date }}</time>
+            </div>
+            <p class="blog-description">
+                {% if lang == 'pl' %}
+                    {{ post.description_pl }}
+                {% else %}
+                    {{ post.description_en }}
+                {% endif %}
+            </p>
+            <a href="/blog/{{ post.slug }}" class="read-more-link">
+                {{ translations['read_more'] }} →
+            </a>
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="no-posts">{{ translations['no_posts'] }}</p>
+    {% endif %}
+</section>
+{% endblock %}
