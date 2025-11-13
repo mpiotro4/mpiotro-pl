@@ -87,6 +87,35 @@
     footer {
         width: 90%;
     }
+
+    /* Blog mobile styles */
+    .blog-card {
+        padding: 15px;
+        margin: 15px 0;
+    }
+
+    .blog-card h2 {
+        font-size: 20px;
+    }
+
+    .blog-post-content {
+        font-size: 15px;
+        padding: 15px;
+        margin: 20px 0;
+    }
+
+    .blog-post-content h1 {
+        font-size: 24px;
+    }
+
+    .blog-post-content h2 {
+        font-size: 20px;
+    }
+
+    .blog-post-content pre {
+        padding: 10px;
+        font-size: 12px;
+    }
 }
 
 img {

@@ -20,8 +20,10 @@
 <nav>
     <a class="menu {% if request.endpoint == 'home' %}active{% endif %} first"
        href="{{ url_for('home') }}">{{ translations['about_me'] }}</a>
-    <a class="menu {% if request.endpoint == 'projects' %}active{% endif %}"
+    <a class="menu {% if request.endpoint == 'projekty' %}active{% endif %}"
        href="{{ url_for('projects') }}">{{ translations['projects'] }}</a>
+    <a class="menu {% if request.endpoint == 'blog' or request.endpoint == 'blog_post' %}active{% endif %}"
+       href="{{ url_for('blog') }}">{{ translations['blog'] }}</a>
     <a class="menu {% if request.endpoint == 'cv' %}active{% endif %}"
        href="{{ url_for('cv') }}">{{ translations['cv'] }}</a>
     <a class="menu {% if request.endpoint == 'contact' %}active{% endif %}"
