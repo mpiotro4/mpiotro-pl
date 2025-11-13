@@ -99,6 +99,15 @@
     .blog-post-content h2 {
         font-size: 20px;
     }
+
+    .blog-post-content {
+        padding: 15px;
+    }
+
+    .blog-post-content pre {
+        padding: 10px;
+        font-size: 12px;
+    }
 }
 
 img {
