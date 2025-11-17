@@ -1,7 +1,7 @@
 ---
 title_pl: Prosty cluster k8s
 title_en: Simple k8s cluster
-date: 2024-11-17
+date: 2025-11-17
 description_pl: Jak zrobiłem swój pierwszy cluster Kubernetes
 description_en: How I've made my first Kubernetes  cluster
 ---
@@ -11,40 +11,40 @@ description_en: How I've made my first Kubernetes  cluster
 ## Czym jest Kubernetes
 
 Kubernetes (K8S) służy do automatycznego zarządzania kontenerami z różnymi usługami. Jego głównnymi korzyściami są:
-* Skalowanie horyzontalne: łatwo uruchamiasz wiele replik aplikacji.
-* Równoważenie ruchu wewnątrz klastra: Service rozdziela żądania na Pody.
-* Self-healing: gdy Pody padają, kontrolery odtwarzają je zgodnie z deklaracją.
-* Deklaratywność: opisujesz stan w YAML, a kontrolery dążą do zgodności.
+- Skalowanie horyzontalne: łatwo uruchamiasz wiele replik aplikacji.
+- Równoważenie ruchu wewnątrz klastra: Service rozdziela żądania na Pody.
+- Self-healing: gdy Pody padają, kontrolery odtwarzają je zgodnie z deklaracją.
+- Deklaratywność: opisujesz stan w YAML, a kontrolery dążą do zgodności.
 
 Warto na starcie rozróżnić:
-* Skalowanie zapewnia Deployment/ReplicaSet (liczba replik).
-* Rozdział ruchu między Pody realizuje Service.
-* Publiczny Load Balancer zwykle dostarcza cloud provider; lokalnie k3s ma wbudowany ServiceLB.
+- Skalowanie zapewnia Deployment/ReplicaSet (liczba replik).
+- Rozdział ruchu między Pody realizuje Service.
+- Publiczny Load Balancer zwykle dostarcza cloud provider; lokalnie k3s ma wbudowany ServiceLB.
 
 ### Kluczowe pojęcia
 
 #### Cluster
  
 **Cluster** znajduje się najwyżej w hierarchi, wszystko dzieje się wewnątrz niego. Składa się z:
-* **Control Plane** — centrum dowodzenia, które zarządza clustrem. Składa się min. z:
-  *  kube-apiserver (API),
-  *  scheduler (przypisuje Pody do węzłów),
-  *  controller-manager (kontrolery),
-  *  etcd (magazyn stanu).
-* **Node** — wirtualna bądź fizyczna maszyna, w której uruchamiane są **Workloady**.
+- **Control Plane** — centrum dowodzenia, które zarządza clustrem. Składa się min. z:
+  -  kube-apiserver (API),
+  -  scheduler (przypisuje Pody do węzłów),
+  -  controller-manager (kontrolery),
+  -  etcd (magazyn stanu).
+- **Node** — wirtualna bądź fizyczna maszyna, w której uruchamiane są **Workloady**.
 
 #### Workload
 
 **Workload** to aplikacja uruchamiana w clustrze. Kubernetes na podstawie workload tworzy Pody, w których
 bezpośrednio są uruchamiane kontenery. W architekturze mikro serwisów jeden workload odpowiada jednemu mikro serwisowi.
 Istnieje kilka typów workloadw:
-* **Deployment** — najczęściej wykorzystywany do bezstanowych aplikacji, czyli mikro serwisów gdzie każdy Pod może
+- **Deployment** — najczęściej wykorzystywany do bezstanowych aplikacji, czyli mikro serwisów gdzie każdy Pod może
 być w dowolnej chwili doskalowany i zastąpiony nowym (rolling update).
-* **Replica Set** — zarządza liczbą replik podów (pilnuje, żeby było X kopii). Zwykle NIE tworzysz go ręcznie
+- **Replica Set** — zarządza liczbą replik podów (pilnuje, żeby było X kopii). Zwykle NIE tworzysz go ręcznie
 — Deployment tworzy go automatycznie pod spodem. 
-* **Stateful Set** — dla aplikacji stanowych; zapewnia stabilne nazwy Podów, uporządkowane rollouty, integrację z PersistentVolumeClaims.
-* **Daemon Set** — uruchamia jedną instancję Podu na każdym (lub wybranym) węźle (np. loggery, monitoring).
-* **Job/CronJob** — ednorazowe zadania wsadowe / cykliczne.
+- **Stateful Set** — dla aplikacji stanowych; zapewnia stabilne nazwy Podów, uporządkowane rollouty, integrację z PersistentVolumeClaims.
+- **Daemon Set** — uruchamia jedną instancję Podu na każdym (lub wybranym) węźle (np. loggery, monitoring).
+- **Job/CronJob** — ednorazowe zadania wsadowe / cykliczne.
 
 **Pod** jest najmniejszą jednostka w K8S, najczęściej składa się z jednego kontenera. Pod jest wrapperem dla kontenerów;
 Kubernetes zarządza Podami, a nie kontenerami. Z tego powodu nie tworzy się ich ręcznie, wystarczy stworzyć workload,
@@ -59,13 +59,13 @@ z kolei control plane clustra będzie decydować, który Pod faktycznie obsłuż
 typowa aplikacja webowa nie przechowuje stanu, więc nie ma różnicy pomiędzy Podami.
 
 Istnieje kilka typów Service:
-* **ClusterIP** — domyślny, udostępnia serwis tylko wewnątrz clustra. Pody mogą komunikować się sobą, ale z zewnątrz 
+- **ClusterIP** — domyślny, udostępnia serwis tylko wewnątrz clustra. Pody mogą komunikować się sobą, ale z zewnątrz 
 nie ma dostępu. Przydatne, jeśli nie chcemy wystawiać jakiegoś serwisu na zewnątrz.
-* **NodePort** — udostępnia serwis na określonym porcie każdego Node'a w clustrze. Dzięki temu można się dostać do
+- **NodePort** — udostępnia serwis na określonym porcie każdego Node'a w clustrze. Dzięki temu można się dostać do
 aplikacji z zewnątrz, używając adresu IP i portu.
-* **LoadBalancer** — udostępnia serwis na zewnątrz, ale wymagany jest zewnętrzny load balancer. Kubernetes nie posiada
+- **LoadBalancer** — udostępnia serwis na zewnątrz, ale wymagany jest zewnętrzny load balancer. Kubernetes nie posiada
 wbudowanego load balancera, więc trzeba go dołączyć samodzielnie, często zapewnia go cloud provider.
-* **ExternalName** — mapuje serwis na zewnętrzną domenę DNS. Używane gdy chcemy się odwołać do zewnętrznych zasobów,
+- **ExternalName** — mapuje serwis na zewnętrzną domenę DNS. Używane gdy chcemy się odwołać do zewnętrznych zasobów,
 tak jakby były wewnątrz Clustra.
 
 ## Implementacja
@@ -145,12 +145,12 @@ spec:
         - containerPort: 8082 
 ```
 Pzyjrzyjmy się kluczowym polom w definicji:
-* `replicas: 3` — ile kopii Poda chcemy uruchomić (horyzontalne skalowanie)
-* `selector.matchLabels` — mówi Deploymentowi, które Pody do niego należą (po labelce `app: demo-api`)
-* `template.metadata.labels` — labelka przypisana do każdego Poda, musi pasować do `selector`
-* `image: demo-api:1.0` — nazwa lokalnego obrazu Dockera
-* `imagePullPolicy: Never` — nie próbuj ściągać obrazu z internetu, użyj lokalnego
-* `containerPort: 8082` — port, na którym nasłuchuje aplikacja w kontenerze (to tylko dokumentacja, faktyczny dostęp zapewni Service)
+- `replicas: 3` — ile kopii Poda chcemy uruchomić (horyzontalne skalowanie)
+- `selector.matchLabels` — mówi Deploymentowi, które Pody do niego należą (po labelce `app: demo-api`)
+- `template.metadata.labels` — labelka przypisana do każdego Poda, musi pasować do `selector`
+- `image: demo-api:1.0` — nazwa lokalnego obrazu Dockera
+- `imagePullPolicy: Never` — nie próbuj ściągać obrazu z internetu, użyj lokalnego
+- `containerPort: 8082` — port, na którym nasłuchuje aplikacja w kontenerze (to tylko dokumentacja, faktyczny dostęp zapewni Service)
 
 Następnie przy wykorzystaniu poniższej komendy zdeplyowałem mój deployment w clustrze k8s.
 ```
