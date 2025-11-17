@@ -11,33 +11,37 @@ description_en: How I've made my first Kubernetes  cluster
 ## Czym jest Kubernetes
 
 Kubernetes (K8S) służy do automatycznego zarządzania kontenerami z różnymi usługami. Jego głównnymi korzyściami są:
+
 - Skalowanie horyzontalne: łatwo uruchamiasz wiele replik aplikacji.
 - Równoważenie ruchu wewnątrz klastra: Service rozdziela żądania na Pody.
 - Self-healing: gdy Pody padają, kontrolery odtwarzają je zgodnie z deklaracją.
 - Deklaratywność: opisujesz stan w YAML, a kontrolery dążą do zgodności.
 
 Warto na starcie rozróżnić:
+
 - Skalowanie zapewnia Deployment/ReplicaSet (liczba replik).
 - Rozdział ruchu między Pody realizuje Service.
 - Publiczny Load Balancer zwykle dostarcza cloud provider; lokalnie k3s ma wbudowany ServiceLB.
 
 ### Kluczowe pojęcia
 
-#### Cluster
+### Cluster
  
 **Cluster** znajduje się najwyżej w hierarchi, wszystko dzieje się wewnątrz niego. Składa się z:
+
 - **Control Plane** — centrum dowodzenia, które zarządza clustrem. Składa się min. z:
-  -  kube-apiserver (API),
-  -  scheduler (przypisuje Pody do węzłów),
-  -  controller-manager (kontrolery),
-  -  etcd (magazyn stanu).
+    -  kube-apiserver (API),
+      -  scheduler (przypisuje Pody do węzłów),
+      -  controller-manager (kontrolery),
+      -  etcd (magazyn stanu).
 - **Node** — wirtualna bądź fizyczna maszyna, w której uruchamiane są **Workloady**.
 
-#### Workload
+### Workload
 
 **Workload** to aplikacja uruchamiana w clustrze. Kubernetes na podstawie workload tworzy Pody, w których
 bezpośrednio są uruchamiane kontenery. W architekturze mikro serwisów jeden workload odpowiada jednemu mikro serwisowi.
 Istnieje kilka typów workloadw:
+
 - **Deployment** — najczęściej wykorzystywany do bezstanowych aplikacji, czyli mikro serwisów gdzie każdy Pod może
 być w dowolnej chwili doskalowany i zastąpiony nowym (rolling update).
 - **Replica Set** — zarządza liczbą replik podów (pilnuje, żeby było X kopii). Zwykle NIE tworzysz go ręcznie
@@ -50,7 +54,7 @@ być w dowolnej chwili doskalowany i zastąpiony nowym (rolling update).
 Kubernetes zarządza Podami, a nie kontenerami. Z tego powodu nie tworzy się ich ręcznie, wystarczy stworzyć workload,
 a K8S ogarnie resztę.
 
-#### Service
+### Service
 
 **Service** umożliwia udostępnienie endpointów aplikacji uruchomionych wewnątrz Podów. Niezbędny, gdy naszą
 aplikacją jest mikroserwis z REST API i chcemy, żeby jego endpointy były dostępne na zewnątrz clustra. W praktyce oznacza
@@ -59,6 +63,7 @@ z kolei control plane clustra będzie decydować, który Pod faktycznie obsłuż
 typowa aplikacja webowa nie przechowuje stanu, więc nie ma różnicy pomiędzy Podami.
 
 Istnieje kilka typów Service:
+
 - **ClusterIP** — domyślny, udostępnia serwis tylko wewnątrz clustra. Pody mogą komunikować się sobą, ale z zewnątrz 
 nie ma dostępu. Przydatne, jeśli nie chcemy wystawiać jakiegoś serwisu na zewnątrz.
 - **NodePort** — udostępnia serwis na określonym porcie każdego Node'a w clustrze. Dzięki temu można się dostać do
@@ -145,6 +150,7 @@ spec:
         - containerPort: 8082 
 ```
 Pzyjrzyjmy się kluczowym polom w definicji:
+
 - `replicas: 3` — ile kopii Poda chcemy uruchomić (horyzontalne skalowanie)
 - `selector.matchLabels` — mówi Deploymentowi, które Pody do niego należą (po labelce `app: demo-api`)
 - `template.metadata.labels` — labelka przypisana do każdego Poda, musi pasować do `selector`
@@ -214,6 +220,7 @@ NAME         TYPE           CLUSTER-IP    EXTERNAL-IP     PORT(S)          AGE
 demo-api     LoadBalancer   10.43.28.41   192.168.127.2   8080:32026/TCP   6s
 ```
 Przyjrzyjmy się co oznaczają poszczególne IP:
+
 - `CLUSTER-IP: 10.43.28.41` — wewnętrzny adres Service w clusterze, używany przez inne Pody do komunikacji
 - `EXTERNAL-IP: 192.168.127.2` — IP Node'a w Rancher Desktop (wirtualna maszyna z K8s). W k3s typ LoadBalancer obsługuje wbudowany ServiceLB (Klipper), który otwiera port na hoście VM, a Rancher Desktop mapuje go dodatkowo na localhost.
 - `8080` — port na którym Service jest dostępny
