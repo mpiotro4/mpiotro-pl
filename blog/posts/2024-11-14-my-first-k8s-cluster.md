@@ -1,41 +1,36 @@
 ---
 title_pl: Prosty cluster k8s
 title_en: Simple k8s cluster
-date: 2024-11-13
-description_pl: O tym jak zrobiłem swój pierwszy cluster k8s
-description_en: How I've made my first k8s cluster
+date: 2024-11-17
+description_pl: Jak zrobiłem swój pierwszy cluster Kubernetes
+description_en: How I've made my first Kubernetes  cluster
 ---
 
 ## PL
 
-## Dlaczego
+## Czym jest Kubernetes
 
-Wstyd się przyznać, ale po tylu latach pracy nie mam pojęcia, czym tak naprawdę jest k8s. Zawsze było to dla mnie
-miejsce, gdzie magicznie pojawiała się zdeplyowana aplikacja, ale nigdy nie zadałem sobie trudu, aby zajrzeć pod maskę
-i zobaczyć co tam tak naprawdę siedzi. Trochę naiwnie wierzyłem, że jest to zadanie dla DevOpsa, podczas gdy wiele firm
-wymaga od developerów, aby ci byli w stanie deployować swoje dzieła, rozwiązywać problemy i przy okazji niczego nie zepsuć.
+Kubernetes (K8S) służy do automatycznego zarządzania kontenerami z różnymi usługami. Jego głównnymi korzyściami są:
+* Skalowanie horyzontalne: łatwo uruchamiasz wiele replik aplikacji.
+* Równoważenie ruchu wewnątrz klastra: Service rozdziela żądania na Pody.
+* Self-healing: gdy Pody padają, kontrolery odtwarzają je zgodnie z deklaracją.
+* Deklaratywność: opisujesz stan w YAML, a kontrolery dążą do zgodności.
 
-Zdaje sobie sprawę, że treść tego wpisu jest trywialna i chatgpt napisałby to na strzała, ale obiecuje, że piszę to sam,
-z głowy. Cały czas muszę sobie powtarzać, że piszę te rzeczy dla siebie i nikt tego czytać nie będzie, aby nie przejmować
-się tym, że wartość takiego wpisu dla potencjalnego czytelnika jest niewielka.
-
-Przysięgam, że to już ostatni taki przydługi wstęp nie na temat, w kolejnych wpisach będę już walił prosto z mostu.
-
-## Czym jest K8S
-
-Kubernetes służy do automatycznego zarządzania kontenerami z różnymi usługami. Jego główną zaletą jest to, że pozwala
-na łatwe horyzontalne skalowanie całego systemu (Load balancing) poprzez automatyczne tworzenie kolejnych kontenerów
-z aplikacją. Ponadto umożliwia self-healing, czyli których coś poszło nie tak, są na nowo uruchamiane, dzięki czemu w
-teorii wszystko powinno zawsze działać bez naszej ingerencji. Pewnie zalet jest więcej, ale w mojej pracy głównie 
-zauważam te dwie.
+Warto na starcie rozróżnić:
+* Skalowanie zapewnia Deployment/ReplicaSet (liczba replik).
+* Rozdział ruchu między Pody realizuje Service.
+* Publiczny Load Balancer zwykle dostarcza cloud provider; lokalnie k3s ma wbudowany ServiceLB.
 
 ### Kluczowe pojęcia
 
 #### Cluster
  
 **Cluster** znajduje się najwyżej w hierarchi, wszystko dzieje się wewnątrz niego. Składa się z:
-* **Control Plane** — centrum dowodzenia, które zarządza clustrem. Przypisuje **Pody** do **nodeów**, wystawia Kubernetes
-API i jeszcze pare innych ważnych rzeczy.
+* **Control Plane** — centrum dowodzenia, które zarządza clustrem. Składa się min. z:
+  *  kube-apiserver (API),
+  *  scheduler (przypisuje Pody do węzłów),
+  *  controller-manager (kontrolery),
+  *  etcd (magazyn stanu).
 * **Node** — wirtualna bądź fizyczna maszyna, w której uruchamiane są **Workloady**.
 
 #### Workload
@@ -44,12 +39,12 @@ API i jeszcze pare innych ważnych rzeczy.
 bezpośrednio są uruchamiane kontenery. W architekturze mikro serwisów jeden workload odpowiada jednemu mikro serwisowi.
 Istnieje kilka typów workloadw:
 * **Deployment** — najczęściej wykorzystywany do bezstanowych aplikacji, czyli mikro serwisów gdzie każdy Pod może
-być w dowolnej chwili doskalowany i zastąpiony nowym.
+być w dowolnej chwili doskalowany i zastąpiony nowym (rolling update).
 * **Replica Set** — zarządza liczbą replik podów (pilnuje, żeby było X kopii). Zwykle NIE tworzysz go ręcznie
 — Deployment tworzy go automatycznie pod spodem. 
-* **Stateful Set** — nie chce mi się dodam później
-* **Daemon Set** — nie chce mi się dodam później
-* **Job i Cron Job** — nie chce mi się dodam później
+* **Stateful Set** — dla aplikacji stanowych; zapewnia stabilne nazwy Podów, uporządkowane rollouty, integrację z PersistentVolumeClaims.
+* **Daemon Set** — uruchamia jedną instancję Podu na każdym (lub wybranym) węźle (np. loggery, monitoring).
+* **Job/CronJob** — ednorazowe zadania wsadowe / cykliczne.
 
 **Pod** jest najmniejszą jednostka w K8S, najczęściej składa się z jednego kontenera. Pod jest wrapperem dla kontenerów;
 Kubernetes zarządza Podami, a nie kontenerami. Z tego powodu nie tworzy się ich ręcznie, wystarczy stworzyć workload,
@@ -78,7 +73,9 @@ tak jakby były wewnątrz Clustra.
 W tej części wpisu sprawdzimy, jak opisane wyżej pojęcia znajdują zastosowanie, w implementacji prostego clustra.
 
 > **Uwaga**: Zakładam, że Kubernetes jest już zainstalowany. Ja wykorzystałem w tym celu Rancher Desktop — darmowej
-> alternatywy dla Docker Desktop z wbudowanym K8S.
+> alternatywy dla Docker Desktop z wbudowanym K8S. Dobrym ćwiczeniem jest postawienie
+> wszystko od absolutnego zera, ale na początek zdecydowałem się uprościć ten krok
+> aby skupić się na reszcie. W kolejnych jeszcze wrócę do tego tematu.
 
 Najpierw sprawdźmy, czy istnieje jakikolwiek cluster 
 
@@ -115,7 +112,7 @@ Następnie zbudowałem dockerowy obraz:
 ```
 PS C:\blog\k8s_dashboard\k8s> docker images
 REPOSITORY                                                    TAG                    IMAGE ID       CREATED         SIZE
-sample_app-demo-api                                           latest                 9e62fe5ec557   2 days ago      285MB
+demo-api                                                      1.0                    186d7473fc93   4 days ago      285MB
 ```
 ### Workload
 Mamy wszystko, aby zabrać się do stworzenia pierwszego workload'a z naszą aplikacją. Z racji że aplikacja jest bezstanowa
@@ -179,7 +176,7 @@ demo-api-8886d869b   3         3         3       22m
 ```
 Deployment nie zarządza Podami bezpośrednio — tworzy **ReplicaSet**, 
 a ten już pilnuje, żeby było dokładnie 3 Pody. Dzięki temu podczas aktualizacji aplikacji (np. nowej wersji obrazu) 
-Kubernetes może stworzyć nowy **ReplicaSet** z innym hashem i stopniowo zastępować stare Pody nowymi.
+Kubernetes może stworzyć nowy **ReplicaSet** z innym hashem i stopniowo zastępować stare Pody nowymi (rolling update).
 
 ### Service
 
@@ -206,8 +203,7 @@ Kluczowe pola:
 - `selector.app: demo-api` — Service znajduje wszystkie Pody z tą labelką (te z naszego Deploymentu)
 - `port: 8080` — port na którym Service będzie dostępny
 - `targetPort: 8082` — port w kontenerze, na który Service przekieruje ruch (nasz REST API nasłuchuje na 8082)
-- `type: LoadBalancer` — tutaj wytłumacz proszę o co z tym chodzi gdy używam rancher desktop bo jakbym zrobił nodeport 
-bo bym nie mógł się połączyć bo wsl z jakiegoś powodu mnie blokuje 
+- `type: LoadBalancer` — w środowisku chmurowym utworzyłby zewnętrzny load balancer. Rancher Desktop symuluje to lokalnie i automatycznie mapuje Service na localhost, dzięki czemu nie musimy używać wewnętrznych IP. Pod spodem tworzy również NodePort jako backup.
 
 Deployujemy Service:
 ```
@@ -219,9 +215,11 @@ demo-api     LoadBalancer   10.43.28.41   192.168.127.2   8080:32026/TCP   6s
 ```
 Przyjrzyjmy się co oznaczają poszczególne IP:
 - `CLUSTER-IP: 10.43.28.41` — wewnętrzny adres Service w clusterze, używany przez inne Pody do komunikacji
-- `EXTERNAL-IP: 192.168.127.2` — IP Node'a w Rancher Desktop (wirtualna maszyna z K8s)
+- `EXTERNAL-IP: 192.168.127.2` — IP Node'a w Rancher Desktop (wirtualna maszyna z K8s). W k3s typ LoadBalancer obsługuje wbudowany ServiceLB (Klipper), który otwiera port na hoście VM, a Rancher Desktop mapuje go dodatkowo na localhost.
 - `8080` — port na którym Service jest dostępny
 - `32026` — automatycznie przydzielony NodePort (backup dostępu przez `<NodeIP>:32026`)
+
+Dlaczego nie NodePort?
 
 W prawdziwym clusterze chmurowym (AWS/GCP) `EXTERNAL-IP` byłby publicznym adresem w internecie. 
 Rancher Desktop symuluje to lokalnie i dodatkowo mapuje `192.168.127.2:8080` na `localhost:8080` dla wygody.
@@ -231,8 +229,18 @@ Teraz możemy przetestować naszą aplikację:
 PS C:\blog\k8s> curl -s http://localhost:8080/api/hello
 {"message":"Hello World"}
 ```
-Działa! Service automatycznie rozdziela ruch między wszystkie 3 Pody. Dla nas to niewidoczne — zawsze łączymy się 
+Działa! A przynajmniej musisz uwierzyć mi na słowo bo ten curl niczym się nie różni
+od przykładu który umieściłem wcześniej. Tym razem różnica jest taka że wysyłamy żądanie nie prosto do webservera aplikacji lecz do Service, który automatycznie rozdziela ruch między
+wszystkie 3 Pody. Dla nas to niewidoczne — zawsze łączymy się 
 przez `localhost:8080`, a Kubernetes decyduje, który Pod obsłuży żądanie.
+### Podsumowanie
+W tym wpisie stworzyliśmy prosty, ale w pełni funkcjonalny cluster Kubernetes z:
+
+- Deploymentem zarządzającym 3 replikami naszej aplikacji
+- Automatycznym skalowaniem i self-healingiem Podów
+- Service typu LoadBalancer zapewniającym dostęp do aplikacji
+
+To dopiero początek przygody z k8s, ale pokazuje podstawowe koncepcty, które są fundamentem bardziej zaawansowanych zastosowań.
 
 ## EN
 
