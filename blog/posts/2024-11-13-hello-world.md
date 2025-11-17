@@ -1,9 +1,9 @@
 ---
-title_pl: Hello World - Mój Pierwszy Wpis
-title_en: Hello World - My First Post
+title_pl: Hello World
+title_en: Hello World
 date: 2024-11-13
-description_pl: Pierwszy wpis na moim blogu. Zapraszam do przeczytania!
-description_en: First post on my blog. Feel free to read!
+description_pl: nie czytać
+description_en: don't read
 ---
 
 ## PL
