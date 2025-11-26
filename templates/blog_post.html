@@ -11,7 +11,11 @@
 
 {% block content %}
 <article class="blog-post">
+
     <div class="blog-post-header">
+        <a href="{{ request.referrer or url_for('blog') }}" class="back-link">
+            ← {{ translations['back_to_blog'] }}
+        </a>
         <h1>
             {% if lang == 'pl' %}
                 {{ post.title_pl }}
@@ -19,8 +23,12 @@
                 {{ post.title_en }}
             {% endif %}
         </h1>
+
         <div class="blog-meta">
-            <time>{{ post.date }}</time>
+            <i class="fa fa-calendar"></i>
+            <time datetime="{{ post.date }}">
+                {{ post.date.strftime('%d %B %Y') if lang == 'pl' else post.date.strftime('%B %d, %Y') }}
+            </time>
         </div>
     </div>
 
@@ -29,7 +37,10 @@
     </div>
 
     <div class="blog-post-footer">
-        <a href="/blog" class="back-link">← {{ translations['back_to_blog'] }}</a>
+        <a href="{{ request.referrer or url_for('blog') }}" class="back-link">
+            ← {{ translations['back_to_blog'] }}
+        </a>
     </div>
+
 </article>
 {% endblock %}
