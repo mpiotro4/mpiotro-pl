@@ -1,4 +1,6 @@
-/* CSS Variables */
+/* =========================================================
+   VARIABLES
+   ========================================================= */
 :root {
     --color-primary: rgb(100, 124, 100);
     --color-bg-dark: #191d21;
@@ -9,22 +11,27 @@
     --color-text-bright: rgba(255, 255, 255, 0.9);
     --color-overlay-light: rgba(255, 255, 255, 0.05);
     --color-overlay-medium: rgba(255, 255, 255, 0.1);
+
     --color-border: rgba(100, 124, 100, 0.5);
     --color-border-light: rgba(100, 124, 100, 0.3);
     --color-border-lighter: rgba(100, 124, 100, 0.2);
+
     --shadow-default: 0 4px 8px rgba(0, 0, 0, 0.2);
     --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.3);
     --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.2);
-    --border-radius: 8px;
-    --border-radius-small: 4px;
-    --border-radius-medium: 6px;
-    --border-radius-large: 10px;
-    --border-radius-xlarge: 15px;
+
+    --radius-s: 4px;
+    --radius-m: 6px;
+    --radius-l: 10px;
+    --radius-xl: 15px;
+
     --transition-default: 0.2s ease;
     --transition-transform: 0.3s ease;
 }
 
-/* General Styles */
+/* =========================================================
+   GLOBAL
+   ========================================================= */
 * {
     font-family: 'Lato', sans-serif;
     color: var(--color-text);
@@ -45,7 +52,9 @@ body {
     flex: 1;
 }
 
-/* Header Styles */
+/* =========================================================
+   HEADER
+   ========================================================= */
 header {
     font-size: 40px;
     text-align: center;
@@ -57,18 +66,22 @@ header {
 }
 
 #top_title {
-    vertical-align: top;
     display: inline-block;
+    vertical-align: top;
 }
 
-/* Navigation */
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
 nav {
     background-color: var(--color-primary);
     text-align: center;
     padding: 5px 0;
+
     position: sticky;
     top: 0;
     z-index: 50;
+
     box-shadow: 0 2px 6px rgba(0,0,0,0.25);
     animation: navbarFade 0.4s ease forwards;
 }
@@ -85,18 +98,20 @@ a.menu, div.menu {
     padding: 10px 30px;
     text-align: center;
     border-right: 1px dashed var(--color-bg-medium);
-    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
     position: relative;
+
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
 
+/* animated underline */
 a.menu::after {
     content: "";
     position: absolute;
     left: 50%;
     bottom: 5px;
-    width: 0%;
+    width: 0;
     height: 2px;
-    background-color: #ffffff;
+    background: #fff;
     transition: width 0.3s ease, left 0.3s ease;
 }
 
@@ -113,11 +128,13 @@ a.menu:hover {
 
 a.menu.active {
     background-color: var(--color-bg-medium);
-    border-radius: var(--border-radius-large);
+    border-radius: var(--radius-l);
     transform: translateY(-2px);
 }
 
-/* Project Section */
+/* =========================================================
+   PROJECT SECTION
+   ========================================================= */
 #project {
     display: flex;
     align-items: center;
@@ -133,7 +150,7 @@ a.menu.active {
 
 #sidephoto img {
     margin-right: 20px;
-    border-radius: var(--border-radius-xlarge);
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-default);
     transition: transform var(--transition-transform);
 }
@@ -146,12 +163,9 @@ a.menu.active {
     padding: 20px;
     background-color: var(--color-overlay-medium);
     border: 1px solid var(--color-bg-medium);
-    border-radius: var(--border-radius-large);
+    border-radius: var(--radius-l);
     box-shadow: var(--shadow-default);
     margin: 20px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 #wrapper {
@@ -160,10 +174,11 @@ a.menu.active {
     margin: 0 auto;
 }
 
-/* Article */
+/* =========================================================
+   ARTICLE
+   ========================================================= */
 article {
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding: 30px 0;
 }
 
 article h1 {
@@ -172,19 +187,6 @@ article h1 {
     margin: 0 15% 20px;
     padding-bottom: 15px;
     border-bottom: 2px solid var(--color-primary);
-}
-
-#title {
-    text-align: center;
-}
-
-#photo {
-    display: inline-block;
-}
-
-#about {
-    vertical-align: top;
-    display: inline-block;
 }
 
 img.left {
@@ -201,31 +203,32 @@ article p {
     padding: 15px 0;
 }
 
-/* Footer */
+/* =========================================================
+   FOOTER
+   ========================================================= */
 footer {
     width: 50%;
     max-width: 1200px;
-    border-top: 2px solid var(--color-primary);
+
     height: 40px;
-    font-size: 15px;
     line-height: 40px;
+    font-size: 15px;
+
     text-align: center;
-    background-color: var(--color-bg-dark);
-    background: linear-gradient(to bottom, #191d21, #1d1e22);
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 100px;
+    margin: 0 auto 100px;
+
+    border-top: 2px solid var(--color-primary);
     border-radius: 5px;
+
+    background: linear-gradient(to bottom, #191d21, #1d1e22);
 }
 
-.hamburger {
-    display: none;
-}
-
-/* Cards */
+/* =========================================================
+   CARDS
+   ========================================================= */
 .card {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-default);
     padding: 20px;
     max-width: 300px;
@@ -243,7 +246,9 @@ footer {
     align-items: center;
 }
 
-/* Project Cards */
+/* =========================================================
+   PROJECT CARDS
+   ========================================================= */
 .project-card-container {
     display: flex;
     justify-content: center;
@@ -254,7 +259,7 @@ footer {
 .project-card {
     display: flex;
     background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-default);
     padding: 20px;
     max-width: 800px;
@@ -268,8 +273,7 @@ footer {
 
 .project-photo img {
     width: 100%;
-    height: auto;
-    border-radius: 15px;
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-default);
 }
 
@@ -277,33 +281,37 @@ footer {
     flex: 2;
     text-align: justify;
     font-size: 16px;
-    color: whitesmoke;
 }
 
-/* PDF Container */
+/* =========================================================
+   PDF
+   ========================================================= */
 .pdf-container {
     position: relative;
     width: 80%;
     height: 80vh;
     margin: 0 auto;
     padding: 20px;
+
     background-color: #f5f5f5;
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: var(--radius-l);
+
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
 }
 
 .responsive-iframe {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     border: none;
 }
 
-/* Blog list */
+/* =========================================================
+   BLOG LIST
+   ========================================================= */
 .blog-list {
     margin: 30px 0;
 }
@@ -311,9 +319,10 @@ footer {
 .blog-card {
     background-color: var(--color-overlay-light);
     border: 1px solid var(--color-border);
-    border-radius: var(--border-radius);
+    border-radius: var(--radius-l);
     padding: 20px;
     margin: 20px 0;
+
     transition: transform var(--transition-default), box-shadow var(--transition-default);
 }
 
@@ -349,7 +358,9 @@ footer {
     color: var(--color-text-bright);
 }
 
-/* Blog post */
+/* =========================================================
+   BLOG POST PAGE
+   ========================================================= */
 .blog-post {
     padding: 30px 0;
 }
@@ -358,19 +369,16 @@ footer {
     margin-bottom: 40px;
 }
 
-.blog-post h1 {
-    margin-bottom: 10px;
-}
-
 .blog-post-content {
-    line-height: 1.8;
-    font-size: 16px;
-    margin: 30px 0;
     background-color: var(--color-overlay-light);
     border: 1px solid var(--color-border-light);
-    border-radius: var(--border-radius);
+    border-radius: var(--radius-l);
     padding: 30px;
+    margin: 30px 0;
     box-shadow: var(--shadow-light);
+
+    line-height: 1.8;
+    font-size: 16px;
 }
 
 .blog-post-content h1 {
@@ -395,23 +403,18 @@ footer {
     margin-bottom: 8px;
 }
 
-.blog-post-content strong {
-    color: #ffffff;
-    font-weight: bold;
-}
-
 .blog-post-content code {
     background-color: rgba(0, 0, 0, 0.3);
     padding: 2px 6px;
-    border-radius: var(--border-radius-small);
+    border-radius: var(--radius-s);
     font-family: 'Courier New', monospace;
-    color: #ffffff;
+    color: #fff;
 }
 
 .blog-post-content pre {
     background-color: rgba(0, 0, 0, 0.4);
     border: 1px solid var(--color-border-lighter);
-    border-radius: var(--border-radius-medium);
+    border-radius: var(--radius-m);
     padding: 15px;
     overflow-x: auto;
     margin: 20px 0;
@@ -420,13 +423,6 @@ footer {
 .blog-post-content pre code {
     background-color: transparent;
     padding: 0;
-    color: #ffffff;
-}
-
-.blog-post-content br {
-    display: block;
-    height: 10px;
-    content: '';
 }
 
 .blog-post-footer {
@@ -443,9 +439,12 @@ footer {
 }
 
 .back-link:hover {
-    color: #ffffff;
+    color: #fff;
 }
 
+/* =========================================================
+   MISC
+   ========================================================= */
 .no-posts {
     text-align: center;
     padding: 40px 0;
@@ -453,7 +452,6 @@ footer {
     font-size: 18px;
 }
 
-/* Project year */
 .project-year {
     text-align: center;
     font-size: 1.5em;
@@ -461,8 +459,12 @@ footer {
 }
 
 .project-divider {
-    border: 0;
     height: 2px;
-    background: rgb(100, 124, 100);
     width: 50%;
+    background: var(--color-primary);
+    border: 0;
+}
+
+.hamburger {
+    display: none;
 }
