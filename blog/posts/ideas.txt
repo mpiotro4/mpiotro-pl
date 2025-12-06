@@ -1,0 +1,3 @@
+pomysły na wpisy:
+-ile sposobów na stworzenie obiektu w java
+-tamto zadanie rekturacyjne z cachem
