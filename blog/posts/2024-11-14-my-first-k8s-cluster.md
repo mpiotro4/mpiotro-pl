@@ -268,15 +268,95 @@ wcześniej. Tym razem różnica jest taka, że wysyłamy żądanie nie prosto do
 automatycznie rozdziela ruch między wszystkie 3 Pody. Dla nas to niewidoczne — zawsze łączymy się przez
 `localhost:8080`, a Kubernetes decyduje, który Pod obsłuży żądanie.
 
+### 2.3. ConfigMap
+Na obecną chwilę aplikacja działa na sztywno, po zbudowaniu obrazu nie możemy nic w niej zmienić. Aby to naprawić, dodam ConfigMap. Załóżmy że aplikacja obsługuje następujące zmienne środowiskowe:
+* `APP_PORT`
+* `APP_MESSAGE`
+
+Tworzymy plik `configmap.yaml`:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo-api-config
+data:
+  APP_PORT: "8082"
+  APP_MESSAGE: "Hello from ConfigMap"
+```
+
+Po stworzeniu ConfigMap zmieniam jeszcze deployment aby z niej korzystał:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-api
+  labels:
+    app: demo-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: demo-api
+  template:
+    metadata:
+      labels:
+        app: demo-api
+    spec:
+      containers:
+      - name: demo-api
+        image: demo-api:1.0
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8082
+        envFrom:
+        - configMapRef:
+            name: demo-api-config
+```
+
+Nowy fragment:
+
+* `envFrom.configMapRef.name` — wszystkie wartości z ConfigMap trafiają do Poda jako zmienne środowiskowe
+
+
+Wdrażamy nowy deployment oraz ConfigMap do klastra:
+
+```
+PS C:\blog\k8s> kubectl apply -f deployment.yaml
+deployment.apps/demo-api configured
+PS C:\blog\k8s> kubectl apply -f configmap.yaml
+configmap/demo-api-config created
+PS C:\blog\k8s> kubectl get configmaps
+NAME              DATA   AGE
+demo-api-config   2      5s
+```
+
+Od tej pory Kubernetes przechowuje konfigurację naszej aplikacji w jednym miejscu i może ją wstrzykiwać do Podów.
+
+Dla pewności możemy sprawdzić, czy zmienne faktycznie działają:
+
+```
+PS C:\blog\k8s> kubectl exec -it demo-api-xxxx -- printenv | findstr APP
+APP_PORT=8082
+APP_MESSAGE=Hello from ConfigMap
+```
+
+Od teraz zmiana tekstu w ConfigMap nie wymaga rebuilda obrazu Dockera – wystarczy kubectl apply, a po restarcie Podów aplikacja dostaje nowe wartości.
+
 ## 3. Podsumowanie
 
 W tym wpisie stworzyliśmy prosty, ale w pełni funkcjonalny cluster Kubernetes z:
 
-- Deploymentem zarządzającym 3 replikami naszej aplikacji
-- Automatycznym skalowaniem i self-healingiem Podów
-- Service typu LoadBalancer zapewniającym dostęp do aplikacji
+* Deploymentem zarządzającym replikami Podsów
+* Service typu LoadBalancer
+* ConfigMap jako zewnętrznym źródłem konfiguracji aplikacji
+* Automatycznym self-healingiem 
 
-To dopiero początek przygody z k8s, ale pokazuje podstawowe koncepty, które są fundamentem bardziej zaawansowanych
-zastosowań.
+Dzięki ConfigMap:
+
+* nie trzeba rebuildować obrazu przy zmianie konfiguracji,
+* łatwo wspierać różne środowiska (dev/stage/prod),
+* konfiguracja znajduje się w jednym, kontrolowanym miejscu.
 
 ## EN
