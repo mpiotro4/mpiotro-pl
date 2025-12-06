@@ -74,6 +74,18 @@ Istnieje kilka typów Service:
 - **ExternalName** — mapuje serwis na zewnętrzną domenę DNS. Używane, gdy chcemy się odwołać do zewnętrznych zasobów
   tak, jakby były wewnątrz Clustra.
 
+#### 1.1.4. ConfigMap
+
+W Kubernetesie aplikacja powinna być oddzielona od konfiguracji. Do tego celu służy **ConfigMap** - obiekt K8S służący do przechowywania danych konfiguracyjnych w formie par _klucz-wartość_.
+
+Przykładowe zastosowania:
+* ustawienie portu aplikacji
+* nazwy środowisk (`dev`, `stage`, `prod`)
+* teksty komunikatów
+* adresy innych serwisów
+
+Bez ConfigMap każda zmiana konfiguracji oznacza rebuild obrazu Dockera oraz brak podziału pomiędzy kodem a środowiskiem uruchomieniowym. Dzięki ConfigMap można korzystać z jednej wersji obrazu na wielu środowiskach i zarządzać wszystkim centralnie z poziomu Kubernetesa.
+
 ## 2. Implementacja
 
 W tej części wpisu sprawdzimy, jak opisane wyżej pojęcia znajdują zastosowanie w implementacji prostego clustra.
