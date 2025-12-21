@@ -12,20 +12,32 @@
 // 3. Base - Global styles and resets
 @use 'base';
 
-// 4. Layout - Header, footer, and structural elements
+// 4. Utilities - Smooth scroll, selection, scrollbar
+@use 'utilities';
+
+// 5. Accessibility - Focus states, skip links, reduced motion
+@use 'accessibility';
+
+// 6. Layout - Header, footer, and structural elements
 @use 'layout';
 
-// 5. Navigation - Menu and navigation styles
+// 7. Navigation - Menu and navigation styles
 @use 'navigation';
 
-// 6. Components - Reusable components
+// 8. Components - Reusable components
 @use 'components';
 
-// 7. Projects - Project-specific styles
+// 9. Projects - Project-specific styles
 @use 'projects';
 
-// 8. Blog - Blog list and post styles
+// 10. Blog - Blog list and post styles
 @use 'blog';
+
+// 11. Tables - Markdown table styles
+@use 'tables';
+
+// 12. Print - Print-specific styles
+@use 'print';
 
 // Mobile-safe images
 @include mobile {
