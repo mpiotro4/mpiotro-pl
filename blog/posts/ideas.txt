@@ -1,3 +1,5 @@
 pomysły na wpisy:
 -ile sposobów na stworzenie obiektu w java
 -tamto zadanie rekturacyjne z cachem
+-java predicate
+-n + 1 problem
