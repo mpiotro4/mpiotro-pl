@@ -1,0 +1,176 @@
+// =========================================================
+// BLOG - List & Post Pages
+// =========================================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// Blog List
+.blog-list {
+    margin: 30px 0;
+}
+
+.blog-card {
+    @include card(20px, $radius-l);
+    background-color: $color-overlay-light;
+    border: 1px solid $color-border;
+    margin: 20px 0;
+    @include hover-lift;
+
+    &:hover {
+        border-color: $color-primary;
+    }
+
+    @include mobile {
+        padding: 15px;
+        margin: 15px 0;
+    }
+
+    h2 {
+        margin: 0 0 10px;
+        font-size: 24px;
+
+        @include mobile {
+            font-size: 20px;
+        }
+
+        a {
+            text-decoration: none;
+            color: $color-text;
+            transition: color $transition-default;
+
+            &:hover {
+                color: $color-primary;
+            }
+        }
+    }
+}
+
+.blog-meta {
+    font-size: 14px;
+    color: $color-text-dim;
+    margin-bottom: 15px;
+}
+
+.blog-description {
+    margin: 10px 0;
+    line-height: 1.6;
+    color: $color-text-bright;
+}
+
+// Blog Post Page
+.blog-post {
+    padding: 30px 0;
+
+    &-header {
+        margin-bottom: 40px;
+    }
+
+    &-content {
+        @include card(30px, $radius-l);
+        background-color: $color-overlay-light;
+        border: 1px solid $color-border-light;
+        margin: 30px 0;
+        box-shadow: $shadow-light;
+        line-height: 1.8;
+        font-size: 16px;
+
+        @include mobile {
+            font-size: 15px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin: 30px 0 15px;
+            border-bottom: 2px solid $color-primary;
+            padding-bottom: 10px;
+
+            @include mobile {
+                font-size: 24px;
+            }
+        }
+
+        h2 {
+            font-size: 22px;
+            margin: 25px 0 12px;
+            color: $color-primary;
+
+            @include mobile {
+                font-size: 20px;
+            }
+        }
+
+        p {
+            margin: 15px 0;
+        }
+
+        li {
+            margin-left: 30px;
+            margin-bottom: 8px;
+        }
+
+        code {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: $radius-s;
+            font-family: 'Courier New', monospace;
+            color: #fff;
+        }
+
+        pre {
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 1px solid $color-border-lighter;
+            border-radius: $radius-m;
+            padding: 15px;
+            overflow-x: auto;
+            margin: 20px 0;
+
+            @include mobile {
+                padding: 10px;
+                font-size: 12px;
+            }
+
+            code {
+                background-color: transparent;
+                padding: 0;
+            }
+        }
+
+        blockquote {
+            margin: 20px 0;
+            padding: 15px 20px;
+            background-color: rgba(255, 255, 255, 0.06);
+            border-left: 4px solid $color-primary;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.85);
+            border-radius: $radius-m;
+        }
+    }
+
+    &-footer {
+        margin-top: 50px;
+        padding-top: 20px;
+        border-top: 1px solid $color-border;
+    }
+}
+
+.back-link {
+    color: $color-primary;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color $transition-default;
+
+    &:hover {
+        color: #fff;
+    }
+}
+
+// No posts message
+.no-posts {
+    text-align: center;
+    padding: 40px 0;
+    color: $color-text-dimmer;
+    font-size: 18px;
+}

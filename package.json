@@ -1,0 +1,16 @@
+{
+  "name": "mpiotro-pl",
+  "version": "1.0.0",
+  "description": "Personal portfolio website with Flask and Sass",
+  "scripts": {
+    "sass:build": "sass static/scss:static/css --no-source-map",
+    "sass:watch": "sass static/scss:static/css --watch --no-source-map",
+    "build": "npm run sass:build"
+  },
+  "keywords": ["sass", "scss", "css", "flask"],
+  "author": "Marcin Piotrowski",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.71.0"
+  }
+}

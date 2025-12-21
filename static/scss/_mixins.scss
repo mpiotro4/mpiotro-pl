@@ -1,0 +1,37 @@
+// =========================================================
+// SASS MIXINS
+// =========================================================
+
+@use 'variables' as *;
+
+// Flexbox centering
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+// Card styling
+@mixin card($padding: 20px, $radius: $radius-xl) {
+    background-color: $color-overlay-light;
+    border-radius: $radius;
+    box-shadow: $shadow-default;
+    padding: $padding;
+}
+
+// Hover effect with transform
+@mixin hover-lift($transform: translateY(-2px), $shadow: $shadow-hover) {
+    transition: transform $transition-default, box-shadow $transition-default;
+
+    &:hover {
+        transform: $transform;
+        box-shadow: $shadow;
+    }
+}
+
+// Responsive breakpoint
+@mixin mobile {
+    @media (max-width: 600px) {
+        @content;
+    }
+}
