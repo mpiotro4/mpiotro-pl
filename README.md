@@ -54,6 +54,30 @@ npm run sass:build
 python app.py
 ```
 
+## Syntax Highlighting
+
+Blog posts support syntax highlighting for code snippets using Prism.js. Supported languages:
+- Java
+- SQL
+- YAML
+- Python
+- JavaScript
+- Bash
+- JSON
+- CSS/SCSS
+- Docker
+- Markdown
+
+To use syntax highlighting in blog posts, use fenced code blocks with language specifier:
+
+\`\`\`java
+public class Example {
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+    }
+}
+\`\`\`
+
 ## Notes
 
 - **DO NOT** edit files in `static/css/` directly - they are auto-generated
