@@ -1,0 +1,28 @@
+/* =========================================================
+   BASE STYLES
+   ========================================================= */
+* {
+    font-family: 'Lato', sans-serif;
+    color: var(--color-text);
+}
+
+html, body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+body {
+    background: linear-gradient(to bottom, var(--color-bg-dark), var(--color-bg-medium));
+}
+
+#content {
+    flex: 1;
+}
+
+#wrapper {
+    width: 75%;
+    max-width: 1200px;
+    margin: 0 auto;
+}

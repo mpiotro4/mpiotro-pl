@@ -1,0 +1,28 @@
+/* =========================================================
+   MAIN STYLESHEET
+   Imports all CSS modules in logical order
+   ========================================================= */
+
+/* 1. Variables - CSS custom properties */
+@import 'variables.css';
+
+/* 2. Base - Global styles and resets */
+@import 'base.css';
+
+/* 3. Layout - Header, footer, and structural elements */
+@import 'layout.css';
+
+/* 4. Navigation - Menu and navigation styles */
+@import 'navigation.css';
+
+/* 5. Components - Reusable components */
+@import 'components.css';
+
+/* 6. Projects - Project-specific styles */
+@import 'projects.css';
+
+/* 7. Blog - Blog list and post styles */
+@import 'blog.css';
+
+/* 8. Mobile - Responsive styles for mobile devices */
+@import 'mobile.css';

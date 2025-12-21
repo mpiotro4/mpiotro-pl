@@ -1,14 +1,33 @@
+/* =========================================================
+   MOBILE RESPONSIVE STYLES
+   ========================================================= */
 @media (max-width: 600px) {
 
-    /* PDF */
-    .pdf-container {
-        width: 100%;
-        height: 100vh;
-        padding: 10px;
-        box-sizing: border-box;
+    /* Base */
+    body {
+        font-size: 16px;
     }
 
-    /* Hamburger */
+    #wrapper {
+        width: 90%;
+    }
+
+    /* Global mobile-safe images */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Header */
+    header {
+        font-size: 30px;
+    }
+
+    #bottom_ttile {
+        font-size: 20px;
+    }
+
+    /* Navigation & Hamburger */
     .hamburger {
         display: block;
         cursor: pointer;
@@ -19,23 +38,6 @@
         font-size: 20px;
     }
 
-    body {
-        font-size: 16px;
-    }
-
-    header {
-        font-size: 30px;
-    }
-
-    #bottom_ttile {
-        font-size: 20px;
-    }
-
-    #wrapper {
-        width: 90%;
-    }
-
-    /* NAV */
     nav {
         display: none;
         flex-direction: column;
@@ -68,7 +70,7 @@
         border-left: none;
     }
 
-    /* ARTICLE */
+    /* Article */
     article {
         padding: 20px 10px;
     }
@@ -78,7 +80,7 @@
         margin: 0 5% 20px;
     }
 
-    /* PROJECT SECTION */
+    /* Project Section */
     #project {
         display: flex;
         flex-direction: column;
@@ -103,13 +105,13 @@
         text-align: justify;
     }
 
-    /* FOOTER */
+    /* Footer */
     footer {
         width: 90%;
         margin-bottom: 50px;
     }
 
-    /* BLOG LIST */
+    /* Blog List */
     .blog-card {
         padding: 15px;
         margin: 15px 0;
@@ -119,7 +121,7 @@
         font-size: 20px;
     }
 
-    /* BLOG POST */
+    /* Blog Post */
     .blog-post-content {
         font-size: 15px;
         padding: 15px;
@@ -139,9 +141,11 @@
         font-size: 12px;
     }
 
-    /* Global mobile-safe images */
-    img {
-        max-width: 100%;
-        height: auto;
+    /* PDF */
+    .pdf-container {
+        width: 100%;
+        height: 100vh;
+        padding: 10px;
+        box-sizing: border-box;
     }
 }
