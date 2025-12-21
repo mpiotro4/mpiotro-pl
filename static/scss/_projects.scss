@@ -1,0 +1,136 @@
+// =========================================================
+// PROJECTS SECTION
+// =========================================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// Project Layout
+#project {
+    @include flex-center;
+
+    @include mobile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+#sidephoto,
+#sidetext {
+    flex: 1;
+    @include flex-center;
+}
+
+#sidephoto {
+    @include mobile {
+        width: 100%;
+        margin: 0 0 10px 0;
+        text-align: center;
+    }
+
+    img {
+        margin-right: 20px;
+        border-radius: $radius-xl;
+        box-shadow: $shadow-default;
+        transition: transform $transition-transform;
+
+        @include mobile {
+            margin: 0;
+            width: 100%;
+            height: auto;
+        }
+    }
+}
+
+#sidetext {
+    text-align: justify;
+
+    @include mobile {
+        width: 100%;
+        margin: 0;
+        text-align: justify;
+    }
+
+    &.text-box {
+        padding: 20px;
+        background-color: $color-overlay-medium;
+        border: 1px solid $color-bg-medium;
+        border-radius: $radius-l;
+        box-shadow: $shadow-default;
+        margin: 20px 0;
+    }
+}
+
+// Project Cards
+.project-card-container {
+    @include flex-center;
+    margin: 20px 0;
+}
+
+.project-card {
+    display: flex;
+    @include card(20px, $radius-xl);
+    max-width: 800px;
+    width: 100%;
+    transition: transform $transition-default, box-shadow $transition-default, border-color $transition-default;
+    border: 1px solid transparent;
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        border-color: $color-primary;
+
+        .project-photo img {
+            transform: scale(1.05);
+        }
+    }
+
+    @include tablet {
+        max-width: 90%;
+    }
+
+    @include mobile {
+        flex-direction: column;
+    }
+}
+
+.project-photo {
+    flex: 2;
+    margin-right: 20px;
+    overflow: hidden;
+    border-radius: $radius-xl;
+
+    @include mobile {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+
+    img {
+        width: 100%;
+        border-radius: $radius-xl;
+        box-shadow: $shadow-default;
+        transition: transform $transition-transform;
+    }
+}
+
+.project-content {
+    flex: 2;
+    text-align: justify;
+    font-size: 16px;
+}
+
+// Project Year & Divider
+.project-year {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.project-divider {
+    height: 2px;
+    width: 50%;
+    background: $color-primary;
+    border: 0;
+}

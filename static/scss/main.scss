@@ -1,0 +1,48 @@
+// =========================================================
+// MAIN STYLESHEET - Sass Version
+// Imports all SCSS modules in logical order
+// =========================================================
+
+// 1. Variables - Sass variables
+@use 'variables' as *;
+
+// 2. Mixins - Reusable mixins
+@use 'mixins' as *;
+
+// 3. Base - Global styles and resets
+@use 'base';
+
+// 4. Utilities - Smooth scroll, selection, scrollbar
+@use 'utilities';
+
+// 5. Accessibility - Focus states, skip links, reduced motion
+@use 'accessibility';
+
+// 6. Layout - Header, footer, and structural elements
+@use 'layout';
+
+// 7. Navigation - Menu and navigation styles
+@use 'navigation';
+
+// 8. Components - Reusable components
+@use 'components';
+
+// 9. Projects - Project-specific styles
+@use 'projects';
+
+// 10. Blog - Blog list and post styles
+@use 'blog';
+
+// 11. Tables - Markdown table styles
+@use 'tables';
+
+// 12. Print - Print-specific styles
+@use 'print';
+
+// Mobile-safe images
+@include mobile {
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+}

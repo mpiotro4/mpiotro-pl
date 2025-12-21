@@ -172,7 +172,22 @@ def blog_post(slug):
     # Convert markdown content to HTML (use appropriate language)
     content_key = 'content_pl' if lang == 'pl' else 'content_en'
     content_text = post.get(content_key, '')
-    html_content = markdown.markdown(content_text, extensions=['tables', 'fenced_code'])
+    html_content = markdown.markdown(
+        content_text,
+        extensions=[
+            'tables',
+            'fenced_code',
+            'codehilite',
+            'nl2br'
+        ],
+        extension_configs={
+            'codehilite': {
+                'guess_lang': False,
+                'use_pygments': False,
+                'noclasses': True
+            }
+        }
+    )
     post['html_content'] = html_content
 
     return render_template('blog_post.html', lang=lang, translations=translations[lang], post=post)
