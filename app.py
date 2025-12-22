@@ -121,11 +121,9 @@ translations = {
                             'wydziale elektroniki i technik informacyjnych politechniki warszawskiej.',
         'projects': 'Projekty',
         'blog': 'Blog',
-        'cv': 'CV',
         'contact': 'Kontakt',
         'my_projects': 'Lista moich projektów.',
         'my_blog': 'Czytaj moje wpisy na blogu.',
-        'my_cv': 'Moje CV.',
         'my_contact': 'Możesz się ze mną skontaktować przez e-mail: mpiotro4@outlook.com.',
         'read_more': 'Czytaj więcej',
         'back_to_blog': 'Powrót do bloga',
@@ -146,11 +144,9 @@ translations = {
                             "and Information Technology at the Warsaw University of Technology.",
         'projects': 'Projects',
         'blog': 'Blog',
-        'cv': 'CV',
         'contact': 'Contact',
         'my_projects': 'List of my projects.',
         'my_blog': 'Read my blog posts.',
-        'my_cv': 'My CV.',
         'my_contact': 'You can contact me via email: mpiotro4@outlook.com.',
         'read_more': 'Read more',
         'back_to_blog': 'Back to blog',
@@ -165,6 +161,18 @@ translations = {
 
 @app.route('/')
 def home():
+    lang = session.get('lang', 'pl')
+    posts = get_all_posts()
+
+    # Format dates for all posts
+    for post in posts:
+        post['date_formatted'] = format_date(post.get('date'), lang)
+        post['updated_formatted'] = format_date(post.get('updated'), lang) if post.get('updated') else None
+
+    return render_template('blog.html', lang=lang, translations=translations[lang], posts=posts)
+
+@app.route('/about')
+def about():
     lang = session.get('lang', 'en')
     return render_template('index.html', lang=lang, translations=translations[lang])
 
@@ -199,27 +207,10 @@ def projects():
     ]
     return render_template('projects.html', lang=lang, translations=translations[lang], projects=projects)
 
-@app.route('/cv')
-def cv():
-    lang = session.get('lang', 'en')
-    return render_template('cv.html', lang=lang, translations=translations[lang])
-
 @app.route('/contact')
 def contact():
     lang = session.get('lang', 'en')
     return render_template('contact.html', lang=lang, translations=translations[lang])
-
-@app.route('/blog')
-def blog():
-    lang = session.get('lang', 'pl')
-    posts = get_all_posts()
-
-    # Format dates for all posts
-    for post in posts:
-        post['date_formatted'] = format_date(post.get('date'), lang)
-        post['updated_formatted'] = format_date(post.get('updated'), lang) if post.get('updated') else None
-
-    return render_template('blog.html', lang=lang, translations=translations[lang], posts=posts)
 
 @app.route('/blog/<slug>')
 def blog_post(slug):

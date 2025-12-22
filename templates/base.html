@@ -19,14 +19,12 @@
 </header>
 <div class="hamburger" onclick="toggleMenu()">☰ Menu</div>
 <nav>
-    <a class="menu {% if request.endpoint == 'home' %}active{% endif %} first"
-       href="{{ url_for('home') }}">{{ translations['about_me'] }}</a>
+    <a class="menu {% if request.endpoint == 'home' or request.endpoint == 'blog_post' %}active{% endif %} first"
+       href="{{ url_for('home') }}">{{ translations['blog'] }}</a>
+    <a class="menu {% if request.endpoint == 'about' %}active{% endif %}"
+       href="{{ url_for('about') }}">{{ translations['about_me'] }}</a>
     <a class="menu {% if request.endpoint == 'projects' %}active{% endif %}"
        href="{{ url_for('projects') }}">{{ translations['projects'] }}</a>
-    <a class="menu {% if request.endpoint == 'blog' or request.endpoint == 'blog_post' %}active{% endif %}"
-       href="{{ url_for('blog') }}">{{ translations['blog'] }}</a>
-    <a class="menu {% if request.endpoint == 'cv' %}active{% endif %}"
-       href="{{ url_for('cv') }}">{{ translations['cv'] }}</a>
     <a class="menu {% if request.endpoint == 'contact' %}active{% endif %}"
        href="{{ url_for('contact') }}">{{ translations['contact'] }}</a>
     <div class="menu">
