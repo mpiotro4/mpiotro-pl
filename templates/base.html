@@ -27,9 +27,20 @@
        href="{{ url_for('projects.index') }}">{{ translations['projects'] }}</a>
     <a class="menu {% if request.endpoint == 'contact.index' %}active{% endif %}"
        href="{{ url_for('contact.index') }}">{{ translations['contact'] }}</a>
-    <div class="menu">
-        <a href="{{ url_for('main.set_language', language='pl') }}">PL</a> |
-        <a href="{{ url_for('main.set_language', language='en') }}">EN</a>
+    <div class="menu language-selector">
+        {% if current_lang == 'pl' %}
+            <a href="{{ url_for('main.set_language', language='en') }}"
+               class="language-toggle"
+               title="Switch to English">
+                🇬🇧 EN
+            </a>
+        {% else %}
+            <a href="{{ url_for('main.set_language', language='pl') }}"
+               class="language-toggle"
+               title="Przełącz na polski">
+                🇵🇱 PL
+            </a>
+        {% endif %}
     </div>
 </nav>
 <div id="content">
