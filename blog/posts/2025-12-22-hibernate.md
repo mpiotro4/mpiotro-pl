@@ -11,13 +11,15 @@ description_en: "Comprehensive explanation of Java ORM ecosystem - what are JPA,
 
 ## PL
 
+## Wstęp
+
 ORM (Object-Relational Mapping) to technika programowania, która pozwala mapować encje z bazy danych na obiekty. Pozwala to uniknąć używania surowego SQL na każdym kroku. W przypadku Javy najpopularniejszym ORM-em jest Hibernate, lecz wraz z nim pojawiają się tajemnicze słowa i skróty, min. takie jak JPA, JPQL czy HQL. Przez lata używałem Hibernate'a na zasadzie "jakoś to działa" i nigdy nie zadałem sobie trudu, aby solidnie uporządkować sobie wiedzę na temat wszystkich tych pojęć. Ten wpis ma na celu to zmienić.
 
 Zacznijmy od wysokopoziomowego podsumowania, gdzie w dalszej części wpisu po kolei zostanie omówiony każdy element łańcucha ORM w Javie.
 
 JPA (Standard) → Hibernate (Implementacja) → EntityManager/Session (API do rozmowy) → JPQL/HQL/Criteria API (Język zapytań)
 
-### JPA (Java Persistence API)
+## JPA (Java Persistence API)
 
 Wszystko zaczyna się od JPA, czyli Java Persistence API. Jest to specyfikacja będąca częścią Javy od 2006 roku, która ma na celu ustandaryzować zarządzanie relacyjnymi danymi w aplikacjach. JPA nie jest biblioteką, lecz zestawem interfejsów i reguł, które definiują jak powinien działać ORM.
 
@@ -33,7 +35,7 @@ public class Person {
 }
 ```
 
-### Hibernate
+## Hibernate
 
 Hibernate to najpopularniejsza implementacja standardu JPA. Firma Red Hat wypuściła go w 2001 roku, czyli jeszcze przed powstaniem JPA! Okazał się być na tyle popularny, że kiedy w 2006 roku tworzono specyfikację JPA, w dużej mierze powstała ona na wzór Hibernate.
 
@@ -49,11 +51,11 @@ Dodatkowe możliwości poza JPA:
 * Własne typy danych
 * Zaawansowane strategie cachowania (first-level, second-level cache)
 
-### API do rozmowy z bazą
+## API do rozmowy z bazą
 
 Istnieją dwie implementacje API do rozmowy z bazą - **EntityManager** (JPA) i **Session** (Hibernate). Oba to obiekty, przez które wykonuje się operacje na bazie danych. Pełnią rolę mostu pomiędzy kodem Java a tabelami w bazie.
 
-#### EntityManager (standard JPA)
+### EntityManager (standard JPA)
 ```java
 EntityManager em = entityManagerFactory.createEntityManager();
 
@@ -73,7 +75,7 @@ em.getTransaction().commit();
 em.close();
 ```
 
-#### Session (Hibernate API)
+### Session (Hibernate API)
 ```java
 Session session = sessionFactory.openSession();
 
@@ -100,11 +102,11 @@ Różnice:
 
 W nowoczesnych aplikacjach (szczególnie ze Spring) częściej używa się EntityManager, bo jest standardem. Session spotkasz w starszych projektach lub gdy projekt świadomie korzysta z zaawansowanych funkcji Hibernate'a.
 
-### Języki zapytań
+## Języki zapytań
 
 Gdy potrzebujesz bardziej złożonych operacji niż proste `find()` czy `persist()`, używasz języków zapytań. Masz do wyboru cztery podejścia:
 
-#### 1. JPQL (Java Persistence Query Language) - standard JPA
+### 1. JPQL (Java Persistence Query Language) - standard JPA
 
 Zapytania w stylu SQL, ale operujesz na obiektach i polach zamiast tabelach i kolumnach:
 ```java
@@ -116,7 +118,7 @@ List<Person> adults = em.createQuery(
 
 Uwaga: `Person` to nazwa klasy, nie tabeli. `age` to pole obiektu, nie kolumna.
 
-#### 2. HQL (Hibernate Query Language) - rozszerzenie JPQL
+### 2. HQL (Hibernate Query Language) - rozszerzenie JPQL
 
 Działa identycznie jak JPQL, ale ma dodatkowe możliwości specyficzne dla Hibernate:
 ```java
@@ -128,7 +130,7 @@ List<Person> adults = session.createQuery(
 
 HQL jest w pełni kompatybilny z JPQL - każde zapytanie JPQL zadziała w HQL.
 
-#### 3. Criteria API - programistyczne budowanie zapytań
+### 3. Criteria API - programistyczne budowanie zapytań
 
 Type-safe alternatywa dla stringowych zapytań, idealna do dynamicznych filtrów:
 ```java
@@ -144,7 +146,7 @@ List<Person> adults = em.createQuery(query).getResultList();
 
 Kiedy używać Criteria API? Gdy budujesz zapytanie dynamicznie w runtime - np. formularz wyszukiwania gdzie użytkownik może wybrać różne kombinacje filtrów.
 
-#### 4. Native SQL - czysty SQL
+### 4. Native SQL - czysty SQL
 
 Możesz używać zwykłego SQL gdy potrzebujesz:
 ```java
@@ -168,7 +170,7 @@ Wybór w praktyce:
 * Zaawansowane funkcje Hibernate → HQL
 * Pełna kontrola lub specyficzne funkcje DB → Native SQL
 
-### Podsumowanie
+## Podsumowanie
 
 ORM w Javie to system pozwalający pracować z bazami danych przez obiekty zamiast SQL. Opiera się na czterowarstwowej architekturze.
 JPA to standard definiujący jak powinien działać ORM - wprowadza adnotacje (`@Entity`, `@Id`) i interfejsy. Dzięki temu kod jest przenośny między implementacjami.
