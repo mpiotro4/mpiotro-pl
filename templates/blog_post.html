@@ -24,11 +24,37 @@
             {% endif %}
         </h1>
 
-        <div class="blog-meta">
-            <i class="fa fa-calendar"></i>
-            <time datetime="{{ post.date }}">
-                {{ post.date.strftime('%d %B %Y') if lang == 'pl' else post.date.strftime('%B %d, %Y') }}
-            </time>
+        <div class="blog-dates">
+            <div class="blog-date-item">
+                <i class="fa fa-calendar"></i>
+                <span class="date-label">{{ translations['published'] }}:</span>
+                <time datetime="{{ post.date }}">{{ post.date_formatted }}</time>
+            </div>
+            {% if post.updated_formatted %}
+            <div class="blog-date-item blog-date-updated">
+                <i class="fa fa-pencil"></i>
+                <span class="date-label">{{ translations['updated'] }}:</span>
+                <time datetime="{{ post.updated }}">{{ post.updated_formatted }}</time>
+            </div>
+            {% endif %}
+            {% if post.author %}
+            <div class="blog-date-item blog-author">
+                <i class="fa fa-user"></i>
+                <span class="date-label">{{ translations['author'] }}:</span>
+                <span class="author-name">{{ post.author }}</span>
+            </div>
+            {% endif %}
+            {% if post.tags and post.tags|length > 0 %}
+            <div class="blog-date-item blog-tags">
+                <i class="fa fa-tags"></i>
+                <span class="date-label">{{ translations['tags'] }}:</span>
+                <span class="tags-list">
+                    {% for tag in post.tags %}
+                    <span class="tag">{{ tag }}</span>{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </span>
+            </div>
+            {% endif %}
         </div>
     </div>
 
