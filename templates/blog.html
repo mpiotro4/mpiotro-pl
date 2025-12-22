@@ -19,7 +19,8 @@
                 {% endif %}
             </h2>
             <div class="blog-meta">
-                <time>{{ post.date }}</time>
+                <i class="fa fa-calendar"></i>
+                <time datetime="{{ post.date }}">{{ post.date_formatted }}</time>
             </div>
             <p class="blog-description">
                 {% if lang == 'pl' %}

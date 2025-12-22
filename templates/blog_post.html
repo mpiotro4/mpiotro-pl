@@ -24,11 +24,19 @@
             {% endif %}
         </h1>
 
-        <div class="blog-meta">
-            <i class="fa fa-calendar"></i>
-            <time datetime="{{ post.date }}">
-                {{ post.date.strftime('%d %B %Y') if lang == 'pl' else post.date.strftime('%B %d, %Y') }}
-            </time>
+        <div class="blog-dates">
+            <div class="blog-date-item">
+                <i class="fa fa-calendar"></i>
+                <span class="date-label">{{ translations['published'] }}:</span>
+                <time datetime="{{ post.date }}">{{ post.date_formatted }}</time>
+            </div>
+            {% if post.updated_formatted %}
+            <div class="blog-date-item blog-date-updated">
+                <i class="fa fa-pencil"></i>
+                <span class="date-label">{{ translations['updated'] }}:</span>
+                <time datetime="{{ post.updated }}">{{ post.updated_formatted }}</time>
+            </div>
+            {% endif %}
         </div>
     </div>
 
