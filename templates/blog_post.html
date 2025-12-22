@@ -37,6 +37,24 @@
                 <time datetime="{{ post.updated }}">{{ post.updated_formatted }}</time>
             </div>
             {% endif %}
+            {% if post.author %}
+            <div class="blog-date-item blog-author">
+                <i class="fa fa-user"></i>
+                <span class="date-label">{{ translations['author'] }}:</span>
+                <span class="author-name">{{ post.author }}</span>
+            </div>
+            {% endif %}
+            {% if post.tags and post.tags|length > 0 %}
+            <div class="blog-date-item blog-tags">
+                <i class="fa fa-tags"></i>
+                <span class="date-label">{{ translations['tags'] }}:</span>
+                <span class="tags-list">
+                    {% for tag in post.tags %}
+                    <span class="tag">{{ tag }}</span>{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </span>
+            </div>
+            {% endif %}
         </div>
     </div>
 

@@ -62,6 +62,13 @@ def parse_blog_post(filepath):
     date = post.get('date', '')
     updated = post.get('updated', None)
 
+    # Get author and tags
+    author = post.get('author', '')
+    tags = post.get('tags', [])
+    if isinstance(tags, str):
+        # If tags is a string, split by comma
+        tags = [tag.strip() for tag in tags.split(',')]
+
     return {
         'slug': slug,
         'title_pl': post.get('title_pl', 'Bez tytułu'),
@@ -70,6 +77,8 @@ def parse_blog_post(filepath):
         'date_raw': date,  # Keep raw datetime for sorting
         'updated': updated,
         'updated_raw': updated,
+        'author': author,
+        'tags': tags,
         'description_pl': post.get('description_pl', ''),
         'description_en': post.get('description_en', ''),
         'content_pl': content_pl,
@@ -123,6 +132,8 @@ translations = {
         'no_posts': 'Brak postów na blogu.',
         'published': 'Opublikowano',
         'updated': 'Zaktualizowano',
+        'author': 'Autor',
+        'tags': 'Tagi',
     },
     'en': {
         'title': 'Marcin Piotrowski - homepage',
@@ -146,6 +157,8 @@ translations = {
         'no_posts': 'No posts yet.',
         'published': 'Published',
         'updated': 'Updated',
+        'author': 'Author',
+        'tags': 'Tags',
     }
 }
 
