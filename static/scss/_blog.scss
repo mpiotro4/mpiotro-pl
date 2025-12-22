@@ -59,6 +59,82 @@
     }
 }
 
+// Blog Card Metadata
+.blog-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: $color-text-dim;
+
+    @include mobile {
+        gap: 10px;
+        font-size: 12px;
+    }
+}
+
+.blog-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    i {
+        color: $color-primary;
+        font-size: 14px;
+
+        @include mobile {
+            font-size: 12px;
+        }
+    }
+
+    .meta-label {
+        font-weight: 600;
+        color: $color-text;
+    }
+
+    time, span {
+        color: $color-text-bright;
+    }
+}
+
+// Blog Card Tags
+.blog-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 12px;
+
+    i {
+        color: $color-primary;
+        font-size: 13px;
+        margin-right: 2px;
+    }
+}
+
+.tag-small {
+    display: inline-block;
+    background: rgba(100, 124, 100, 0.15);
+    color: $color-text-bright;
+    padding: 2px 8px;
+    border-radius: $radius-s;
+    font-size: 11px;
+    font-weight: 500;
+    border: 1px solid rgba(100, 124, 100, 0.3);
+    transition: all $transition-default;
+
+    &:hover {
+        background: rgba(100, 124, 100, 0.25);
+        border-color: $color-primary;
+    }
+
+    @include mobile {
+        font-size: 10px;
+        padding: 2px 6px;
+    }
+}
+
 // Blog Post Dates
 .blog-dates {
     display: flex;
