@@ -2,6 +2,8 @@
 title_pl: Hello World
 title_en: Hello World
 date: 2024-11-13
+author: "Marcin Piotrowski"
+tags: ["Blog", "Personal", "Meta"]
 description_pl: nie czytać
 description_en: don't read
 ---
