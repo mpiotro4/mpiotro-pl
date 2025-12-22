@@ -19,17 +19,17 @@
 </header>
 <div class="hamburger" onclick="toggleMenu()">☰ Menu</div>
 <nav>
-    <a class="menu {% if request.endpoint == 'home' or request.endpoint == 'blog_post' %}active{% endif %} first"
-       href="{{ url_for('home') }}">{{ translations['blog'] }}</a>
-    <a class="menu {% if request.endpoint == 'about' %}active{% endif %}"
-       href="{{ url_for('about') }}">{{ translations['about_me'] }}</a>
-    <a class="menu {% if request.endpoint == 'projects' %}active{% endif %}"
-       href="{{ url_for('projects') }}">{{ translations['projects'] }}</a>
-    <a class="menu {% if request.endpoint == 'contact' %}active{% endif %}"
-       href="{{ url_for('contact') }}">{{ translations['contact'] }}</a>
+    <a class="menu {% if request.endpoint == 'blog.index' or request.endpoint == 'blog.post' %}active{% endif %} first"
+       href="{{ url_for('blog.index') }}">{{ translations['blog'] }}</a>
+    <a class="menu {% if request.endpoint == 'main.about' %}active{% endif %}"
+       href="{{ url_for('main.about') }}">{{ translations['about_me'] }}</a>
+    <a class="menu {% if request.endpoint == 'projects.index' %}active{% endif %}"
+       href="{{ url_for('projects.index') }}">{{ translations['projects'] }}</a>
+    <a class="menu {% if request.endpoint == 'contact.index' %}active{% endif %}"
+       href="{{ url_for('contact.index') }}">{{ translations['contact'] }}</a>
     <div class="menu">
-        <a href="{{ url_for('set_language', language='pl') }}">PL</a> |
-        <a href="{{ url_for('set_language', language='en') }}">EN</a>
+        <a href="{{ url_for('main.set_language', language='pl') }}">PL</a> |
+        <a href="{{ url_for('main.set_language', language='en') }}">EN</a>
     </div>
 </nav>
 <div id="content">

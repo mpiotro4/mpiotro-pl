@@ -53,7 +53,8 @@ def parse_blog_post(filepath):
 
 def get_all_posts():
     """Get all blog posts sorted by date (newest first)"""
-    blog_dir = Path(__file__).parent / 'blog' / 'posts'
+    # Go up two levels from app/services/ to project root
+    blog_dir = Path(__file__).parent.parent.parent / 'blog' / 'posts'
     if not blog_dir.exists():
         return []
 
@@ -68,7 +69,8 @@ def get_all_posts():
 
 def get_post_by_slug(slug):
     """Get single blog post by slug"""
-    blog_dir = Path(__file__).parent / 'blog' / 'posts'
+    # Go up two levels from app/services/ to project root
+    blog_dir = Path(__file__).parent.parent.parent / 'blog' / 'posts'
     filepath = blog_dir / f'{slug}.md'
 
     if filepath.exists():
