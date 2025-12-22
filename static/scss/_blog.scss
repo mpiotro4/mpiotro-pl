@@ -1,5 +1,5 @@
 // =========================================================
-// BLOG - List & Post Pages
+// BLOG - List & Post Pages - NEO-BRUTALISM
 // =========================================================
 
 @use 'variables' as *;
@@ -7,40 +7,38 @@
 
 // Blog List
 .blog-list {
-    margin: 30px 0;
+    margin: 2rem 0;
 }
 
 .blog-card {
-    @include card(20px, $radius-l);
-    background-color: $color-overlay-light;
-    border: 1px solid $color-border;
-    margin: 20px 0;
-    @include hover-lift;
-
-    &:hover {
-        border-color: $color-primary;
-    }
+    @include card(20px, $color-bg, $color-border);
+    margin: 2rem 0;
+    @include hover-brutal;
 
     @include mobile {
-        padding: 15px;
-        margin: 15px 0;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
     }
 
     h2 {
-        margin: 0 0 10px;
-        font-size: 24px;
+        margin: 0 0 1rem;
+        font-size: 28px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 1px;
 
         @include mobile {
-            font-size: 20px;
+            font-size: 24px;
         }
 
         a {
             text-decoration: none;
             color: $color-text;
-            transition: color $transition-default;
 
             &:hover {
-                color: $color-primary;
+                text-decoration: underline;
+                text-decoration-thickness: 3px;
+                text-underline-offset: 4px;
             }
         }
     }
@@ -48,14 +46,15 @@
 
 .blog-meta {
     font-size: 14px;
-    color: $color-text-dim;
-    margin-bottom: 15px;
+    color: $color-text-light;
+    margin-bottom: 1rem;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 0.5rem;
+    font-weight: 600;
 
     i {
-        color: $color-primary;
+        color: $color-text;
     }
 }
 
@@ -63,13 +62,14 @@
 .blog-card-meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
-    margin-bottom: 12px;
+    gap: 1rem;
+    margin-bottom: 1rem;
     font-size: 13px;
-    color: $color-text-dim;
+    color: $color-text-light;
+    font-weight: 600;
 
     @include mobile {
-        gap: 10px;
+        gap: 0.75rem;
         font-size: 12px;
     }
 }
@@ -77,10 +77,10 @@
 .blog-meta-item {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 0.5rem;
 
     i {
-        color: $color-primary;
+        color: $color-text;
         font-size: 14px;
 
         @include mobile {
@@ -89,12 +89,12 @@
     }
 
     .meta-label {
-        font-weight: 600;
+        font-weight: 700;
         color: $color-text;
     }
 
     time, span {
-        color: $color-text-bright;
+        color: $color-text-light;
     }
 }
 
@@ -102,36 +102,37 @@
 .blog-card-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 0.5rem;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 1rem;
 
     i {
-        color: $color-primary;
+        color: $color-text;
         font-size: 13px;
-        margin-right: 2px;
+        margin-right: 0.25rem;
     }
 }
 
 .tag-small {
     display: inline-block;
-    background: rgba(100, 124, 100, 0.15);
-    color: $color-text-bright;
-    padding: 2px 8px;
-    border-radius: $radius-s;
+    background: $color-warning;
+    color: $color-text;
+    padding: 4px 10px;
     font-size: 11px;
-    font-weight: 500;
-    border: 1px solid rgba(100, 124, 100, 0.3);
-    transition: all $transition-default;
+    font-weight: 700;
+    border: $border-width-thin solid $color-border;
+    box-shadow: $shadow-brutal-small;
+    text-transform: uppercase;
+    transition: transform $transition-snap, box-shadow $transition-snap;
 
     &:hover {
-        background: rgba(100, 124, 100, 0.25);
-        border-color: $color-primary;
+        transform: translate(1px, 1px);
+        box-shadow: 1px 1px 0 $color-border;
     }
 
     @include mobile {
         font-size: 10px;
-        padding: 2px 6px;
+        padding: 3px 8px;
     }
 }
 
@@ -139,34 +140,34 @@
 .blog-dates {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 20px;
-    padding: 15px 20px;
-    background: linear-gradient(135deg, rgba(100, 124, 100, 0.1), rgba(100, 124, 100, 0.05));
-    border-left: 4px solid $color-primary;
-    border-radius: $radius-m;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    padding: 1rem 1.5rem;
+    background: $color-accent;
+    border: $border-width solid $color-border;
+    box-shadow: $shadow-brutal-small;
 
     @include mobile {
         flex-direction: column;
-        gap: 12px;
-        padding: 12px 15px;
+        gap: 1rem;
+        padding: 1rem;
     }
 }
 
 .blog-date-item {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.5rem;
     font-size: 15px;
-    color: $color-text-bright;
+    color: $color-text;
+    font-weight: 600;
 
     @include mobile {
         font-size: 14px;
     }
 
     i {
-        color: $color-primary;
+        color: $color-text;
         font-size: 16px;
         width: 20px;
         text-align: center;
@@ -178,178 +179,189 @@
     }
 
     .date-label {
-        font-weight: 600;
+        font-weight: 700;
         color: $color-text;
     }
 
     time {
-        color: $color-text-bright;
-        font-weight: 500;
+        color: $color-text;
+        font-weight: 600;
     }
 }
 
 .blog-date-updated {
-    padding-left: 20px;
-    border-left: 1px solid rgba(100, 124, 100, 0.3);
+    padding-left: 1.5rem;
+    border-left: $border-width solid $color-border;
 
     @include mobile {
         padding-left: 0;
         border-left: none;
-        padding-top: 12px;
-        border-top: 1px solid rgba(100, 124, 100, 0.3);
+        padding-top: 1rem;
+        border-top: $border-width solid $color-border;
     }
 }
 
 .blog-author {
-    padding-left: 20px;
-    border-left: 1px solid rgba(100, 124, 100, 0.3);
+    padding-left: 1.5rem;
+    border-left: $border-width solid $color-border;
 
     @include mobile {
         padding-left: 0;
         border-left: none;
-        padding-top: 12px;
-        border-top: 1px solid rgba(100, 124, 100, 0.3);
+        padding-top: 1rem;
+        border-top: $border-width solid $color-border;
     }
 
     .author-name {
-        color: $color-text-bright;
-        font-weight: 500;
+        color: $color-text;
+        font-weight: 700;
     }
 }
 
 .blog-tags {
     flex: 1 1 100%;
-    padding-top: 12px;
-    border-top: 1px solid rgba(100, 124, 100, 0.3);
+    padding-top: 1rem;
+    border-top: $border-width solid $color-border;
 
     @include mobile {
-        padding-top: 12px;
+        padding-top: 1rem;
     }
 
     .tags-list {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 0.5rem;
         align-items: center;
     }
 
     .tag {
         display: inline-block;
-        background: rgba(100, 124, 100, 0.2);
-        color: $color-text-bright;
-        padding: 4px 12px;
-        border-radius: $radius-s;
+        background: $color-warning;
+        color: $color-text;
+        padding: 6px 14px;
         font-size: 13px;
-        font-weight: 500;
-        border: 1px solid rgba(100, 124, 100, 0.4);
-        transition: all $transition-default;
+        font-weight: 700;
+        border: $border-width-thin solid $color-border;
+        box-shadow: $shadow-brutal-small;
+        text-transform: uppercase;
+        transition: transform $transition-snap, box-shadow $transition-snap;
 
         &:hover {
-            background: rgba(100, 124, 100, 0.3);
-            border-color: $color-primary;
-            transform: translateY(-1px);
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0 $color-border;
         }
 
         @include mobile {
             font-size: 12px;
-            padding: 3px 10px;
+            padding: 4px 10px;
         }
     }
 }
 
 .blog-description {
-    margin: 10px 0;
+    margin: 1rem 0;
     line-height: 1.6;
-    color: $color-text-bright;
+    color: $color-text;
 }
 
 .read-more-link {
     display: inline-block;
-    margin-top: 10px;
-    color: $color-primary;
+    margin-top: 1rem;
+    padding: 8px 16px;
+    background-color: $color-secondary;
+    color: $color-text;
     text-decoration: none;
-    font-weight: 600;
-    transition: all $transition-default;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: $border-width solid $color-border;
+    box-shadow: $shadow-brutal-small;
+    transition: transform $transition-snap, box-shadow $transition-snap;
 
     &:hover {
-        color: #fff;
-        transform: translateX(5px);
+        transform: translate(1px, 1px);
+        box-shadow: 1px 1px 0 $color-border;
     }
 }
 
 // Blog Post Page
 .blog-post {
-    padding: 30px 0;
+    padding: 2rem 0;
 
     &-header {
-        margin-bottom: 40px;
+        margin-bottom: 2rem;
     }
 
     &-content {
-        @include card(30px, $radius-l);
-        background-color: $color-overlay-light;
-        border: 1px solid $color-border-light;
-        margin: 30px 0;
-        box-shadow: $shadow-light;
+        @include card(2rem, $color-bg, $color-border);
+        margin: 2rem 0;
         line-height: 1.6;
         font-size: 16px;
 
         @include mobile {
             font-size: 15px;
-            padding: 15px;
-            margin: 20px 0;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
             line-height: 1.5;
         }
 
         // Headings
         h1 {
-            font-size: 28px;
-            margin: 30px 0 15px;
-            border-bottom: 2px solid $color-primary;
-            padding-bottom: 10px;
-            line-height: 1.3;
+            font-size: 32px;
+            font-weight: 900;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: $border-width-thick solid $color-border;
+            line-height: 1.2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
 
             &:first-child {
                 margin-top: 0;
             }
 
             @include mobile {
-                font-size: 24px;
-                margin: 25px 0 12px;
+                font-size: 28px;
+                margin: 1.5rem 0 1rem;
             }
         }
 
         h2 {
-            font-size: 22px;
-            margin: 25px 0 12px;
-            color: $color-primary;
-            line-height: 1.3;
+            font-size: 26px;
+            font-weight: 900;
+            margin: 2rem 0 1rem;
+            padding: 0.5rem 1rem;
+            background-color: $color-primary;
+            border: $border-width solid $color-border;
+            box-shadow: $shadow-brutal-small;
+            line-height: 1.2;
 
             @include mobile {
-                font-size: 20px;
-                margin: 20px 0 10px;
+                font-size: 22px;
+                margin: 1.5rem 0 0.75rem;
             }
         }
 
         h3 {
-            font-size: 20px;
-            margin: 20px 0 10px;
-            color: $color-text-bright;
-            line-height: 1.3;
+            font-size: 22px;
+            font-weight: 700;
+            margin: 1.5rem 0 0.75rem;
+            border-left: $border-width-thick solid $color-accent;
+            padding-left: 1rem;
+            line-height: 1.2;
 
             @include mobile {
-                font-size: 18px;
+                font-size: 20px;
             }
         }
 
         h4 {
-            font-size: 18px;
-            margin: 18px 0 8px;
-            color: $color-text-bright;
-            line-height: 1.3;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 1.25rem 0 0.5rem;
+            line-height: 1.2;
 
             @include mobile {
-                font-size: 16px;
+                font-size: 18px;
             }
         }
 
@@ -393,30 +405,28 @@
 
         // Inline code
         code {
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: $color-bg-alt;
             padding: 3px 8px;
-            border-radius: $radius-s;
             font-family: 'Courier New', Consolas, Monaco, monospace;
             font-size: 0.9em;
-            color: #ffb86c;
-            border: 1px solid rgba(255, 184, 108, 0.2);
+            color: $color-text;
+            border: $border-width-thin solid $color-border;
         }
 
         // Code blocks
         pre {
             background-color: #2d2d2d !important;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: $radius-m;
+            border: $border-width solid $color-border !important;
             padding: 16px !important;
             overflow-x: auto;
-            margin: 16px 0 !important;
+            margin: 1.5rem 0 !important;
             line-height: 1.5;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            box-shadow: $shadow-brutal-small !important;
 
             @include mobile {
                 padding: 12px !important;
                 font-size: 13px;
-                margin: 12px 0 !important;
+                margin: 1rem 0 !important;
             }
 
             code {
@@ -442,17 +452,18 @@
 
         // Blockquotes
         blockquote {
-            margin: 16px 0;
-            padding: 12px 20px;
-            background-color: rgba(255, 255, 255, 0.06);
-            border-left: 4px solid $color-primary;
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            background-color: $color-bg-alt;
+            border: $border-width solid $color-border;
+            border-left: $border-width-thick solid $color-secondary;
+            box-shadow: $shadow-brutal-small;
             font-style: italic;
-            color: rgba(255, 255, 255, 0.85);
-            border-radius: $radius-m;
+            color: $color-text;
             line-height: 1.6;
 
             p {
-                margin: 8px 0;
+                margin: 0.5rem 0;
 
                 &:first-child {
                     margin-top: 0;
@@ -467,19 +478,21 @@
         // Horizontal rule
         hr {
             border: none;
-            border-top: 1px solid $color-border;
-            margin: 24px 0;
+            border-top: $border-width solid $color-border;
+            margin: 2rem 0;
         }
 
         // Links
         a {
-            color: $color-primary;
-            text-decoration: underline;
-            transition: color $transition-default;
+            color: $color-text;
+            background-color: $color-info;
+            padding: 2px 6px;
+            border: $border-width-thin solid $color-border;
+            text-decoration: none;
+            font-weight: 700;
 
             &:hover {
-                color: rgba(100, 124, 100, 1);
-                filter: brightness(1.3);
+                background-color: $color-accent;
             }
         }
 
@@ -487,33 +500,42 @@
         img {
             max-width: 100%;
             height: auto;
-            border-radius: $radius-m;
-            margin: 16px 0;
+            border: $border-width solid $color-border;
+            box-shadow: $shadow-brutal-small;
+            margin: 1.5rem 0;
         }
     }
 
     &-footer {
-        margin-top: 50px;
-        padding-top: 20px;
-        border-top: 1px solid $color-border;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: $border-width-thick solid $color-border;
     }
 }
 
 .back-link {
-    color: $color-primary;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: $color-primary;
+    color: $color-text;
     text-decoration: none;
-    font-weight: bold;
-    transition: color $transition-default;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: $border-width solid $color-border;
+    box-shadow: $shadow-brutal;
+    transition: transform $transition-snap, box-shadow $transition-snap;
 
     &:hover {
-        color: #fff;
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0 $color-border;
     }
 }
 
 // No posts message
 .no-posts {
     text-align: center;
-    padding: 40px 0;
-    color: $color-text-dimmer;
+    padding: 3rem 0;
+    color: $color-text-light;
     font-size: 18px;
+    font-weight: 700;
 }

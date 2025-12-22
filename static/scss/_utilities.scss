@@ -12,44 +12,44 @@ html {
 // Custom text selection
 ::selection {
     background-color: $color-primary;
-    color: white;
+    color: $color-text;
     text-shadow: none;
 }
 
 ::-moz-selection {
     background-color: $color-primary;
-    color: white;
+    color: $color-text;
     text-shadow: none;
 }
 
-// Custom scrollbar (webkit browsers)
+// Custom scrollbar (webkit browsers) - Neo-Brutalism
 ::-webkit-scrollbar {
     width: 12px;
     height: 12px;
 }
 
 ::-webkit-scrollbar-track {
-    background: $color-bg-dark;
+    background: $color-bg-alt;
+    border: $border-width-thin solid $color-border;
 }
 
 ::-webkit-scrollbar-thumb {
     background: $color-primary;
-    border-radius: $radius-m;
-    border: 2px solid $color-bg-dark;
+    border: $border-width-thin solid $color-border;
 
     &:hover {
-        background: rgba(100, 124, 100, 0.8);
+        background: $color-accent;
     }
 
     &:active {
-        background: rgba(100, 124, 100, 1);
+        background: $color-secondary;
     }
 }
 
 // Firefox scrollbar
 * {
     scrollbar-width: thin;
-    scrollbar-color: $color-primary $color-bg-dark;
+    scrollbar-color: $color-primary $color-bg-alt;
 }
 
 // Loading state for images

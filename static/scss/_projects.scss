@@ -1,5 +1,5 @@
 // =========================================================
-// PROJECTS SECTION
+// PROJECTS SECTION - NEO-BRUTALISM
 // =========================================================
 
 @use 'variables' as *;
@@ -25,15 +25,14 @@
 #sidephoto {
     @include mobile {
         width: 100%;
-        margin: 0 0 10px 0;
+        margin: 0 0 1.5rem 0;
         text-align: center;
     }
 
     img {
-        margin-right: 20px;
-        border-radius: $radius-xl;
-        box-shadow: $shadow-default;
-        transition: transform $transition-transform;
+        margin-right: 2rem;
+        border: $border-width solid $color-border;
+        box-shadow: $shadow-brutal;
 
         @include mobile {
             margin: 0;
@@ -44,48 +43,36 @@
 }
 
 #sidetext {
-    text-align: justify;
+    text-align: left;
 
     @include mobile {
         width: 100%;
         margin: 0;
-        text-align: justify;
+        text-align: left;
     }
 
     &.text-box {
-        padding: 20px;
-        background-color: $color-overlay-medium;
-        border: 1px solid $color-bg-medium;
-        border-radius: $radius-l;
-        box-shadow: $shadow-default;
-        margin: 20px 0;
+        padding: 1.5rem;
+        background-color: $color-bg;
+        border: $border-width solid $color-border;
+        box-shadow: $shadow-brutal;
+        margin: 2rem 0;
     }
 }
 
 // Project Cards
 .project-card-container {
     @include flex-center;
-    margin: 20px 0;
+    margin: 2rem 0;
 }
 
 .project-card {
     display: flex;
-    @include card(20px, $radius-xl);
+    @include card(1.5rem, $color-bg, $color-border);
     max-width: 800px;
     width: 100%;
-    transition: transform $transition-default, box-shadow $transition-default, border-color $transition-default;
-    border: 1px solid transparent;
     cursor: pointer;
-
-    &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-        border-color: $color-primary;
-
-        .project-photo img {
-            transform: scale(1.05);
-        }
-    }
+    @include hover-brutal;
 
     @include tablet {
         max-width: 90%;
@@ -98,39 +85,59 @@
 
 .project-photo {
     flex: 2;
-    margin-right: 20px;
+    margin-right: 1.5rem;
     overflow: hidden;
-    border-radius: $radius-xl;
 
     @include mobile {
         margin-right: 0;
-        margin-bottom: 15px;
+        margin-bottom: 1.5rem;
     }
 
     img {
         width: 100%;
-        border-radius: $radius-xl;
-        box-shadow: $shadow-default;
-        transition: transform $transition-transform;
+        border: $border-width solid $color-border;
+        box-shadow: $shadow-brutal-small;
     }
 }
 
 .project-content {
     flex: 2;
-    text-align: justify;
+    text-align: left;
     font-size: 16px;
+    line-height: 1.6;
+
+    h3 {
+        font-size: 24px;
+        font-weight: 900;
+        margin: 0 0 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    p {
+        margin: 0.75rem 0;
+    }
 }
 
 // Project Year & Divider
 .project-year {
     text-align: center;
-    font-size: 1.5em;
-    font-weight: bold;
+    font-size: 2em;
+    font-weight: 900;
+    padding: 1rem 2rem;
+    background-color: $color-secondary;
+    border: $border-width-thick solid $color-border;
+    box-shadow: $shadow-brutal;
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 2rem 0;
 }
 
 .project-divider {
-    height: 2px;
+    height: $border-width-thick;
     width: 50%;
-    background: $color-primary;
+    background: $color-border;
     border: 0;
+    margin: 2rem auto;
 }

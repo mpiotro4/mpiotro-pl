@@ -1,45 +1,32 @@
 // =========================================================
-// NAVIGATION
+// NAVIGATION - NEO-BRUTALISM
 // =========================================================
 
 @use 'variables' as *;
 @use 'mixins' as *;
 
 nav {
-    background-color: $color-primary;
+    background-color: $color-bg;
     text-align: center;
-    padding: 5px 0;
+    padding: 0;
     position: sticky;
     top: 0;
     z-index: 50;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
-    animation: navbarFade 0.4s ease forwards;
+    border-bottom: $border-width-thick solid $color-border;
+    box-shadow: $shadow-brutal;
 
     @include mobile {
         display: none;
         flex-direction: column;
         align-items: center;
-        background-color: rgb(100, 124, 100);
+        background-color: $color-bg;
         width: 100%;
         padding: 0;
         margin: 0;
-        box-shadow: none;
-        border-radius: 0;
 
         &.active {
             display: flex;
         }
-    }
-}
-
-@keyframes navbarFade {
-    from {
-        opacity: 0;
-        transform: translateY(-6px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
     }
 }
 
@@ -48,18 +35,21 @@ a.menu,
 div.menu {
     text-decoration: none;
     display: inline-block;
-    margin: 10px 0;
-    padding: 10px 30px;
+    margin: 0;
+    padding: 1rem 2rem;
     text-align: center;
-    border-right: 1px dashed $color-bg-medium;
-    position: relative;
-    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    border-right: $border-width solid $color-border;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: $color-bg;
+    transition: background $transition-snap, transform $transition-snap;
 
     @include mobile {
         width: 100%;
-        padding: 12px 0;
+        padding: 1rem 0;
         border-right: none;
-        border-bottom: 1px dashed #2F3336;
+        border-bottom: $border-width solid $color-border;
         text-align: center;
 
         &.first {
@@ -67,40 +57,21 @@ div.menu {
         }
     }
 
-    // Animated underline
-    &::after {
-        content: "";
-        position: absolute;
-        left: 50%;
-        bottom: 5px;
-        width: 0;
-        height: 2px;
-        background: #fff;
-        transition: width 0.3s ease, left 0.3s ease;
-
-        @include mobile {
-            display: none;
-        }
-    }
-
     &:hover {
-        background-color: rgba(0, 0, 0, 0.15);
-        transform: translateY(-2px);
-
-        &::after {
-            width: 60%;
-            left: 20%;
-        }
+        background-color: $color-primary;
+        transform: none;
     }
 
     &.active {
-        background-color: $color-bg-medium;
-        border-radius: $radius-l;
-        transform: translateY(-2px);
+        background-color: $color-accent;
+        color: $color-text;
+    }
 
-        &::after {
-            width: 60%;
-            left: 20%;
+    &:first-child {
+        border-left: $border-width solid $color-border;
+
+        @include mobile {
+            border-left: none;
         }
     }
 }
@@ -112,11 +83,18 @@ div.menu {
     @include mobile {
         display: block;
         cursor: pointer;
-        padding: 10px;
-        background-color: rgb(100, 124, 100);
+        padding: 1rem;
+        background-color: $color-secondary;
         text-align: center;
         width: 100%;
         font-size: 20px;
+        font-weight: 900;
+        border: $border-width solid $color-border;
+        text-transform: uppercase;
+
+        &:hover {
+            background-color: $color-primary;
+        }
     }
 }
 
@@ -129,33 +107,40 @@ div.menu {
     @include mobile {
         margin-left: 0;
         margin-right: 0;
+        width: 100%;
+        justify-content: center;
+        padding: 1rem 0;
+        background-color: $color-bg-alt;
+        border-bottom: $border-width solid $color-border;
     }
 
     .language-toggle {
         display: inline-block;
-        padding: 2px;
+        padding: 8px 16px;
         text-decoration: none;
         color: $color-text;
-        border-radius: $radius-m;
-        font-size: 15px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        background-color: rgba(255, 255, 255, 0.15);
+        border: $border-width solid $color-border;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        background-color: $color-info;
+        box-shadow: $shadow-brutal-small;
         cursor: pointer;
+        transition: transform $transition-snap, box-shadow $transition-snap;
 
         &:hover {
-            background-color: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: $shadow-light;
+            transform: translate(1px, 1px);
+            box-shadow: 1px 1px 0 $color-border;
         }
 
         &:active {
-            transform: translateY(-1px) scale(1.02);
+            transform: translate(2px, 2px);
+            box-shadow: 0 0 0 $color-border;
         }
 
         @include mobile {
             padding: 10px 18px;
-            font-size: 17px;
+            font-size: 14px;
         }
     }
 }

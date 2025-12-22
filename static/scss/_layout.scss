@@ -1,5 +1,5 @@
 // =========================================================
-// LAYOUT - Header & Footer
+// LAYOUT - Header & Footer - NEO-BRUTALISM
 // =========================================================
 
 @use 'variables' as *;
@@ -7,43 +7,52 @@
 
 // Header
 header {
-    font-size: 40px;
+    font-size: 48px;
+    font-weight: 900;
     text-align: center;
-    margin-bottom: 8px;
+    margin-bottom: 2rem;
+    padding: 2rem 1rem;
+    background-color: $color-primary;
+    border: $border-width-thick solid $color-border;
+    box-shadow: $shadow-brutal-large;
 
     @include mobile {
-        font-size: 30px;
+        font-size: 32px;
+        padding: 1.5rem 1rem;
     }
 
     #bottom_ttile {
-        font-size: 30px;
+        font-size: 32px;
+        font-weight: 700;
 
         @include mobile {
-            font-size: 20px;
+            font-size: 24px;
         }
     }
 
     #top_title {
         display: inline-block;
         vertical-align: top;
+        text-transform: uppercase;
+        letter-spacing: 2px;
     }
 }
 
 // Footer
 footer {
-    width: 50%;
+    width: 100%;
     max-width: 1200px;
-    height: 40px;
-    line-height: 40px;
-    font-size: 15px;
+    padding: 2rem 1rem;
+    font-size: 16px;
+    font-weight: 700;
     text-align: center;
-    margin: 0 auto 100px;
-    border-top: 2px solid $color-primary;
-    border-radius: 5px;
-    background: linear-gradient(to bottom, #191d21, #1d1e22);
+    margin: 3rem auto 2rem;
+    border-top: $border-width-thick solid $color-border;
+    background: $color-bg-alt;
 
     @include mobile {
         width: 90%;
-        margin-bottom: 50px;
+        margin-bottom: 2rem;
+        font-size: 14px;
     }
 }

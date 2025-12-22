@@ -1,5 +1,5 @@
 // =========================================================
-// SASS MIXINS
+// SASS MIXINS - NEO-BRUTALISM DESIGN
 // =========================================================
 
 @use 'variables' as *;
@@ -11,22 +11,71 @@
     align-items: center;
 }
 
-// Card styling
-@mixin card($padding: 20px, $radius: $radius-xl) {
-    background-color: $color-overlay-light;
-    border-radius: $radius;
-    box-shadow: $shadow-default;
+// Neo-Brutalism Card styling
+// Sharp corners, thick borders, hard shadows
+@mixin card($padding: 20px, $bg-color: $color-bg, $border-color: $color-border) {
+    background-color: $bg-color;
+    border: $border-width solid $border-color;
+    border-radius: $radius-none;
+    box-shadow: $shadow-brutal;
     padding: $padding;
 }
 
-// Hover effect with transform
-@mixin hover-lift($transform: translateY(-2px), $shadow: $shadow-hover) {
-    transition: transform $transition-default, box-shadow $transition-default;
+// Neo-Brutalism colored card
+@mixin card-colored($color, $padding: 20px) {
+    background-color: $color;
+    border: $border-width solid $color-border;
+    border-radius: $radius-none;
+    box-shadow: $shadow-brutal;
+    padding: $padding;
+}
+
+// Neo-Brutalism hover effect
+// Shifts shadow offset on hover for a "pressed" effect
+@mixin hover-brutal {
+    transition: transform $transition-snap, box-shadow $transition-snap;
+    cursor: pointer;
 
     &:hover {
-        transform: $transform;
-        box-shadow: $shadow;
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0 $color-border;
     }
+
+    &:active {
+        transform: translate(4px, 4px);
+        box-shadow: 0 0 0 $color-border;
+    }
+}
+
+// Neo-Brutalism button
+@mixin button-brutal($bg-color: $color-primary, $text-color: $color-text) {
+    background-color: $bg-color;
+    color: $text-color;
+    border: $border-width solid $color-border;
+    border-radius: $radius-none;
+    box-shadow: $shadow-brutal;
+    padding: 12px 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform $transition-snap, box-shadow $transition-snap;
+
+    &:hover {
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0 $color-border;
+    }
+
+    &:active {
+        transform: translate(4px, 4px);
+        box-shadow: 0 0 0 $color-border;
+    }
+}
+
+// Neo-Brutalism divider
+@mixin divider-brutal($color: $color-border, $thickness: $border-width) {
+    border: none;
+    border-top: $thickness solid $color;
+    margin: 2rem 0;
 }
 
 // Responsive breakpoints

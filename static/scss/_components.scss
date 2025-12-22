@@ -1,5 +1,5 @@
 // =========================================================
-// COMPONENTS - Reusable Components
+// COMPONENTS - Reusable Components - NEO-BRUTALISM
 // =========================================================
 
 @use 'variables' as *;
@@ -11,50 +11,139 @@
     max-width: 300px;
 
     &-content {
-        text-align: justify;
+        text-align: left;
         font-size: 16px;
-        color: whitesmoke;
+        color: $color-text;
+        line-height: 1.6;
     }
 
     &-container {
         @include flex-center;
+        gap: 2rem;
+        flex-wrap: wrap;
     }
 }
 
 // Article
 article {
-    padding: 30px 0;
+    padding: 2rem;
+    background-color: $color-bg;
+    border: $border-width solid $color-border;
+    box-shadow: $shadow-brutal;
+    margin: 2rem 0;
 
     @include mobile {
-        padding: 20px 10px;
+        padding: 1.5rem 1rem;
+        margin: 1rem 0;
     }
 
     h1 {
-        font-size: 30px;
+        font-size: 36px;
+        font-weight: 900;
         text-align: center;
-        margin: 0 15% 20px;
-        padding-bottom: 15px;
-        border-bottom: 2px solid $color-primary;
+        margin: 0 0 2rem;
+        padding-bottom: 1rem;
+        border-bottom: $border-width-thick solid $color-border;
+        text-transform: uppercase;
+        letter-spacing: 2px;
 
         @include mobile {
-            font-size: 24px;
-            margin: 0 5% 20px;
+            font-size: 28px;
+            margin: 0 0 1.5rem;
         }
     }
 
+    h2 {
+        font-size: 28px;
+        font-weight: 900;
+        margin: 2rem 0 1rem;
+        padding: 0.5rem 1rem;
+        background-color: $color-primary;
+        border: $border-width solid $color-border;
+        box-shadow: $shadow-brutal-small;
+
+        @include mobile {
+            font-size: 24px;
+        }
+    }
+
+    h3 {
+        font-size: 22px;
+        font-weight: 700;
+        margin: 1.5rem 0 1rem;
+        border-left: $border-width-thick solid $color-accent;
+        padding-left: 1rem;
+    }
+
     p {
-        text-align: justify;
-        line-height: 25px;
+        text-align: left;
+        line-height: 1.8;
         font-size: 18px;
-        padding: 15px 0;
+        padding: 1rem 0;
+        color: $color-text;
+    }
+
+    a {
+        color: $color-text;
+        background-color: $color-info;
+        padding: 2px 6px;
+        border: $border-width-thin solid $color-border;
+        font-weight: 700;
+
+        &:hover {
+            background-color: $color-accent;
+        }
+    }
+
+    ul, ol {
+        margin: 1rem 0;
+        padding-left: 2rem;
+
+        li {
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+    }
+
+    blockquote {
+        margin: 2rem 0;
+        padding: 1.5rem;
+        background-color: $color-bg-alt;
+        border-left: $border-width-thick solid $color-secondary;
+        border: $border-width solid $color-border;
+        box-shadow: $shadow-brutal-small;
+        font-style: italic;
+    }
+
+    code {
+        background-color: $color-bg-alt;
+        padding: 2px 6px;
+        border: $border-width-thin solid $color-border;
+        font-family: 'Courier New', monospace;
+    }
+
+    pre {
+        background-color: $color-bg-alt;
+        padding: 1.5rem;
+        border: $border-width solid $color-border;
+        box-shadow: $shadow-brutal-small;
+        overflow-x: auto;
+        margin: 1.5rem 0;
+
+        code {
+            background: none;
+            border: none;
+            padding: 0;
+        }
     }
 }
 
 img.left {
     float: left;
-    margin: 0 10px 10px 0;
-    padding: 10px;
-    border-radius: 5%;
+    margin: 0 1.5rem 1.5rem 0;
+    padding: 0.5rem;
+    border: $border-width solid $color-border;
+    box-shadow: $shadow-brutal-small;
 }
 
 // PDF Container
@@ -62,12 +151,11 @@ img.left {
     position: relative;
     width: 80%;
     height: 80vh;
-    margin: 0 auto;
+    margin: 2rem auto;
     padding: 20px;
-    background-color: #f5f5f5;
-    border: 1px solid #ccc;
-    border-radius: $radius-l;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: $color-bg-alt;
+    border: $border-width solid $color-border;
+    box-shadow: $shadow-brutal;
     overflow: hidden;
 
     @include mobile {
@@ -83,5 +171,5 @@ img.left {
     inset: 0;
     width: 100%;
     height: 100%;
-    border: none;
+    border: $border-width-thin solid $color-border;
 }

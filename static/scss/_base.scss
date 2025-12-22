@@ -1,5 +1,5 @@
 // =========================================================
-// BASE STYLES
+// BASE STYLES - NEO-BRUTALISM
 // =========================================================
 
 @use 'variables' as *;
@@ -8,6 +8,7 @@
 * {
     font-family: 'Lato', sans-serif;
     color: $color-text;
+    box-sizing: border-box;
 }
 
 html,
@@ -19,7 +20,12 @@ body {
 }
 
 body {
-    background: linear-gradient(to bottom, $color-bg-dark, $color-bg-medium);
+    background: $color-bg;
+    // Optional: Add a subtle grid pattern for neo-brutalism aesthetic
+    background-image:
+        linear-gradient(90deg, rgba(0,0,0,.03) 1px, transparent 1px),
+        linear-gradient(rgba(0,0,0,.03) 1px, transparent 1px);
+    background-size: 20px 20px;
 }
 
 #content {
@@ -30,8 +36,28 @@ body {
     width: 75%;
     max-width: 1200px;
     margin: 0 auto;
+    padding: 2rem 0;
 
     @include mobile {
         width: 90%;
+    }
+}
+
+// Typography enhancements for neo-brutalism
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 900;
+    line-height: 1.2;
+    margin-top: 0;
+}
+
+a {
+    color: $color-text;
+    text-decoration: none;
+    font-weight: 700;
+
+    &:hover {
+        text-decoration: underline;
+        text-decoration-thickness: 3px;
+        text-underline-offset: 4px;
     }
 }
