@@ -1,7 +1,9 @@
 ---
 title_pl: "Kubernetes od zera #1 – Prosty klaster"
 title_en: "Kubernetes from scratch #1 – Simple cluster"
-date: 2025-11-17
+date: 2025-11-14
+author: "Marcin Piotrowski"
+tags: ["Kubernetes", "DevOps", "K8s", "Deployment", "Service", "ConfigMap"]
 description_pl: Pierwszy wpis z serii o Kubernetesie – stworzenie prostego klastra od zera.
 description_en: First post in the Kubernetes series – building a simple cluster from scratch.
 ---
