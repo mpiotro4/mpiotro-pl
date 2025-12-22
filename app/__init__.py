@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, session
 
 
 def create_app():
@@ -17,5 +17,9 @@ def create_app():
     app.register_blueprint(blog_bp)
     app.register_blueprint(projects_bp)
     app.register_blueprint(contact_bp)
+
+    @app.context_processor
+    def inject_language():
+        return {'current_lang': session.get('lang', 'pl')}
 
     return app
