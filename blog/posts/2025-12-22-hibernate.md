@@ -13,15 +13,13 @@ description_en: "Comprehensive explanation of Java ORM ecosystem - what are JPA,
 
 ## Wstęp
 
-ORM (Object-Relational Mapping) to technika programowania, która pozwala mapować encje z bazy danych na obiekty. Pozwala to uniknąć używania surowego SQL na każdym kroku. W przypadku Javy najpopularniejszym ORM-em jest Hibernate, lecz wraz z nim pojawiają się tajemnicze słowa i skróty, min. takie jak JPA, JPQL czy HQL. Przez lata używałem Hibernate'a na zasadzie "jakoś to działa" i nigdy nie zadałem sobie trudu, aby solidnie uporządkować sobie wiedzę na temat wszystkich tych pojęć. Ten wpis ma na celu to zmienić.
+ORM (Object-Relational Mapping) to technika programowania, która pozwala mapować encje z bazy danych na obiekty, aby uniknąć używania surowego SQL na każdym kroku. W przypadku Javy najpopularniejszym ORM-em jest Hibernate, lecz wraz z nim pojawiają się tajemnicze słowa i skróty, min. takie jak JPA, JPQL czy HQL. Przez lata używałem Hibernate'a na zasadzie "jakoś to działa" i nigdy nie zadałem sobie trudu, aby solidnie uporządkować sobie wiedzę na temat wszystkich tych pojęć. Ten wpis ma na celu to zmienić.
 
-Zacznijmy od wysokopoziomowego podsumowania, gdzie w dalszej części wpisu po kolei zostanie omówiony każdy element łańcucha ORM w Javie.
-
-JPA (Standard) → Hibernate (Implementacja) → EntityManager/Session (API do rozmowy) → JPQL/HQL/Criteria API (Język zapytań)
-
+Zacznijmy od wysokopoziomowego podsumowania, gdzie w dalszej części wpisu po kolei zostanie omówiony każdy element. ORM w Javie można przedstawić w postaci poniższego łańcucha:
+**JPA (Standard) → Hibernate (Implementacja) → EntityManager/Session (API do rozmowy) → JPQL/HQL/Criteria API (Język zapytań)**
 ## JPA (Java Persistence API)
 
-Wszystko zaczyna się od JPA, czyli Java Persistence API. Jest to specyfikacja będąca częścią Javy od 2006 roku, która ma na celu ustandaryzować zarządzanie relacyjnymi danymi w aplikacjach. JPA nie jest biblioteką, lecz zestawem interfejsów i reguł, które definiują jak powinien działać ORM.
+Wszystko zaczyna się od JPA, czyli Java Persistence API. Jest to interfejs będąca częścią Javy od 2006 roku, która ma na celu ustandaryzować zarządzanie relacyjnymi danymi w aplikacjach. JPA nie jest biblioteką, lecz zestawem interfejsów i reguł, które definiują jak powinien działać ORM.
 
 JPA wprowadza kluczowe adnotacje takie jak `@Entity`, `@Table`, czy `@Id`:
 ```java
@@ -40,12 +38,14 @@ public class Person {
 Hibernate to najpopularniejsza implementacja standardu JPA. Firma Red Hat wypuściła go w 2001 roku, czyli jeszcze przed powstaniem JPA! Okazał się być na tyle popularny, że kiedy w 2006 roku tworzono specyfikację JPA, w dużej mierze powstała ona na wzór Hibernate.
 
 Co robi Hibernate?
+
 * Implementuje wszystkie interfejsy JPA (min. `EntityManager`, `CriteriaBuilder`)
 * Tłumaczy operacje na obiektach na zapytania SQL
 * Zarządza cyklem życia obiektów (persistent, detached, transient)
 * Optymalizuje wydajność (caching, lazy loading, batch processing)
 
 Dodatkowe możliwości poza JPA:
+
 * Session API - starszy interfejs Hibernate (alternatywa dla `EntityManager`)
 * HQL (Hibernate Query Language) - rozszerzenie JPQL o dodatkowe funkcje
 * Własne typy danych
@@ -53,7 +53,7 @@ Dodatkowe możliwości poza JPA:
 
 ## API do rozmowy z bazą
 
-> Kod źródłowy do tego wpisu dostępny jest w repozytorium github https://github.com/mpiotro4/HibernatePlayground/tree/blog/2025-12-22-hibernate
+> Kod źródłowy do tego wpisu dostępny jest w [repozytorium github]( https://github.com/mpiotro4/HibernatePlayground/tree/blog/2025-12-22-hibernate)
 
 Istnieją dwie implementacje API do rozmowy z bazą - **EntityManager** (JPA) i **Session** (Hibernate). Oba to obiekty, przez które wykonuje się operacje na bazie danych. Pełnią rolę mostu pomiędzy kodem Java a tabelami w bazie.
 
@@ -179,6 +179,5 @@ JPA to standard definiujący jak powinien działać ORM - wprowadza adnotacje (`
 Hibernate to najpopularniejsza implementacja JPA, która realizuje te interfejsy. W praktyce ma ~95% rynku i jest de facto standardem w projektach Java.
 EntityManager (JPA) i Session (Hibernate) to API przez które wykonujesz operacje na bazie - zapisujesz, pobierasz i aktualizujesz dane.
 Języki zapytań dają różne sposoby wyciągania danych: JPQL (standard JPA, stringi na obiektach), HQL (rozszerzenie od Hibernate), Criteria API (type-safe, dynamiczne zapytania) i raw SQL (pełna kontrola gdy ORM nie wystarcza).
-W praktyce nauka JPA + Hibernate pokrywa większość potrzeb. Reszta to niszowe przypadki lub specyficzne wymagania projektów.
 
 ## EN
