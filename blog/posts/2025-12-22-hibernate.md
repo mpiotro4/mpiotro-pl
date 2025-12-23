@@ -53,6 +53,8 @@ Dodatkowe możliwości poza JPA:
 
 ## API do rozmowy z bazą
 
+> Kod źródłowy do tego wpisu dostępny jest w repozytorium github https://github.com/mpiotro4/HibernatePlayground/tree/blog/2025-12-22-hibernate
+
 Istnieją dwie implementacje API do rozmowy z bazą - **EntityManager** (JPA) i **Session** (Hibernate). Oba to obiekty, przez które wykonuje się operacje na bazie danych. Pełnią rolę mostu pomiędzy kodem Java a tabelami w bazie.
 
 ### EntityManager (standard JPA)
