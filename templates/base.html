@@ -32,13 +32,13 @@
             <a href="{{ url_for('main.set_language', language='en') }}"
                class="language-toggle"
                title="Switch to English">
-                🇬🇧 EN
+                <img src="https://flagcdn.com/w20/gb.png" alt="EN" class="flag-icon"> EN
             </a>
         {% else %}
             <a href="{{ url_for('main.set_language', language='pl') }}"
                class="language-toggle"
                title="Przełącz na polski">
-                🇵🇱 PL
+                <img src="https://flagcdn.com/w20/pl.png" alt="PL" class="flag-icon"> PL
             </a>
         {% endif %}
     </div>
