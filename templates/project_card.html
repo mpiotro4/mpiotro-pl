@@ -1,13 +1,23 @@
 {% macro project_card(project, lang) %}
 <div class="project-card-container">
-    <div class="project-card">
-        <div class="project-photo">
-            <img src="{{ project.project_image_url }}" alt="{{ project.project_title[lang] }}">
+    <a href="{{ url_for('projects.project', slug=project.slug) }}" class="project-card-link">
+        <div class="project-card">
+            <div class="project-photo">
+                <img src="{{ url_for('static', filename=project.image.replace('static/', '')) }}" alt="{{ project.title_pl if lang == 'pl' else project.title_en }}">
+            </div>
+            <div class="project-content">
+                <h2>{{ project.title_pl if lang == 'pl' else project.title_en }}</h2>
+                <p>{{ project.description_pl if lang == 'pl' else project.description_en }}</p>
+
+                {% if project.tags %}
+                <div class="project-tags">
+                    {% for tag in project.tags %}
+                        <span class="tag-small">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
         </div>
-        <div class="project-content">
-            <h2>{{ project.project_title[lang] }}</h2>
-            <p>{{ project.project_description[lang] }}</p>
-        </div>
-    </div>
+    </a>
 </div>
 {% endmacro %}

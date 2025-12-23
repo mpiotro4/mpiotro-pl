@@ -632,6 +632,92 @@ img.left {
   border: 0;
 }
 
+.project-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.project-card-link:hover {
+  text-decoration: none;
+}
+
+.project-tags {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-small {
+  display: inline-block;
+  padding: 4px 12px;
+  background-color: rgba(100, 124, 100, 0.15);
+  color: rgb(100, 124, 100);
+  border-radius: 6px;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.tag-small:hover {
+  background-color: rgba(100, 124, 100, 0.25);
+  transform: translateY(-1px);
+}
+
+.project-detail .project-hero-image {
+  margin: 30px 0;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 15px;
+}
+.project-detail .project-hero-image img {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+.project-detail .project-hero-image img:hover {
+  transform: scale(1.02);
+}
+.project-detail .project-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+.project-detail .project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgb(100, 124, 100);
+  border: 2px solid rgb(100, 124, 100);
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+.project-detail .project-link i {
+  font-size: 1.1em;
+}
+.project-detail .project-link:hover {
+  background-color: rgb(100, 124, 100);
+  color: #191d21;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.project-detail .project-link.github-link:hover {
+  background-color: #333;
+  border-color: #333;
+  color: white;
+}
+.project-detail .project-link.demo-link:hover {
+  background-color: #4caf50;
+  border-color: #4caf50;
+  color: white;
+}
+
 .blog-list {
   margin: 30px 0;
 }

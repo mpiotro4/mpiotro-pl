@@ -134,3 +134,108 @@
     background: $color-primary;
     border: 0;
 }
+
+// Project Card Link
+.project-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+// Project Tags
+.project-tags {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag-small {
+    display: inline-block;
+    padding: 4px 12px;
+    background-color: rgba($color-primary, 0.15);
+    color: $color-primary;
+    border-radius: $radius-m;
+    font-size: 0.85em;
+    font-weight: 500;
+    transition: all $transition-default;
+
+    &:hover {
+        background-color: rgba($color-primary, 0.25);
+        transform: translateY(-1px);
+    }
+}
+
+// Project Detail Page
+.project-detail {
+    .project-hero-image {
+        margin: 30px 0;
+        text-align: center;
+        overflow: hidden;
+        border-radius: $radius-xl;
+
+        img {
+            width: 100%;
+            max-width: 900px;
+            border-radius: $radius-xl;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            transition: transform $transition-transform;
+
+            &:hover {
+                transform: scale(1.02);
+            }
+        }
+    }
+
+    .project-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+        flex-wrap: wrap;
+    }
+
+    .project-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        background-color: $color-overlay-medium;
+        color: $color-primary;
+        border: 2px solid $color-primary;
+        border-radius: $radius-m;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all $transition-default;
+
+        i {
+            font-size: 1.1em;
+        }
+
+        &:hover {
+            background-color: $color-primary;
+            color: $color-bg-dark;
+            transform: translateY(-2px);
+            box-shadow: $shadow-default;
+        }
+
+        &.github-link {
+            &:hover {
+                background-color: #333;
+                border-color: #333;
+                color: white;
+            }
+        }
+
+        &.demo-link {
+            &:hover {
+                background-color: #4caf50;
+                border-color: #4caf50;
+                color: white;
+            }
+        }
+    }
+}

@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if lang == 'pl' %}
+        {{ project.title_pl }}
+    {% else %}
+        {{ project.title_en }}
+    {% endif %}
+    - Marcin Piotrowski
+{% endblock %}
+
+{% block content %}
+<article class="blog-post project-detail">
+
+    <div class="blog-post-header">
+        <a href="{{ url_for('projects.index') }}" class="back-link">
+            ← {% if lang == 'pl' %}Powrót do projektów{% else %}Back to projects{% endif %}
+        </a>
+        <h1>
+            {% if lang == 'pl' %}
+                {{ project.title_pl }}
+            {% else %}
+                {{ project.title_en }}
+            {% endif %}
+        </h1>
+
+        {% if project.image %}
+        <div class="project-hero-image">
+            <img src="{{ url_for('static', filename=project.image.replace('static/', '')) }}" alt="{{ project.title_pl if lang == 'pl' else project.title_en }}">
+        </div>
+        {% endif %}
+
+        <div class="blog-dates">
+            <div class="blog-date-item">
+                <i class="fa fa-calendar"></i>
+                <span class="date-label">{% if lang == 'pl' %}Rok{% else %}Year{% endif %}:</span>
+                <span>{{ project.year }}</span>
+            </div>
+
+            {% if project.technologies and project.technologies|length > 0 %}
+            <div class="blog-date-item blog-tags">
+                <i class="fa fa-code"></i>
+                <span class="date-label">{% if lang == 'pl' %}Technologie{% else %}Technologies{% endif %}:</span>
+                <span class="tags-list">
+                    {% for tech in project.technologies %}
+                    <span class="tag">{{ tech }}</span>{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </span>
+            </div>
+            {% endif %}
+
+            {% if project.tags and project.tags|length > 0 %}
+            <div class="blog-date-item blog-tags">
+                <i class="fa fa-tags"></i>
+                <span class="date-label">{% if lang == 'pl' %}Tagi{% else %}Tags{% endif %}:</span>
+                <span class="tags-list">
+                    {% for tag in project.tags %}
+                    <span class="tag">{{ tag }}</span>{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </span>
+            </div>
+            {% endif %}
+
+            {% if project.github or project.demo %}
+            <div class="project-links">
+                {% if project.github %}
+                <a href="{{ project.github }}" target="_blank" rel="noopener noreferrer" class="project-link github-link">
+                    <i class="fa fa-github"></i> GitHub
+                </a>
+                {% endif %}
+                {% if project.demo %}
+                <a href="{{ project.demo }}" target="_blank" rel="noopener noreferrer" class="project-link demo-link">
+                    <i class="fa fa-external-link"></i> {% if lang == 'pl' %}Demo{% else %}Demo{% endif %}
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="blog-post-content">
+        {{ content | safe }}
+    </div>
+
+    <div class="blog-post-footer">
+        <a href="{{ url_for('projects.index') }}" class="back-link">
+            ← {% if lang == 'pl' %}Powrót do projektów{% else %}Back to projects{% endif %}
+        </a>
+    </div>
+
+</article>
+{% endblock %}
