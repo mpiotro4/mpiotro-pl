@@ -10,7 +10,6 @@ header {
     font-size: 40px;
     text-align: center;
     margin-bottom: 8px;
-    animation: fadeInUp 1s ease-out;
 
     @include mobile {
         font-size: 30px;
@@ -19,15 +18,7 @@ header {
     #top_title {
         display: inline-block;
         vertical-align: top;
-        background: linear-gradient(135deg,
-            rgba(100, 124, 100, 1) 0%,
-            rgba(150, 180, 150, 1) 50%,
-            rgba(100, 124, 100, 1) 100%);
-        background-size: 200% auto;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        animation: gradientShift 4s ease-in-out infinite;
+        color: $color-primary;
     }
 
     #bottom_ttile {
@@ -37,24 +28,6 @@ header {
         @include mobile {
             font-size: 20px;
         }
-    }
-}
-
-@keyframes gradientShift {
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-}
-
-@keyframes textGlow {
-    0%, 100% {
-        filter: drop-shadow(0 0 10px rgba(100, 124, 100, 0.5));
-    }
-    50% {
-        filter: drop-shadow(0 0 20px rgba(100, 124, 100, 0.8));
     }
 }
 
