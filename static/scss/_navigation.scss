@@ -100,10 +100,12 @@ div.menu {
     &:hover {
         background-color: rgba(0, 0, 0, 0.15);
         transform: translateY(-2px);
+        box-shadow: $glow-primary;
 
         &::after {
             width: 60%;
             left: 20%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
     }
 

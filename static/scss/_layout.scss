@@ -10,22 +10,61 @@ header {
     font-size: 40px;
     text-align: center;
     margin-bottom: 8px;
+    animation: fadeInUp 1s ease-out;
 
     @include mobile {
         font-size: 30px;
     }
 
+    #top_title {
+        display: inline-block;
+        vertical-align: top;
+        background: linear-gradient(135deg,
+            rgba(100, 124, 100, 1) 0%,
+            rgba(150, 180, 150, 1) 50%,
+            rgba(100, 124, 100, 1) 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradientShift 3s ease-in-out infinite,
+                   textGlow 2s ease-in-out infinite;
+        filter: drop-shadow(0 0 10px rgba(100, 124, 100, 0.5));
+    }
+
     #bottom_ttile {
         font-size: 30px;
+        background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.6) 0%,
+            rgba(255, 255, 255, 0.9) 50%,
+            rgba(255, 255, 255, 0.6) 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: gradientShift 4s ease-in-out infinite;
 
         @include mobile {
             font-size: 20px;
         }
     }
+}
 
-    #top_title {
-        display: inline-block;
-        vertical-align: top;
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes textGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 10px rgba(100, 124, 100, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(100, 124, 100, 0.8));
     }
 }
 
@@ -41,9 +80,26 @@ footer {
     border-top: 2px solid $color-primary;
     border-radius: 5px;
     background: linear-gradient(to bottom, #191d21, #1d1e22);
+    box-shadow: 0 -2px 15px rgba(100, 124, 100, 0.2);
+    transition: all 0.3s ease;
 
     @include mobile {
         width: 90%;
         margin-bottom: 50px;
+    }
+
+    a, #email-link {
+        transition: all 0.3s ease;
+        display: inline-block;
+
+        &:hover {
+            transform: translateY(-3px) scale(1.1);
+            text-shadow: $glow-primary;
+            filter: drop-shadow(0 0 8px rgba(100, 124, 100, 0.8));
+        }
+    }
+
+    i {
+        transition: all 0.3s ease;
     }
 }

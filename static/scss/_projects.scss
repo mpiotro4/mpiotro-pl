@@ -33,7 +33,14 @@
         margin-right: 20px;
         border-radius: $radius-xl;
         box-shadow: $shadow-default;
-        transition: transform $transition-transform;
+        transition: all 0.4s ease;
+        border: 2px solid transparent;
+
+        &:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: $shadow-hover, $glow-hover;
+            border-color: rgba(100, 124, 100, 0.5);
+        }
 
         @include mobile {
             margin: 0;
@@ -78,12 +85,16 @@
     cursor: pointer;
 
     &:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        transform: translateY(-6px) scale(1.02);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4),
+                    $glow-hover,
+                    inset 0 1px 0 rgba(255, 255, 255, 0.2);
         border-color: $color-primary;
+        background: rgba(255, 255, 255, 0.1);
 
         .project-photo img {
-            transform: scale(1.05);
+            transform: scale(1.08);
+            box-shadow: $glow-primary;
         }
     }
 

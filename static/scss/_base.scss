@@ -19,7 +19,50 @@ body {
 }
 
 body {
-    background: linear-gradient(to bottom, $color-bg-dark, $color-bg-medium);
+    background: $color-bg-dark;
+    position: relative;
+    overflow-x: hidden;
+
+    // Animated gradient background
+    &::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, $color-bg-dark, $color-bg-medium);
+        z-index: -2;
+    }
+
+    // Animated glowing orbs
+    &::after {
+        content: "";
+        position: fixed;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background:
+            radial-gradient(circle at 20% 30%, $gradient-color-1 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, $gradient-color-2 0%, transparent 50%),
+            radial-gradient(circle at 40% 80%, $gradient-color-3 0%, transparent 50%);
+        animation: floatingOrbs 20s ease-in-out infinite;
+        z-index: -1;
+        opacity: 0.7;
+    }
+}
+
+@keyframes floatingOrbs {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    33% {
+        transform: translate(5%, 10%) rotate(120deg);
+    }
+    66% {
+        transform: translate(-5%, 5%) rotate(240deg);
+    }
 }
 
 #content {
@@ -34,4 +77,16 @@ body {
     @include mobile {
         width: 90%;
     }
+}
+
+// Particle canvas
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.4;
 }
