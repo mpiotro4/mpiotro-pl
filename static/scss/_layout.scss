@@ -27,22 +27,12 @@ header {
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
-        animation: gradientShift 3s ease-in-out infinite,
-                   textGlow 2s ease-in-out infinite;
-        filter: drop-shadow(0 0 10px rgba(100, 124, 100, 0.5));
+        animation: gradientShift 4s ease-in-out infinite;
     }
 
     #bottom_ttile {
         font-size: 30px;
-        background: linear-gradient(90deg,
-            rgba(255, 255, 255, 0.6) 0%,
-            rgba(255, 255, 255, 0.9) 50%,
-            rgba(255, 255, 255, 0.6) 100%);
-        background-size: 200% auto;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        animation: gradientShift 4s ease-in-out infinite;
+        color: rgba(255, 255, 255, 0.8);
 
         @include mobile {
             font-size: 20px;
@@ -93,9 +83,7 @@ footer {
         display: inline-block;
 
         &:hover {
-            transform: translateY(-3px) scale(1.1);
-            text-shadow: $glow-primary;
-            filter: drop-shadow(0 0 8px rgba(100, 124, 100, 0.8));
+            transform: translateY(-2px);
         }
     }
 
