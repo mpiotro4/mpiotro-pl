@@ -1,26 +1,30 @@
 ---
-title_pl: ""
-title_en: ""
+title_pl: "Tokenizery w modelach językowych - praktyczne porównanie"
+title_en: "Tokenizers in Language Models - A Practical Comparison"
 date: 2025-12-26
 author: "Marcin Piotrowski"
-tags: []
-description_pl: ""
-description_en: ""
+tags: ["NLP", "tokenization", "transformers", "LLM", "BERT", "GPT"]
+description_pl: "Praktyczny przewodnik po tokenizerach w dużych modelach językowych. Porównanie działania tokenizers BERT, GPT-4, GPT-2, T5, StarCoder i XLM-RoBERTa na przykładach wielojęzycznych."
+description_en: "A practical guide to tokenizers in large language models. Comparison of BERT, GPT-4, GPT-2, T5, StarCoder and XLM-RoBERTa tokenizers with multilingual examples."
 ---
 
 ## PL
 
 ## Wstęp
 
+Tokenizer to jeden z najważniejszych, choć często pomijanych komponentów każdego dużego modelu językowego. Jego wybór ma bezpośredni wpływ na wydajność modelu, jakość wyników oraz efektywność przetwarzania tekstu. W tym artykule przyjrzymy się praktycznemu działaniu różnych tokenizerów i zobaczymy, jak radzą sobie z wielojęzycznymi tekstami, emoji i kodem źródłowym.
+
 > Prezentowany materiał został opracowany w oparciu o wiedzę zdobytą podczas krótkiego, darmowego kursu dostępnego na platformie deeplearning.ai: [How Transformer LLMs Work](https://www.deeplearning.ai/short-courses/how-transformer-llms-work/)
 
 ## Tokenizer - most między człowiekiem a modelem
 
-Tokenizer stanowi punkt wejścia do każdego dużego modelu językowego. Można powiedzieć, że stanowi most pomiędzy człowiekiem a modelem, ponieważ model nie operuje bezpośrednio na słowach czy literach, lecz na tokenach. W praktyce często upraszcza się, że słowo = token, lecz w rzeczywistości jedno słowo może składać się z wielu tokenów. Każdy LLM posiada swój własny słownik tokenów - każdy token ma unikalne ID. Zadaniem tokenizera jest zamiana tekstu na ciąg tokenów i przekazanie listy ich ID, aby model mógł wykonać swoją pracę. W tym wpisie przybliżę działanie różnych tokenizerów w praktyce i zaobserwujemy różnice między nimi, nie wchodząc w szczegóły techniczne. Wykorzystamy do tego celu API Hugging Face.
+Tokenizer stanowi punkt wejścia do każdego dużego modelu językowego. Można powiedzieć, że stanowi most pomiędzy człowiekiem a modelem, ponieważ model nie operuje bezpośrednio na słowach czy literach, lecz na tokenach. W praktyce często upraszcza się, że słowo = token, lecz w rzeczywistości jedno słowo może składać się z wielu tokenów. 
+Każdy LLM posiada swój własny słownik tokenów - każdy token ma unikalne ID. Zadaniem tokenizera jest zamiana tekstu na ciąg tokenów i przekazanie listy ich ID, aby model mógł wykonać swoją pracę. 
+W tym wpisie przybliżę działanie różnych tokenizerów w praktyce i zaobserwujemy różnice między nimi, nie wchodząc w szczegóły techniczne. Wykorzystamy do tego celu API Hugging Face.
 
 ## Praktyczna demonstracja
 
-Aby dokonać zamiany tekstu na tokeny, wystarczy kilknia lini kodu:
+Aby dokonać zamiany tekstu na tokeny, wystarczy kilka linii kodu:
 
 ```python
 from transformers import AutoTokenizer
@@ -49,7 +53,7 @@ print(tokens)
 
 ### Dekodowanie tokenów
 
-Aby zdekodować id tokenów, do konkretnych słów wystarczy użyć funkcji `decode`
+Aby zdekodować ID tokenów do konkretnych słów, wystarczy użyć funkcji `decode`:
 
 ```python
 for id in token_ids:
@@ -63,16 +67,16 @@ world
 [SEP]
 ```
 
-W zdekodowanych tokenach poza słowami widzimy jeszcze tzw. tokeny specjalne, mają one następujące znaczenia:
+W zdekodowanych tokenach poza słowami widzimy tzw. **tokeny specjalne**, które mają następujące znaczenia:
 
 - **`[CLS]`** (*classification*) - token inicjalizujący sekwencję, wykorzystywany w zadaniach klasyfikacyjnych
 - **`[SEP]`** (*separator*) - delimiter segmentujący lub terminujący sekwencję
 - **`[UNK]`** (*unknown*) - reprezentacja tokenów nieobecnych w słowniku
 - **`[PAD]`** (*padding*) - wyrównanie długości sekwencji w batch'ach
 
-Powyższy przykład demonstruje operacje wykonywane przez każdy LLM podczas obsługi naszych zapytań. Najpierw wejściowy prompt jest zamieniany na tokeny, z kolei na sam koniec tokeny są z powrotem dekodowane do tekst aby użytkownik mógł go przeczytać.
+Powyższy przykład demonstruje operacje wykonywane przez każdy LLM podczas obsługi naszych zapytań. Najpierw wejściowy prompt jest zamieniany na tokeny, następnie model przetwarza te tokeny, a na sam koniec są one dekodowane z powrotem do tekstu, aby użytkownik mógł go przeczytać.
 
-### Porównanie tokenizerów
+## Porównanie tokenizerów
 
 Aby systematycznie przeanalizować różnice w implementacjach tokenizerów, przygotowano tekst testowy zawierający wyzwania charakterystyczne dla przetwarzania języka naturalnego:
 
@@ -195,7 +199,7 @@ Vocab length: 250002
 - Minimalna fragmentacja słów w języku polskim
 - Tokeny `<s>` i `</s>` na początku i końcu sekwencji.
 
-### Kluczowe obserwacje
+## Kluczowe obserwacje
 
 | Aspekt | Wnioski |
 |--------|---------|
@@ -204,6 +208,47 @@ Vocab length: 250002
 | **Obsługa emoji i Unicode** | Modele nowszej generacji (XLM-RoBERTa, GPT-4) radzą sobie znacząco lepiej |
 | **Specjalizacja** | Modele domenowe (StarCoder dla kodu) lepiej obsługują swoją dziedzinę |
 | **Język polski** | Najlepsza obsługa w XLM-RoBERTa dzięki wielojęzycznemu treningowi i dużemu słownikowi |
+
+## Co to oznacza w praktyce?
+
+Wybór odpowiedniego tokenizera powinien być uzależniony od konkretnego przypadku użycia:
+
+**Dla tekstów angielskich:**
+- Większość tokenizerów zapewni dobre rezultaty
+- GPT-4 i XLM-RoBERTa oferują najlepszą efektywność
+
+**Dla generacji kodu:**
+- **StarCoder** - dedykowany, precyzyjny w obsłudze składni
+- GPT-4 - uniwersalny, sprawdza się również w kodzie
+
+**Dla tekstów wielojęzycznych (w tym polskiego):**
+- **XLM-RoBERTa** - bezkonkurencyjny lider
+- Modele anglojęzyczne (BERT, GPT-2) mogą znacząco fragmentować tekst
+
+**Dla emoji i Unicode:**
+- Nowsze modele (XLM-RoBERTa, GPT-4, Qwen)
+- Unikaj starszych tokenizerów (GPT-2, wczesne BERT)
+
+## Podsumowanie
+
+Tokenizer to często niedoceniany, ale kluczowy element każdego LLM. Jak pokazują powyższe porównania, różnice między tokenizerami mogą być znaczące - szczególnie przy pracy z językami innymi niż angielski, znakami specjalnymi czy kodem źródłowym.
+
+Wybór tokenizera ma bezpośredni wpływ na:
+- **Efektywność** - mniej tokenów = szybsze przetwarzanie i niższe koszty API
+- **Jakość** - lepsza reprezentacja = lepsze zrozumienie kontekstu przez model
+- **Uniwersalność** - wsparcie dla różnych języków i formatów tekstu
+
+Warto eksperymentować z różnymi modelami i tokenizerami, aby znaleźć optymalne rozwiązanie dla swojego przypadku użycia.
+
+A no i ostatnia uwaga na marginesie, emoji 🥸 jest stosunkowo nowe (Unicode 13.0, 2020) więc najprawdopodobniej dlatego żaden z tokenizerów go poprawnie nie rozpoznał 
+
+
+## Przydatne linki
+
+- [Hugging Face Tokenizers](https://huggingface.co/docs/tokenizers/index)
+- [Tokenizer Arena - interaktywne porównanie](https://huggingface.co/spaces/Xenova/the-tokenizer-playground)
+- [Kurs: How Transformer LLMs Work](https://www.deeplearning.ai/short-courses/how-transformer-llms-work/)
+- [OpenAI Tokenizer](https://platform.openai.com/tokenizer)
 
 
 ## EN
