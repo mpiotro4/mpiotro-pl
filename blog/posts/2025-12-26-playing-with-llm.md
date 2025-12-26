@@ -35,6 +35,14 @@ tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
 tokens = tokenizer(sentence)
 ```
 
+`AutoTokenizer` to jedna z klas API Hugging Face, które udostępnia tysiące modeli na zasadach open source. Na podstawie podanej nazwy modelu (w tym przypadku `bert-base-cased`) automatycznie:
+
+1. Pobiera odpowiedni tokenizer z repozytorium Hugging Face
+2. Ładuje jego konfigurację i słownik
+3. Zapisuje go lokalnie w cache na przyszłość
+
+Dzięki temu nie musimy ręcznie sprawdzać, jakiego konkretnie tokenizera użyć - `AutoTokenizer` rozpoznaje typ modelu i ładuje właściwą implementację.
+
 ### Struktura obiektu BatchEncoding
 
 Zwrócony obiekt `tokens` jest instancją klasy `BatchEncoding`, która implementuje interfejs słownikowy i zawiera następujące komponenty:
