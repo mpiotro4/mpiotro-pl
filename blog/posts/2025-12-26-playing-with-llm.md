@@ -223,35 +223,28 @@ Vocab length: 250002
 
 Wybór odpowiedniego tokenizera powinien być uzależniony od konkretnego przypadku użycia:
 
-**Dla tekstów angielskich:**
-- Większość tokenizerów zapewni dobre rezultaty
-- GPT-4 i XLM-RoBERTa oferują najlepszą efektywność
-
-**Dla generacji kodu:**
-- **StarCoder** - dedykowany, precyzyjny w obsłudze składni
-- GPT-4 - uniwersalny, sprawdza się również w kodzie
-
-**Dla tekstów wielojęzycznych (w tym polskiego):**
-- **XLM-RoBERTa** - bezkonkurencyjny lider
-- Modele anglojęzyczne (BERT, GPT-2) mogą znacząco fragmentować tekst
-
-**Dla emoji i Unicode:**
-- Nowsze modele (XLM-RoBERTa, GPT-4, Qwen)
-- Unikaj starszych tokenizerów (GPT-2, wczesne BERT)
+* **Dla tekstów angielskich:**
+    - Większość tokenizerów zapewni dobre rezultaty
+    - GPT-4 i XLM-RoBERTa oferują najlepszą efektywność
+* **Dla generacji kodu:**
+    - **StarCoder** - dedykowany, precyzyjny w obsłudze składni 
+    - GPT-4 - uniwersalny, sprawdza się również w kodzie
+* **Dla tekstów wielojęzycznych (w tym polskiego):**
+    - **XLM-RoBERTa** - bezkonkurencyjny lider
+    - Modele anglojęzyczne (BERT, GPT-2) mogą znacząco fragmentować tekst
+* **Dla emoji i Unicode:**
+    - Nowsze modele (XLM-RoBERTa, GPT-4, Qwen)
+    - Unikaj starszych tokenizerów (GPT-2, wczesne BERT)
 
 ## Podsumowanie
 
 Tokenizer to często niedoceniany, ale kluczowy element każdego LLM. Jak pokazują powyższe porównania, różnice między tokenizerami mogą być znaczące - szczególnie przy pracy z językami innymi niż angielski, znakami specjalnymi czy kodem źródłowym.
-
 Wybór tokenizera ma bezpośredni wpływ na:
 - **Efektywność** - mniej tokenów = szybsze przetwarzanie i niższe koszty API
 - **Jakość** - lepsza reprezentacja = lepsze zrozumienie kontekstu przez model
 - **Uniwersalność** - wsparcie dla różnych języków i formatów tekstu
-
 Warto eksperymentować z różnymi modelami i tokenizerami, aby znaleźć optymalne rozwiązanie dla swojego przypadku użycia.
-
-A no i ostatnia uwaga na marginesie, emoji 🥸 jest stosunkowo nowe (Unicode 13.0, 2020) więc najprawdopodobniej dlatego żaden z tokenizerów go poprawnie nie rozpoznał 
-
+A no i ostatnia uwaga na marginesie, emoji 🥸 jest stosunkowo nowe (Unicode 13.0, 2020) więc najprawdopodobniej dlatego żaden z tokenizerów go poprawnie nie rozpoznał
 
 ## Przydatne linki
 
