@@ -15,6 +15,8 @@ description_en: "A practical guide to tokenizers in large language models. Compa
 Tokenizer to jeden z najważniejszych, choć często pomijanych komponentów każdego dużego modelu językowego. Jego wybór ma bezpośredni wpływ na wydajność modelu, jakość wyników oraz efektywność przetwarzania tekstu. W tym artykule przyjrzymy się praktycznemu działaniu różnych tokenizerów i zobaczymy, jak radzą sobie z wielojęzycznymi tekstami, emoji i kodem źródłowym.
 
 > Prezentowany materiał został opracowany w oparciu o wiedzę zdobytą podczas krótkiego, darmowego kursu dostępnego na platformie deeplearning.ai: [How Transformer LLMs Work](https://www.deeplearning.ai/short-courses/how-transformer-llms-work/)
+> **Kod źródłowy:** Wszystkie eksperymenty z tego artykułu dostępne są w : [Google Colab - Tokenizer Comparison](https://colab.research.google.com/drive/1nuKOvO3WqcEySQeHeUEa4ZzzheRX7FFw?usp=sharing)
+
 
 ## Tokenizer - most między człowiekiem a modelem
 
