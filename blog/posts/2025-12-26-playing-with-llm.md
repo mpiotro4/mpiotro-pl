@@ -2,20 +2,25 @@
 title_pl: "Tokenizery w modelach językowych - praktyczne porównanie"
 title_en: "Tokenizers in Language Models - A Practical Comparison"
 date: 2025-12-26
+updated: 2025-12-28
 author: "Marcin Piotrowski"
 tags: ["NLP", "tokenization", "transformers", "LLM", "BERT", "GPT"]
-description_pl: "Praktyczny przewodnik po tokenizerach w dużych modelach językowych. Porównanie działania tokenizers BERT, GPT-4, GPT-2, T5, StarCoder i XLM-RoBERTa na przykładach wielojęzycznych."
-description_en: "A practical guide to tokenizers in large language models. Comparison of BERT, GPT-4, GPT-2, T5, StarCoder and XLM-RoBERTa tokenizers with multilingual examples."
+description_pl: "Praktyczny przewodnik po tokenizerach w dużych modelach językowych. Porównanie BERT, GPT-4, GPT-2, T5, StarCoder i XLM-RoBERTa na przykładach wielojęzycznych oraz budowa własnego tokenizera od podstaw."
+description_en: "A practical guide to tokenizers in large language models. Comparison of BERT, GPT-4, GPT-2, T5, StarCoder and XLM-RoBERTa with multilingual examples, plus building your own tokenizer from scratch."
 ---
 
 ## PL
 
 ## Wstęp
 
-Tokenizer to jeden z najważniejszych, choć często pomijanych komponentów każdego dużego modelu językowego. Jego wybór ma bezpośredni wpływ na wydajność modelu, jakość wyników oraz efektywność przetwarzania tekstu. W tym artykule przyjrzymy się praktycznemu działaniu różnych tokenizerów i zobaczymy, jak radzą sobie z wielojęzycznymi tekstami, emoji i kodem źródłowym.
+Tokenizer to jeden z najważniejszych, choć często pomijanych komponentów każdego dużego modelu językowego. Jego wybór ma bezpośredni wpływ na wydajność modelu, jakość wyników oraz efektywność przetwarzania tekstu.
+W tym artykule:
+- Przyjrzymy się praktycznemu działaniu różnych tokenizerów
+- Porównamy ich zachowanie na tekstach wielojęzycznych, emoji i kodzie
+- Zbudujemy własny, prosty tokenizer od podstaw
 
 > Prezentowany materiał został opracowany w oparciu o wiedzę zdobytą podczas krótkiego, darmowego kursu dostępnego na platformie deeplearning.ai: [How Transformer LLMs Work](https://www.deeplearning.ai/short-courses/how-transformer-llms-work/)
-> **Kod źródłowy:** Wszystkie eksperymenty z tego artykułu dostępne są w : [Google Colab - Tokenizer Comparison](https://colab.research.google.com/drive/1nuKOvO3WqcEySQeHeUEa4ZzzheRX7FFw?usp=sharing)
+> **Kod źródłowy:** [Google Colab - Tokenizer Comparison](https://colab.research.google.com/drive/1nuKOvO3WqcEySQeHeUEa4ZzzheRX7FFw?usp=sharing)
 
 
 ## Tokenizer - most między człowiekiem a modelem
@@ -109,7 +114,7 @@ Przykładowe zdanie w języku polskim, żółć
 
 #### Wyniki porównania
 
-### 🔹 BERT base-cased
+### BERT base-cased
 **Charakterystyka:** Model BERT z zachowaniem wielkości liter, słownik: 28,996 tokenów
 ```
 Vocab length: 28996
@@ -121,7 +126,9 @@ Vocab length: 28996
 - Brak wsparcia dla emoji → tokeny `[UNK]`
 - Obsługuje polskie znaki diakrytyczne, lecz rozbija je na osobne tokeny 
 
-### 🔹 BERT base-uncased
+---
+
+### BERT base-uncased
 **Charakterystyka:** Wariant BERT z normalizacją do małych liter, słownik: 30,522 tokenów
 ```
 ocab length: 30522
@@ -131,6 +138,8 @@ ocab length: 30522
 - Całkowita utrata informacji o wielkości liter
 - Nieznacznie większy słownik niż wersja *cased*
 - Podobne problemy z reprezentacją znaków specjalnych, ponadto utrata części informacji (ż -> z)
+
+---
 
 ### Xenova/gpt-4
 **Charakterystyka:** Implementacja tokenizera GPT-4, słownik: 100,263 tokeny
@@ -149,6 +158,8 @@ Vocab length: 100263
 - Umiarkowane wsparcie dla języka polskiego, dalej rozbija polskie słowa na wiele tokenów
 - Problematyczna reprezentacja emoji
 
+---
+
 ### gpt2
 **Charakterystyka:** Klasyczny tokenizer GPT-2 (BPE), słownik: 50,257 tokenów
 
@@ -166,6 +177,8 @@ Vocab length: 50257
 - Nieprecyzyjna obsługa sekwencji białych znaków
 - Brak obsługi części polskich znaków
 
+---
+
 ### google/flan-t5-small
 **Charakterystyka:** Kompaktowy model T5 (Text-to-Text Transfer Transformer) z instrukcyjnym fine-tuningiem, słownik: 32,100 tokenów
 ```
@@ -176,6 +189,8 @@ English and CA PI TAL IZ ATION  <unk>  <unk>  <unk> show _ to ken s Fal s e None
 - Token `</s>` jako marker końca sekwencji (charakterystyczny dla T5)
 - `<unk>` dla znaków spoza słownika
 - Ograniczona efektywność dla tekstów wielojęzycznych
+
+---
 
 ### BigCode StarCoder2-15B
 
@@ -196,6 +211,8 @@ Vocab length: 49152
 - Rozsądna reprezentacja polskich znaków diakrytycznych
 - Nadal problematyczna obsługa emoji
 
+---
+
 ### xlm-roberta-large
 **Charakterystyka:** Wielojęzyczny model Transformer, słownik: 250,002 tokeny
 
@@ -208,6 +225,8 @@ Vocab length: 250002
 - Rozpoznawanie emoji muzycznej 🎵 i chińskiego znaku 鸟
 - Minimalna fragmentacja słów w języku polskim
 - Tokeny `<s>` i `</s>` na początku i końcu sekwencji.
+
+---
 
 ## Kluczowe obserwacje
 
@@ -236,15 +255,56 @@ Wybór odpowiedniego tokenizera powinien być uzależniony od konkretnego przypa
     - Nowsze modele (XLM-RoBERTa, GPT-4, Qwen)
     - Unikaj starszych tokenizerów (GPT-2, wczesne BERT)
 
+
+## Własny tokenizer
+
+> Przykład własnego tokenizera pochodzi z kursu Andreja Karpathy'ego: [Building makemore](https://www.youtube.com/watch?v=kCc8FmEb1nY)
+
+Możemy również stworzyć własny tokenizer. Nie będzie on tak zaawansowany jak wcześniej omawiane, lecz świetnie nada się do celów edukacyjnych. Zbudujemy najprostszy możliwy tokenizer, w którym tokenami są pojedyncze znaki.
+Zaczniemy od tekstu, który chcemy podzielić na tokeny. Wykorzystamy publicznie dostępny dataset zawierający wszystkie teksty Shakespearea: [Tiny Shakespeare](https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt)
+Po wczytaniu całego datasetu wystarczy zamienić go na `set`, aby uzyskać zbiór unikalnych znaków. Następnie konwertujemy z powrotem do listy i sortujemy:
+```python
+chars = sorted(list(set(text)))
+vocab_size = len(chars)
+print(''.join(chars))
+print(vocab_size)
+```
+```
+ !$&',-.3:;?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz
+65
+```
+Nasz słownik zawiera 65 tokenów - wszystkie litery alfabetu oraz niektóre znaki specjalne.
+Następnie potrzebujemy funkcji do kodowania tekstu na tokeny oraz dekodowania tokenów z powrotem do tekstu. W tym celu tworzymy dwa słowniki mapujące:
+
+- **`stoi`** (string to integer) - znaki → liczby
+- **`itos`** (integer to string) - liczby → znaki
+```python
+# Mapowanie znaków na liczby i odwrotnie
+stoi = { ch:i for i,ch in enumerate(chars) }
+itos = { i:ch for i,ch in enumerate(chars) }
+
+# Funkcje kodujące i dekodujące
+encode = lambda s: [stoi[c] for c in s]  # tekst → lista liczb
+decode = lambda l: ''.join([itos[i] for i in l])  # lista liczb → tekst
+
+print(encode("hii there"))
+print(decode(encode("hii there")))
+```
+```
+[46, 47, 47, 1, 58, 46, 43, 56, 43]
+hii there
+```
+I to wszystko! Tak prosty tokenizer na pewno nie pozwoli na skonstruowanie zaawansowanego LLM, ale można z jego użyciem zbudować prosty transformer i zaobserwować działanie mechanizmu attention. O tym w kolejnych wpisach.
+
 ## Podsumowanie
 
 Tokenizer to często niedoceniany, ale kluczowy element każdego LLM. Jak pokazują powyższe porównania, różnice między tokenizerami mogą być znaczące - szczególnie przy pracy z językami innymi niż angielski, znakami specjalnymi czy kodem źródłowym.
 Wybór tokenizera ma bezpośredni wpływ na:
 - **Efektywność** - mniej tokenów = szybsze przetwarzanie i niższe koszty API
 - **Jakość** - lepsza reprezentacja = lepsze zrozumienie kontekstu przez model
-- **Uniwersalność** - wsparcie dla różnych języków i formatów tekstu
+- **Uniwersalność** - wsparcia dla różnych języków i formatów tekstu
 Warto eksperymentować z różnymi modelami i tokenizerami, aby znaleźć optymalne rozwiązanie dla swojego przypadku użycia.
-A no i ostatnia uwaga na marginesie, emoji 🥸 jest stosunkowo nowe (Unicode 13.0, 2020) więc najprawdopodobniej dlatego żaden z tokenizerów go poprawnie nie rozpoznał
+**Ciekawostka na koniec:** Emoji 🥸 (twarz z wąsami i okularami) jest stosunkowo nowe (Unicode 13.0, 2020), dlatego żaden z testowanych tokenizerów nie rozpoznał go poprawnie - większość modeli była trenowana wcześniej i nie ma tego znaku w swoim słowniku.
 
 ## Przydatne linki
 
