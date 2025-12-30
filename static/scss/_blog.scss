@@ -7,31 +7,31 @@
 
 // Blog List
 .blog-list {
-    margin: 30px 0;
+    margin: 32px 0;
 }
 
 .blog-card {
-    @include card(20px, $radius-l);
-    background-color: $color-overlay-light;
-    border: 1px solid $color-border;
+    @include card(24px, $radius-l);
+    border: 1px solid $color-border-subtle;
     margin: 20px 0;
     @include hover-lift;
 
     &:hover {
-        border-color: $color-primary;
+        border-color: $color-border-light;
     }
 
     @include mobile {
-        padding: 15px;
-        margin: 15px 0;
+        padding: 16px;
+        margin: 16px 0;
     }
 
     h2 {
-        margin: 0 0 10px;
-        font-size: 24px;
+        margin: 0 0 12px;
+        font-size: 22px;
+        font-weight: 500;
 
         @include mobile {
-            font-size: 20px;
+            font-size: 19px;
         }
 
         a {
@@ -40,7 +40,7 @@
             transition: color $transition-default;
 
             &:hover {
-                color: $color-primary;
+                color: $color-primary-light;
             }
         }
     }
@@ -279,26 +279,24 @@
 
 // Blog Post Page
 .blog-post {
-    padding: 30px 0;
+    padding: 32px 0;
 
     &-header {
-        margin-bottom: 40px;
+        margin-bottom: 36px;
     }
 
     &-content {
-        @include card(30px, $radius-l);
-        background-color: $color-overlay-light;
-        border: 1px solid $color-border-light;
-        margin: 30px 0;
-        box-shadow: $shadow-light;
-        line-height: 1.6;
+        @include card(32px, $radius-l);
+        border: 1px solid $color-border-subtle;
+        margin: 28px 0;
+        line-height: 1.7;
         font-size: 16px;
 
         @include mobile {
             font-size: 15px;
-            padding: 15px;
+            padding: 18px;
             margin: 20px 0;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         // Headings

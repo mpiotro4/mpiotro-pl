@@ -8,12 +8,20 @@
 // Generic Cards
 .card {
     @include card;
-    max-width: 300px;
+    max-width: 320px;
+    transition: transform $transition-default, box-shadow $transition-default, border-color $transition-default;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-hover;
+        border-color: $color-border-light;
+    }
 
     &-content {
         text-align: justify;
         font-size: 16px;
-        color: whitesmoke;
+        color: $color-text-bright;
+        line-height: 1.7;
     }
 
     &-container {
@@ -23,38 +31,46 @@
 
 // Article
 article {
-    padding: 30px 0;
+    padding: 32px 0;
 
     @include mobile {
-        padding: 20px 10px;
+        padding: 20px 8px;
     }
 
     h1 {
-        font-size: 30px;
+        font-size: 32px;
         text-align: center;
-        margin: 0 15% 20px;
-        padding-bottom: 15px;
+        margin: 0 12% 24px;
+        padding-bottom: 16px;
         border-bottom: 2px solid $color-primary;
+        font-weight: 300;
+        letter-spacing: 1px;
+        background: linear-gradient(135deg, $color-text 0%, rgba(255, 255, 255, 0.85) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
 
         @include mobile {
             font-size: 24px;
-            margin: 0 5% 20px;
+            margin: 0 4% 20px;
         }
     }
 
     p {
         text-align: justify;
-        line-height: 25px;
-        font-size: 18px;
-        padding: 15px 0;
+        line-height: 1.75;
+        font-size: 17px;
+        padding: 12px 0;
+        color: $color-text-bright;
     }
 }
 
 img.left {
     float: left;
-    margin: 0 10px 10px 0;
-    padding: 10px;
-    border-radius: 5%;
+    margin: 0 16px 12px 0;
+    padding: 8px;
+    border-radius: $radius-l;
+    box-shadow: $shadow-default;
 }
 
 // PDF Container
@@ -63,18 +79,17 @@ img.left {
     width: 80%;
     height: 80vh;
     margin: 0 auto;
-    padding: 20px;
-    background-color: #f5f5f5;
-    border: 1px solid #ccc;
+    padding: 16px;
+    background-color: rgba(245, 245, 245, 0.95);
+    border: 1px solid $color-border-subtle;
     border-radius: $radius-l;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: $shadow-default;
     overflow: hidden;
 
     @include mobile {
         width: 100%;
         height: 100vh;
-        padding: 10px;
-        box-sizing: border-box;
+        padding: 8px;
     }
 }
 
@@ -84,4 +99,5 @@ img.left {
     width: 100%;
     height: 100%;
     border: none;
+    border-radius: $radius-m;
 }

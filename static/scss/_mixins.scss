@@ -11,22 +11,35 @@
     align-items: center;
 }
 
-// Card styling
+// Subtle glass effect
+@mixin glass($opacity: 0.04) {
+    background: rgba(255, 255, 255, $opacity);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+// Card styling with glass effect
 @mixin card($padding: 20px, $radius: $radius-xl) {
-    background-color: $color-overlay-light;
+    @include glass(0.03);
     border-radius: $radius;
-    box-shadow: $shadow-default;
+    box-shadow: $shadow-default, $shadow-inset;
     padding: $padding;
+    border: 1px solid $color-border-subtle;
 }
 
 // Hover effect with transform
-@mixin hover-lift($transform: translateY(-2px), $shadow: $shadow-hover) {
-    transition: transform $transition-default, box-shadow $transition-default;
+@mixin hover-lift($transform: translateY(-3px), $shadow: $shadow-hover) {
+    transition: transform $transition-default, box-shadow $transition-default, border-color $transition-default;
 
     &:hover {
         transform: $transform;
-        box-shadow: $shadow;
+        box-shadow: $shadow, $shadow-glow;
     }
+}
+
+// Subtle text glow
+@mixin text-glow($color: $color-primary) {
+    text-shadow: 0 0 30px rgba($color, 0.3);
 }
 
 // Responsive breakpoints
