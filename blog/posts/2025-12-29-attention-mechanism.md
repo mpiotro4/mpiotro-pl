@@ -188,7 +188,7 @@ Każdy wiersz pokazuje, jak bardzo dany token "zwraca uwagę" (attends) na dost�
 
 Ostatnim krokiem jest pomnożenie wag attention przez macierz Value:
 
-$$\text{Attention Out} = \text{Attention Weights} \times V$$
+$$\text{Attention Out} = \text{Attention Weights} \cdot V$$
 
 $$\text{Attention Out} = 
 \begin{bmatrix}
@@ -237,7 +237,7 @@ $$W_{FFN} = \begin{bmatrix}
 1.0 & 0.5
 \end{bmatrix}$$
 
-$$\text{FFN Out} = \text{Output} \times W_{FFN} =
+$$\text{FFN Out} = \text{Output} \cdot W_{FFN} =
 \begin{bmatrix}
 1.0 & 0.0 \\
 0.48 & 0.65 \\
