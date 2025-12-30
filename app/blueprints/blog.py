@@ -42,7 +42,8 @@ def post(slug):
             'tables',
             'fenced_code',
             'codehilite',
-            'nl2br'
+            'nl2br',
+            'pymdownx.arithmatex'
         ],
         extension_configs={
             'codehilite': {

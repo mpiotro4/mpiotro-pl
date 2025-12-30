@@ -6,12 +6,12 @@
 @use 'mixins' as *;
 
 * {
-    font-family: 'Lato', sans-serif;
     color: $color-text;
 }
 
 html,
 body {
+    font-family: 'Lato', sans-serif;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
