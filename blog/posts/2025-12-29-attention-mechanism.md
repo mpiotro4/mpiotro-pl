@@ -299,7 +299,9 @@ Co jest totalnie bez sensu?
 
 ## Dlaczego to (nie) działa?
 
-Mechanizm attention pozwala każdemu tokenowi "spojrzeć" na dostępne tokeny i zadecydować, które z nich są najważniejsze dla jego reprezentacji. 
+Bo wagi zostały dobrane nie na drodze treningu, lecz arbitralnie. Początkowo chciałem dobrać wagi tak, aby uzyskać sensowny wynik, po czym stwierdziłem, że większą wartość będzie miało, jeśli znowu przypomnę, że w prawdziwych modelach tych wag są miliony, więc ten prosty przykład nie ma prawa działać poprawnie (tak naprawdę w pierwszej kolejności było to motywowane lenistwem, dopiero potem dorobiłem tę opowieść o większej wartości edukacyjnej).
+
+Gdy jednak uwierzymy, że to wszystko działa to warto wspomnieć, że jest to zasługa mechanizmu attention, który pozwala każdemu tokenowi "spojrzeć" na dostępne tokeny i zadecydować, które z nich są najważniejsze dla jego reprezentacji. 
 
 W architekturze **decoder-only** z maską przyczynową (jak w naszym przykładzie):
 - Każdy token buduje swoją reprezentację tylko na podstawie siebie i poprzednich tokenów
@@ -312,8 +314,6 @@ W architekturze **encoder-only** (bez maski):
 - Model uczy się dwukierunkowych relacji między tokenami
 
 Ta elastyczność pozwala Transformerom rozumieć strukturę i semantykę tekstu bez konieczności definiowania reguł gramatycznych.
-
-Ale wracając, uzyskany wynik nie ma sensu, bo wagi zostały dobrane nie na drodze treningu, lecz arbitralnie. Początkowo chciałem dobrać wagi tak, aby uzyskać sensowny wynik, po czym stwierdziłem, że większą wartość będzie miało, jeśli znowu przypomnę, że w prawdziwych modelach tych wag są miliony, więc ten prosty przykład nie ma prawa działać poprawnie.
 
 ## Kluczowe właściwości
 
