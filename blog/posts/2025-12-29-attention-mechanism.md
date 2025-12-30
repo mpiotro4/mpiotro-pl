@@ -122,6 +122,8 @@ $$QK^T = \begin{bmatrix}
 0.8 & 0.16 & 0.64
 \end{bmatrix}$$
 
+
+
 **Skalowanie przez $\sqrt{d_k} = \sqrt{2} \approx 1.414$:**
 
 $$\frac{QK^T}{\sqrt{2}} = \begin{bmatrix}
@@ -132,18 +134,28 @@ $$\frac{QK^T}{\sqrt{2}} = \begin{bmatrix}
 
 ### Krok 5: Softmax
 
+Zanim zaaplikujemy softmax chcemy jeszcze dodać maskę która sprawi że tokeny nie będą widziały tokenów z przeszłości. Jest to typowe dla architektury encoder only (to prawda??)
+
+po maskowaniu:
+
+$$QK^T = \begin{bmatrix}
+1.0 &   -\infty &  -\infty \\
+0.2 &   1.04    &  -\infty \\
+0.8 &   0.16    &  0.64
+\end{bmatrix}$$
+
 Aplikujemy funkcję softmax do każdego wiersza:
 
 $$\text{Attention Weights} = \text{softmax}\left(\frac{QK^T}{\sqrt{2}}\right) = \begin{bmatrix}
-0.35 & 0.25 & 0.35 \\
-0.24 & 0.25 & 0.35 \\
-0.37 & 0.25 & 0.37
+1.0  & 0.0 & 0.0 \\
+0.35 & 0.65 & 0.0 \\
+0.40 & 0.25 & 0.35
 \end{bmatrix}$$
 
 Każdy wiersz pokazuje, jak bardzo dany token "zwraca uwagę" (attends) na wszystkie tokeny w sekwencji:
-- Wiersz 0 (cat): zwraca uwagę głównie na siebie (0.35) i "mouse" (0.35)
-- Wiersz 1 (chases): rozkłada uwagę równomiernie
-- Wiersz 2 (mouse): zwraca uwagę głównie na "cat" (0.37) i siebie (0.37)
+- Wiersz 0 (cat): zwraca uwagę tylko na siebie za sprawą maskowania, jest to jedyny token na razie
+- Wiersz 1 (chases): zwraca uwagę na pierwszy token
+- Wiersz 2 (mouse): zwraca uwagę 
 
 ### Krok 6: Output weights (finalne wyjście)
 
@@ -151,20 +163,24 @@ Ostatnim krokiem jest pomnożenie wag attention przez macierz Value:
 
 $$\text{Output} = \text{Attention Weights} \times V$$
 
-$$\text{Output} = \begin{bmatrix}
-0.35 & 0.25 & 0.35 \\
-0.24 & 0.25 & 0.35 \\
-0.37 & 0.25 & 0.37
-\end{bmatrix} \times \begin{bmatrix}
+$$\text{Output} = 
+ \begin{bmatrix}
+1.0  & 0.0 & 0.0 \\
+0.35 & 0.65 & 0.0 \\
+0.40 & 0.25 & 0.35
+\end{bmatrix}
+\times \begin{bmatrix}
 1.0 & 0.0 \\
 0.2 & 1.0 \\
 0.8 & 0.0
-\end{bmatrix}$$
-
-Wartości szczegółowe (przybliżone):
-- Dla tokenu 0 (cat): $[0.35 \times 1.0 + 0.25 \times 0.2 + 0.35 \times 0.8, 0.35 \times 0.0 + 0.25 \times 1.0 + 0.35 \times 0.0] \approx [0.68, 0.25]$
-- Dla tokenu 1 (chases): $[0.66, 0.25]$
-- Dla tokenu 2 (mouse): $[0.71, 0.25]$
+\end{bmatrix}
+=
+\begin{bmatrix}
+1.0 & 0.0 \\
+0.48 & 0.65 \\
+0.73 & 0.25
+\end{bmatrix}
+$$
 
 Ostateczna macierz wyjściowa zawiera nowe reprezentacje dla każdego tokenu, które uwzględniają kontekst z innych tokenów w sekwencji.
 
