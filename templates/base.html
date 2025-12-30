@@ -15,7 +15,8 @@
     <script>
         MathJax = {
           tex: {
-            inlineMath: [['$', '$'], ['\\(', '\\)']]
+            inlineMath: [['\\(', '\\)']],
+            displayMath: [['\\[', '\\]']]
           }
         };
     </script>
@@ -38,17 +39,17 @@
        href="{{ url_for('contact.index') }}">{{ translations['contact'] }}</a>
     <div class="menu language-selector">
         {% if current_lang == 'pl' %}
-            <a href="{{ url_for('main.set_language', language='en') }}"
-               class="language-toggle"
-               title="Switch to English">
-                <img src="https://flagcdn.com/w20/gb.png" alt="EN" class="flag-icon"> EN
-            </a>
+        <a href="{{ url_for('main.set_language', language='en') }}"
+           class="language-toggle"
+           title="Switch to English">
+            <img src="https://flagcdn.com/w20/gb.png" alt="EN" class="flag-icon"> EN
+        </a>
         {% else %}
-            <a href="{{ url_for('main.set_language', language='pl') }}"
-               class="language-toggle"
-               title="Przełącz na polski">
-                <img src="https://flagcdn.com/w20/pl.png" alt="PL" class="flag-icon"> PL
-            </a>
+        <a href="{{ url_for('main.set_language', language='pl') }}"
+           class="language-toggle"
+           title="Przełącz na polski">
+            <img src="https://flagcdn.com/w20/pl.png" alt="PL" class="flag-icon"> PL
+        </a>
         {% endif %}
     </div>
 </nav>

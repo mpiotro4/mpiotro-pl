@@ -76,13 +76,15 @@ W tym prostym przykładzie używamy macierzy jednostkowych, ale w prawdziwych mo
 Mnożymy embeddingi przez odpowiednie macierze wag:
 
 **Query:**
-$$Q = E \cdot W_Q = \begin{bmatrix}
+
+$Q = E \cdot W_Q = \begin{bmatrix}
 1.0 & 0.0 \\
 0.2 & 1.0 \\
 0.8 & 0.0
-\end{bmatrix}$$
+\end{bmatrix}$
 
 **Key:**
+
 $$K = E \cdot W_K = \begin{bmatrix}
 1.0 & 0.0 \\
 0.2 & 1.0 \\
@@ -90,6 +92,7 @@ $$K = E \cdot W_K = \begin{bmatrix}
 \end{bmatrix}$$
 
 **Value:**
+
 $$V = E \cdot W_V = \begin{bmatrix}
 1.0 & 0.0 \\
 0.2 & 1.0 \\

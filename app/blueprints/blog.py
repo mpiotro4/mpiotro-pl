@@ -50,6 +50,10 @@ def post(slug):
                 'guess_lang': False,
                 'use_pygments': False,
                 'noclasses': True
+            },
+            'pymdownx.arithmatex': {
+                'generic': True,
+                'preview': False
             }
         }
     )
