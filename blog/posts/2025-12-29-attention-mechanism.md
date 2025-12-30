@@ -19,15 +19,27 @@ W tym wpisie przeprowadzimy kompletny przykład obliczeniowy mechanizmu attentio
 
 ## Przykład: "cat chases mouse"
 
-Rozważmy proste zdanie składające się z trzech słów (tokenów):
-**Słownik (vocabulary size = 3):**
+Rozważmy proste zdanie składające się z trzech słów (tokenów): `cat chases mouse`
+I następujący słownik o rozmiarze 5:
 - token 0: "cat"
 - token 1: "chases"
 - token 2: "mouse"
+- token 3: "quickly"
+- token 4: "sleeping"
 
 ### Krok 1: Embeddingi tokenów
 
 Każdy token reprezentujemy jako wektor embeddingów o wymiarze $d_{model} = 2$ (w rzeczywistych modelach to zazwyczaj 512, 768 lub więcej).
+
+Każdy z tokenów posiada następujące embedingi:
+
+$$W_{vocab} = \begin{bmatrix}
+1.0 & 0.2 & 0.8 & 0.0 &  0.0 \\
+0.0 & 1.0 & 0.0 & 0.5 &  0.0
+\end{bmatrix}$$
+
+gdzie kolumny oodpowiadają kolejnym tokenom ze słownika.
+
 **Embeddingi:**
 
 $$E = \begin{bmatrix}
@@ -41,8 +53,12 @@ gdzie:
 - $E[1] = [0.2, 1.0]$ - embedding dla "chases"
 - $E[2] = [0.8, 0.0]$ - embedding dla "mouse"
 
-W rzeczywistości embeddingi są uczone podczas treningu modelu tak, aby słowa o podobnym znaczeniu miały podobne reprezentacje.
-
+#### Interpretacja wymiarów:
+Choć nie kontrolujemy bezpośrednio, co oznacza każdy wymiar, możemy próbować to odkryć post hoc. W sieci można znaleźć wiele przykładów gdzie np. embedingi tokenów `wujek` i `ciocia` są przesuniętę o pewną stałą wartość tak samo jak tokeny `król` i `królowa`. Oznacza to, że model zakodował informację o płci w konkretnym kierunku przestrzeni.
+W naszym przykładzie można spekulować:
+- Pierwszy wymiar — "zwierzęcość" (cat=1.0, mouse=0.8, chases=0.2)
+- Drugi wymiar — "akcja/ruch" (chases=1.0, reszta=0.0)
+Aczkolwiek to tylko przykład zrobiony pod tezę, w prawdziwych modelach o setkach wymiarów interpretacja jest znacznie trudniejsza i rzadko jednoznaczna.
 ### Krok 2: Macierze wag — Query, Key, Value
 
 Następnie definiujemy trzy macierze wag, które transformują embeddingi na reprezentacje Query, Key i Value.
@@ -141,8 +157,7 @@ $$\frac{QK^T}{\sqrt{2}} + \text{Mask} = \begin{bmatrix}
 0.71 & -\infty & -\infty \\
 0.14 & 0.74 & -\infty \\
 0.57 & 0.11 & 0.45
-\end{bmatrix}
-+
+\end{bmatrix} +
 \begin{bmatrix}
 0 & -\infty & -\infty \\
 0 & 0 & -\infty \\
@@ -154,7 +169,7 @@ $$\frac{QK^T}{\sqrt{2}} + \text{Mask} = \begin{bmatrix}
 \end{bmatrix}
 $$
 
-> **Uwaga:** Zapis $a + (-\infty)$ jest matematycznie nieformalny, ale stanowi standardową konwencję w implementacjach. W arytmetyce zmiennoprzecinkowej `-inf` to konkretna wartość, dla której $\exp(-\infty) = 0$, co skutecznie zeruje zamaskowane pozycje po softmax.
+> **Uwaga:** Zapis $a + (-\infty)$ jest matematycznie nieformalny, ale stanowi standardową konwencję w programowaniu. W arytmetyce zmiennoprzecinkowej `-inf` to konkretna wartość, dla której $\exp(-\infty) = 0$, co skutecznie zeruje zamaskowane pozycje po softmax.
 
 Aplikujemy funkcję softmax do każdego wiersza (wartości $-\infty$ dają 0 po softmax):
 
@@ -173,15 +188,15 @@ Każdy wiersz pokazuje, jak bardzo dany token "zwraca uwagę" (attends) na dost�
 
 Ostatnim krokiem jest pomnożenie wag attention przez macierz Value:
 
-$$\text{Output} = \text{Attention Weights} \times V$$
+$$\text{Attention Out} = \text{Attention Weights} \times V$$
 
-$$\text{Output} = 
+$$\text{Attention Out} = 
 \begin{bmatrix}
 1.0 & 0.0 & 0.0 \\
 0.35 & 0.65 & 0.0 \\
 0.40 & 0.25 & 0.35
 \end{bmatrix}
-\times \begin{bmatrix}
+\begin{bmatrix}
 1.0 & 0.0 \\
 0.2 & 1.0 \\
 0.8 & 0.0
@@ -196,9 +211,93 @@ $$
 
 Ostateczna macierz wyjściowa zawiera **kontekstowe reprezentacje** (contextualized representations) dla każdego tokenu — każdy wektor jest ważoną kombinacją wektorów Value, gdzie wagi zależą od attention scores.
 
+**Co się zmieniło?**
+
+- **"cat"** — pozostał bez zmian $[1.0, 0.0]$, bo przez maskowanie widzi tylko siebie
+- **"chases"** — zmiana z $[0.2, 1.0]$ na $[0.48, 0.65]$: wzrosła "zwierzęcość" (wpływ "cat"), spadła "akcja"
+- **"mouse"** — zmiana z $[0.8, 0.0]$ na $[0.73, 0.25]$: pojawiła się składowa "akcji" (wpływ "chases")
+
+Każdy token wchłonął informację o swoim kontekście. "Mouse" wie teraz, że jest goniona, informacja, zakodowana w wymiarze "akcji", będzie kluczowa przy predykcji następnego tokenu.
+
+To uproszczony przykład, ale dokładnie ten sam mechanizm agregacji kontekstu przez ważone sumy zachodzi w powszechnie używanych modelach.
+
 > **Uwaga:** W pełnej architekturze Transformer wyjście jest następnie mnożone przez macierz projekcji $W_O \in \mathbb{R}^{d_v \times d_{model}}$, co tutaj pomijamy.
 
-## Dlaczego to działa?
+### Krok 7: Feed-Forward Network (FFN)
+Po bloku attention następuje sieć feed-forward (FFN), stosowana niezależnie do każdej pozycji. W oryginalnej architekturze Transformera ([Vaswani et al., 2017](https://arxiv.org/abs/1706.03762)) składa się z dwóch warstw liniowych z aktywacją ReLU:
+
+$$\text{FFN}(x) = \max(0, xW_1 + b_1)W_2 + b_2$$
+
+Dla uproszczenia użyjemy minimalnego FFN z jedną warstwą liniową bez aktywacji bez bias:
+
+$$\text{FFN}(x) = xW_{FFN}$$
+
+$$W_{FFN} = \begin{bmatrix}
+0.5 & 1.0 \\
+1.0 & 0.5
+\end{bmatrix}$$
+
+$$\text{FFN Out} = \text{Output} \times W_{FFN} =
+\begin{bmatrix}
+1.0 & 0.0 \\
+0.48 & 0.65 \\
+0.73 & 0.25
+\end{bmatrix}
+\begin{bmatrix}
+0.5 & 1.0 \\
+1.0 & 0.5
+\end{bmatrix}
+=
+\begin{bmatrix}
+0.50 & 1.00 \\
+0.89 & 0.81 \\
+0.62 & 0.86
+\end{bmatrix}
+$$
+
+>Uwaga: Pomijamy tu LayerNorm i residual connections, które w prawdziwym Transformerze stabilizują uczenie.
+
+### Krok 8: Predykcja następnego tokena
+
+Aby przewidzieć następny token, potrzebna jest reprezentacja ostatniego tokena:
+
+$$\text{h_mouse} = \begin{bmatrix} 0.62 & 0.86 \end{bmatrix} $$
+
+Warto zauważyć, że na tym etapie wszystkie pozostałe tokeny nie są nam potrzebne. Po etapie attention wszystkie informacje, które niosą powinny być już zawarte w ostatnim tokenie.
+
+#### Predykcja na logity (unembedding)
+
+$$\text{logits}=\text{h_mouse}\cdot\text{W_vocab}= \begin{bmatrix} 0.62 & 0.86 \end{bmatrix} 
+\begin{bmatrix}
+1.0 & 0.2 & 0.8 & 0.0 &  0.0 \\
+0.0 & 1.0 & 0.0 & 0.5 &  0.0
+\end{bmatrix}=
+\begin{bmatrix}
+0.62 & 0.984 & 0.496 & 0.43 & 0.0
+\end{bmatrix}
+$$
+
+Mając logity możemy obliczyć prawdopodobieństwa:
+
+$$ P = softmax(logits) = softmax(\begin{bmatrix}0.62 & 0.984 & 0.496 & 0.43 & 0.0\end{bmatrix})=\begin{bmatrix} 0.21 & 0.30 & 0.19 & 0.18 & 0.11 \end{bmatrix} $$
+
+**Wyniki:**
+
+| Token | Prawdopodobieństwo |
+|-------|--------------------|
+| cat | 21%                |
+| chases | 30%                |
+| mouse | 19%                |
+| quickly | 18%                |
+| sleeping | 11%                |
+
+Wychodzi na to że wg. naszego prostego modelu kolejny najbardziej prawdopodobny token to "chases" czyli zdanie brzmi:
+
+    Cat chases mouse chases
+
+Co jest totalnie bez sensu? 
+
+## Dlaczego to (nie) działa?
 
 Mechanizm attention pozwala każdemu tokenowi "spojrzeć" na dostępne tokeny i zadecydować, które z nich są najważniejsze dla jego reprezentacji. 
 
@@ -213,6 +312,8 @@ W architekturze **encoder-only** (bez maski):
 - Model uczy się dwukierunkowych relacji między tokenami
 
 Ta elastyczność pozwala Transformerom rozumieć strukturę i semantykę tekstu bez konieczności definiowania reguł gramatycznych.
+
+Ale wracając, uzyskany wynik nie ma sensu, bo wagi zostały dobrane nie na drodze treningu, lecz arbitralnie. Początkowo chciałem dobrać wagi tak, aby uzyskać sensowny wynik, po czym stwierdziłem, że większą wartość będzie miało, jeśli znowu przypomnę, że w prawdziwych modelach tych wag są miliony, więc ten prosty przykład nie ma prawa działać poprawnie.
 
 ## Kluczowe właściwości
 
