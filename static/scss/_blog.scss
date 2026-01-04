@@ -519,10 +519,14 @@
 
 // Pagination
 .pagination {
-    margin: 40px 0 20px;
+    @include card(16px 20px, $radius-l);
+    border: 1px solid $color-border;
+    margin: 32px 0;
+    background: linear-gradient(135deg, rgba(100, 124, 100, 0.06), rgba(100, 124, 100, 0.02));
 
     @include mobile {
-        margin: 30px 0 15px;
+        @include card(14px 16px, $radius-m);
+        margin: 24px 0;
     }
 }
 
@@ -530,52 +534,64 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 16px;
     flex-wrap: wrap;
 
     @include mobile {
-        gap: 15px;
+        gap: 12px;
     }
 }
 
 .pagination-button {
-    @include card(10px 18px, $radius-m);
+    padding: 9px 16px;
     border: 1px solid $color-border-light;
     background: transparent;
     color: $color-primary;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 500;
     cursor: pointer;
     transition: all $transition-default;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     text-decoration: none;
+    border-radius: $radius-m;
+    letter-spacing: 0.3px;
 
     @include mobile {
-        font-size: 14px;
-        padding: 8px 15px;
-        gap: 6px;
+        font-size: 13px;
+        padding: 8px 14px;
+        gap: 5px;
     }
 
-    &:hover:not(:disabled) {
-        border-color: $color-primary;
-        background: rgba(100, 124, 100, 0.1);
-        color: $color-primary-light;
-        transform: translateY(-2px);
+    &:not(:disabled) {
+        &:hover {
+            border-color: $color-primary;
+            background: rgba(100, 124, 100, 0.12);
+            color: $color-primary-light;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(100, 124, 100, 0.15);
+        }
+
+        &:active {
+            transform: translateY(0);
+        }
     }
 
     &:disabled {
-        opacity: 0.4;
+        opacity: 0.35;
         cursor: not-allowed;
-        border-color: $color-border;
+        border-color: $color-border-lighter;
+        color: $color-text-dim;
     }
 
     i {
-        font-size: 16px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
 
         @include mobile {
-            font-size: 14px;
+            font-size: 13px;
         }
     }
 }
@@ -589,14 +605,42 @@
 }
 
 .pagination-info {
-    font-size: 15px;
-    color: $color-text-bright;
+    font-size: 13px;
+    color: $color-text-dim;
     font-weight: 500;
-    min-width: 60px;
+    padding: 8px 12px;
+    border: 1px solid $color-border-lighter;
+    border-radius: $radius-m;
+    background: rgba(100, 124, 100, 0.05);
+    min-width: 80px;
     text-align: center;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
 
     @include mobile {
-        font-size: 14px;
-        min-width: 50px;
+        font-size: 12px;
+        padding: 6px 10px;
+        min-width: 70px;
     }
+
+    strong {
+        color: $color-primary-light;
+        font-weight: 600;
+    }
+
+    span {
+        color: $color-text-dim;
+        opacity: 0.8;
+    }
+}
+
+.pagination-top {
+    margin-top: 0;
+}
+
+.pagination-bottom {
+    margin-bottom: 0;
 }

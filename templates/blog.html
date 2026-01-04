@@ -5,6 +5,36 @@
 {% block content %}
 <section>
     {% if posts %}
+    {% if total_pages > 1 %}
+    <nav class="pagination pagination-top" aria-label="Blog pagination - top">
+        <div class="pagination-container">
+            {% if has_prev %}
+            <a href="/?page={{ prev_page }}" class="pagination-button pagination-prev">
+                <i class="fa fa-chevron-left"></i> {{ translations.get('previous', 'Poprzednia') }}
+            </a>
+            {% else %}
+            <button class="pagination-button pagination-prev" disabled>
+                <i class="fa fa-chevron-left"></i> {{ translations.get('previous', 'Poprzednia') }}
+            </button>
+            {% endif %}
+
+            <span class="pagination-info">
+                <strong>{{ ((current_page - 1) * posts_per_page) + 1 }}-{{ [current_page * posts_per_page, total_posts]|min }}</strong> / <span>{{ total_posts }}</span>
+            </span>
+
+            {% if has_next %}
+            <a href="/?page={{ next_page }}" class="pagination-button pagination-next">
+                {{ translations.get('next', 'Następna') }} <i class="fa fa-chevron-right"></i>
+            </a>
+            {% else %}
+            <button class="pagination-button pagination-next" disabled>
+                {{ translations.get('next', 'Następna') }} <i class="fa fa-chevron-right"></i>
+            </button>
+            {% endif %}
+        </div>
+    </nav>
+    {% endif %}
+
     <div class="blog-list">
         {% for post in posts %}
         <article class="blog-card">
@@ -59,7 +89,7 @@
     </div>
 
     {% if total_pages > 1 %}
-    <nav class="pagination" aria-label="Blog pagination">
+    <nav class="pagination pagination-bottom" aria-label="Blog pagination - bottom">
         <div class="pagination-container">
             {% if has_prev %}
             <a href="/?page={{ prev_page }}" class="pagination-button pagination-prev">
@@ -72,7 +102,7 @@
             {% endif %}
 
             <span class="pagination-info">
-                {{ current_page }} / {{ total_pages }}
+                <strong>{{ ((current_page - 1) * posts_per_page) + 1 }}-{{ [current_page * posts_per_page, total_posts]|min }}</strong> / <span>{{ total_posts }}</span>
             </span>
 
             {% if has_next %}
