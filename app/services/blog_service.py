@@ -67,6 +67,32 @@ def get_all_posts():
     return posts
 
 
+def get_paginated_posts(page=1, per_page=5):
+    """Get paginated blog posts with pagination metadata"""
+    all_posts = get_all_posts()
+    total_posts = len(all_posts)
+    total_pages = max(1, (total_posts + per_page - 1) // per_page)
+
+    # Clamp page to valid range
+    page = max(1, min(page, total_pages))
+
+    start_idx = (page - 1) * per_page
+    end_idx = start_idx + per_page
+    posts = all_posts[start_idx:end_idx]
+
+    return {
+        'posts': posts,
+        'page': page,
+        'per_page': per_page,
+        'total_posts': total_posts,
+        'total_pages': total_pages,
+        'has_prev': page > 1,
+        'has_next': page < total_pages,
+        'prev_page': page - 1 if page > 1 else None,
+        'next_page': page + 1 if page < total_pages else None,
+    }
+
+
 def get_post_by_slug(slug):
     """Get single blog post by slug"""
     # Go up two levels from app/services/ to project root

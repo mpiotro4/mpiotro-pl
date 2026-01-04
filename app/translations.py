@@ -51,6 +51,10 @@ translations = {
         'updated': 'Zaktualizowano',
         'author': 'Autor',
         'tags': 'Tagi',
+        'page': 'Strona',
+        'of': 'z',
+        'previous': 'Poprzednia',
+        'next': 'Następna',
     },
     'en': {
         'title': 'Marcin Piotrowski - homepage',
@@ -73,5 +77,9 @@ translations = {
         'updated': 'Updated',
         'author': 'Author',
         'tags': 'Tags',
+        'page': 'Page',
+        'of': 'of',
+        'previous': 'Previous',
+        'next': 'Next',
     }
 }

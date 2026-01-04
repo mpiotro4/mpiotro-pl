@@ -516,3 +516,145 @@
     color: $color-text-dimmer;
     font-size: 18px;
 }
+
+// Pagination
+.pagination {
+    @include card(20px, $radius-l);
+    border: 1px solid $color-border-subtle;
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    @include mobile {
+        padding: 16px;
+        margin-top: 24px;
+        gap: 12px;
+    }
+}
+
+.pagination-info {
+    font-size: 14px;
+    color: $color-text-dim;
+    font-weight: 500;
+
+    @include mobile {
+        font-size: 13px;
+    }
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @include mobile {
+        gap: 8px;
+    }
+}
+
+.pagination-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    background: rgba(100, 124, 100, 0.15);
+    border: 1px solid rgba(100, 124, 100, 0.3);
+    border-radius: $radius-m;
+    color: $color-text-bright;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all $transition-default;
+
+    @include mobile {
+        padding: 6px 10px;
+        font-size: 13px;
+        gap: 4px;
+
+        span {
+            display: none;
+        }
+    }
+
+    i {
+        font-size: 12px;
+        color: $color-primary;
+        transition: color $transition-default;
+    }
+
+    &:hover:not(.disabled) {
+        background: rgba(100, 124, 100, 0.25);
+        border-color: $color-primary;
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: $shadow-light, $shadow-glow;
+
+        i {
+            color: #fff;
+        }
+    }
+
+    &.disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        background: rgba(255, 255, 255, 0.03);
+        border-color: $color-border-subtle;
+
+        i {
+            color: $color-text-dim;
+        }
+    }
+}
+
+.pagination-pages {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    @include mobile {
+        gap: 4px;
+    }
+}
+
+.pagination-page {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid $color-border-subtle;
+    border-radius: $radius-m;
+    color: $color-text-bright;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all $transition-default;
+
+    @include mobile {
+        min-width: 32px;
+        height: 32px;
+        padding: 0 8px;
+        font-size: 13px;
+    }
+
+    &:hover:not(.active) {
+        background: rgba(100, 124, 100, 0.15);
+        border-color: rgba(100, 124, 100, 0.3);
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    &.active {
+        background: linear-gradient(135deg, rgba(100, 124, 100, 0.3), rgba(100, 124, 100, 0.2));
+        border-color: $color-primary;
+        color: #fff;
+        box-shadow: 0 0 12px rgba(100, 124, 100, 0.2);
+        cursor: default;
+    }
+}
