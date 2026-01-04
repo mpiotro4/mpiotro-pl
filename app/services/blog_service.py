@@ -76,3 +76,31 @@ def get_post_by_slug(slug):
     if filepath.exists():
         return parse_blog_post(filepath)
     return None
+
+
+def get_paginated_posts(page=1, posts_per_page=5):
+    """Get paginated blog posts with pagination metadata"""
+    all_posts = get_all_posts()
+
+    total_posts = len(all_posts)
+    total_pages = (total_posts + posts_per_page - 1) // posts_per_page
+
+    # Ensure page is valid
+    page = max(1, min(page, total_pages if total_pages > 0 else 1))
+
+    start_idx = (page - 1) * posts_per_page
+    end_idx = start_idx + posts_per_page
+
+    paginated_posts = all_posts[start_idx:end_idx]
+
+    return {
+        'posts': paginated_posts,
+        'current_page': page,
+        'total_pages': total_pages,
+        'total_posts': total_posts,
+        'posts_per_page': posts_per_page,
+        'has_next': page < total_pages,
+        'has_prev': page > 1,
+        'next_page': page + 1 if page < total_pages else None,
+        'prev_page': page - 1 if page > 1 else None
+    }

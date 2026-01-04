@@ -57,6 +57,37 @@
         </article>
         {% endfor %}
     </div>
+
+    {% if total_pages > 1 %}
+    <nav class="pagination" aria-label="Blog pagination">
+        <div class="pagination-container">
+            {% if has_prev %}
+            <a href="/?page={{ prev_page }}" class="pagination-button pagination-prev">
+                <i class="fa fa-chevron-left"></i> {{ translations.get('previous', 'Poprzednia') }}
+            </a>
+            {% else %}
+            <button class="pagination-button pagination-prev" disabled>
+                <i class="fa fa-chevron-left"></i> {{ translations.get('previous', 'Poprzednia') }}
+            </button>
+            {% endif %}
+
+            <span class="pagination-info">
+                {{ current_page }} / {{ total_pages }}
+            </span>
+
+            {% if has_next %}
+            <a href="/?page={{ next_page }}" class="pagination-button pagination-next">
+                {{ translations.get('next', 'Następna') }} <i class="fa fa-chevron-right"></i>
+            </a>
+            {% else %}
+            <button class="pagination-button pagination-next" disabled>
+                {{ translations.get('next', 'Następna') }} <i class="fa fa-chevron-right"></i>
+            </button>
+            {% endif %}
+        </div>
+    </nav>
+    {% endif %}
+
     {% else %}
     <p class="no-posts">{{ translations['no_posts'] }}</p>
     {% endif %}
