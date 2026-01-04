@@ -1,24 +1,35 @@
-from flask import Blueprint, render_template, session
+from flask import Blueprint, render_template, session, request
 import markdown
 
 from app.translations import translations, format_date
-from app.services.blog_service import get_all_posts, get_post_by_slug
+from app.services.blog_service import get_all_posts, get_post_by_slug, get_paginated_posts
 
 blog_bp = Blueprint('blog', __name__)
 
 
 @blog_bp.route('/')
 def index():
-    """Blog homepage - list of all posts"""
+    """Blog homepage - list of all posts with pagination"""
     lang = session.get('lang', 'pl')
-    posts = get_all_posts()
+
+    # Get page number from query params (default to 1)
+    page = request.args.get('page', 1, type=int)
+
+    # Get paginated posts (5 posts per page)
+    pagination = get_paginated_posts(page=page, per_page=5)
 
     # Format dates for all posts
-    for post in posts:
+    for post in pagination['posts']:
         post['date_formatted'] = format_date(post.get('date'), lang)
         post['updated_formatted'] = format_date(post.get('updated'), lang) if post.get('updated') else None
 
-    return render_template('blog.html', lang=lang, translations=translations[lang], posts=posts)
+    return render_template(
+        'blog.html',
+        lang=lang,
+        translations=translations[lang],
+        posts=pagination['posts'],
+        pagination=pagination
+    )
 
 
 @blog_bp.route('/blog/<slug>')

@@ -67,6 +67,41 @@ def get_all_posts():
     return posts
 
 
+def get_paginated_posts(page=1, per_page=5):
+    """Get paginated blog posts
+
+    Args:
+        page: Current page number (1-indexed)
+        per_page: Number of posts per page
+
+    Returns:
+        dict with 'posts', 'total', 'pages', 'current_page', 'has_prev', 'has_next'
+    """
+    all_posts = get_all_posts()
+    total = len(all_posts)
+    pages = (total + per_page - 1) // per_page  # Ceiling division
+
+    # Ensure page is within bounds
+    page = max(1, min(page, pages if pages > 0 else 1))
+
+    # Calculate start and end indices
+    start = (page - 1) * per_page
+    end = start + per_page
+
+    posts = all_posts[start:end]
+
+    return {
+        'posts': posts,
+        'total': total,
+        'pages': pages,
+        'current_page': page,
+        'has_prev': page > 1,
+        'has_next': page < pages,
+        'prev_page': page - 1 if page > 1 else None,
+        'next_page': page + 1 if page < pages else None
+    }
+
+
 def get_post_by_slug(slug):
     """Get single blog post by slug"""
     # Go up two levels from app/services/ to project root

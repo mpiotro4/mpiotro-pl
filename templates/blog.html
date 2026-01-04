@@ -60,5 +60,33 @@
     {% else %}
     <p class="no-posts">{{ translations['no_posts'] }}</p>
     {% endif %}
+
+    {% if pagination and pagination.pages > 1 %}
+    <nav class="pagination">
+        {% if pagination.has_prev %}
+        <a href="/?page={{ pagination.prev_page }}" class="pagination-link pagination-prev">
+            ← {{ translations['previous_page'] }}
+        </a>
+        {% else %}
+        <span class="pagination-link pagination-prev disabled">
+            ← {{ translations['previous_page'] }}
+        </span>
+        {% endif %}
+
+        <span class="pagination-info">
+            {{ translations['page'] }} {{ pagination.current_page }} {{ translations['of'] }} {{ pagination.pages }}
+        </span>
+
+        {% if pagination.has_next %}
+        <a href="/?page={{ pagination.next_page }}" class="pagination-link pagination-next">
+            {{ translations['next_page'] }} →
+        </a>
+        {% else %}
+        <span class="pagination-link pagination-next disabled">
+            {{ translations['next_page'] }} →
+        </span>
+        {% endif %}
+    </nav>
+    {% endif %}
 </section>
 {% endblock %}
