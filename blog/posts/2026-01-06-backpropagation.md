@@ -15,6 +15,22 @@ Warto wiedzieć, że backpropagation to uniwersalny algorytm optymalizacji – d
 
 Dobrym sposobem na zrozumienie backpropagation jest prześledzenie konkretnego przykładu z kartką i długopisem. W tym wpisie przeprowadzimy kompletne obliczenia dla prostej funkcji.
 
+## Gradient, pochodna, pochodna cząstkowa – wyjaśnienie terminów
+
+Zanim przejdziemy do obliczeń, jeszcze szybka dygresja matematyczna:
+
+**Pochodna** – dotyczy funkcji jednej zmiennej: $f(x)$. Mówi, jak szybko funkcja rośnie wraz ze zmianą $x$. Oznaczenie: $\frac{df}{dx}$ lub $f'(x)$.
+
+**Pochodna cząstkowa** – dotyczy funkcji wielu zmiennych: $f(x, y, z)$. Mówi, jak funkcja zmienia się względem **jednej** zmiennej, przy założeniu, że pozostałe są stałe. Oznaczenie: $\frac{\partial f}{\partial x}$.
+
+**Gradient** – to **wektor** wszystkich pochodnych cząstkowych. Dla funkcji $f(x, y, z)$ gradient to:
+
+$$\nabla f = \left[\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y}, \frac{\partial f}{\partial z}\right]$$
+
+Gradient wskazuje kierunek najszybszego wzrostu funkcji.
+
+**W tym wpisie** używamy terminu "gradient" w kontekście całego wektora gradientów (np. "obliczamy gradienty parametrów"), a "pochodna cząstkowa" dla poszczególnych składowych (np. $\frac{\partial L}{\partial a}$)
+
 ## Przykład obliczeniowy
 
 Rozważmy funkcję straty (loss) zależną od trzech parametrów:
