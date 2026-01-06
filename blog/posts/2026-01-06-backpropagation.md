@@ -6,6 +6,8 @@ tags: ["deep learning", "backpropagation", "gradient descent", "sieci neuronowe"
 description_pl: "Szczegółowy przykład obliczeniowy backpropagation z ręcznymi obliczeniami. Od forward pass przez backward pass aż po krok optymalizatora."
 ---
 
+## PL
+
 ## Wstęp
 
 Wsteczna propagacja błędu (backpropagation) to algorytm, który umożliwił praktyczne trenowanie głębokich sieci neuronowych. Działa na prostej zasadzie: oblicza pochodne funkcji straty względem wag sieci, wskazując kierunek, w którym należy je zmodyfikować, aby zmniejszyć błąd.
@@ -55,7 +57,7 @@ $$e = d + c = -6 + 10 = 4$$
 
 $$L = e^2 = 4^2 = 16$$
 
-Zapamiętujemy wszystkie wartości pośrednie — będą potrzebne w backward pass.
+Zapamiętujemy wszystkie wartości pośrednie, w backward pass będą potrzebne do obliczenia gradientów. Bez nich musielibyśmy przeliczać je od nowa, co byłoby nieefektywne.
 
 | Zmienna | Wartość |
 |---------|---------|
@@ -212,3 +214,5 @@ Ten prosty algorytm, zaimplementowany efektywnie na GPU, umożliwia trenowanie m
 - [Calculus on Computational Graphs: Backpropagation (Chris Olah)](https://colah.github.io/posts/2015-08-Backprop/)
 - [Neural Networks and Deep Learning, Chapter 2 (Michael Nielsen)](http://neuralnetworksanddeeplearning.com/chap2.html)
 - [CS231n: Backpropagation (Stanford)](https://cs231n.github.io/optimization-2/)
+
+## EN
