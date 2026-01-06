@@ -8,24 +8,24 @@ description_pl: "Szczegółowy przykład obliczeniowy backpropagation z ręcznym
 
 ## Wstęp
 
-Wsteczna propagacja gradientu (backpropagation) to algorytm, który umożliwił praktyczne trenowanie głębokich sieci neuronowych. Choć jego matematyczne podstawy — reguła łańcuchowa z analizy matematycznej — są znane od stuleci, dopiero w latach 80. XX wieku Rumelhart, Hinton i Williams pokazali, jak efektywnie zastosować ją do uczenia sieci wielowarstwowych.
+Wsteczna propagacja błędu (backpropagation) to algorytm, który umożliwił praktyczne trenowanie głębokich sieci neuronowych. Działa na prostej zasadzie: oblicza pochodne funkcji straty względem wag sieci, wskazując kierunek, w którym należy je zmodyfikować, aby zmniejszyć błąd.
+Warto wiedzieć, że backpropagation to uniwersalny algorytm optymalizacji – działa dla dowolnej funkcji złożonej z wielu operacji, nie tylko sieci neuronowych. Na przykład w transformerach tym samym mechanizmem trenowane są zarówno wagi sieci, jak i embeddingi tokenów, które są po prostu tablicą parametrów, a nie warstwą neuronową.
 
-Najlepszym sposobem na zrozumienie backpropagation jest prześledzenie konkretnego przykładu z kartką i długopisem. W tym wpisie przeprowadzimy kompletne obliczenia dla prostego grafu obliczeniowego.
+Dobrym sposobem na zrozumienie backpropagation jest prześledzenie konkretnego przykładu z kartką i długopisem. W tym wpisie przeprowadzimy kompletne obliczenia dla prostej funkcji.
 
-> **Uwaga:** Dla przejrzystości używamy prostej funkcji skalarnej zamiast pełnej sieci neuronowej. Mechanizm jest jednak identyczny — w sieci neuronowej mamy po prostu więcej węzłów i operacji.
-
-## Przykład: $L = (a \cdot b + c)^2$
+## Przykład obliczeniowy
 
 Rozważmy funkcję straty (loss) zależną od trzech parametrów:
 
 $$L = (a \cdot b + c)^2$$
 
 **Dane wejściowe:**
-- $a = 2$
-- $b = -3$  
-- $c = 10$
 
-Naszym celem jest obliczenie gradientów $\frac{\partial L}{\partial a}$, $\frac{\partial L}{\partial b}$, $\frac{\partial L}{\partial c}$ — czyli jak zmiana każdego parametru wpływa na wartość funkcji straty.
+* $a = 2$
+* $b = -3$  
+* $c = 10$
+
+Naszym celem jest obliczenie gradientów $\frac{\partial L}{\partial a}$, $\frac{\partial L}{\partial b}$, $\frac{\partial L}{\partial c}$. Powiedzą nam one, jak zmiana każdego parametru wpływa na wartość funkcji straty.
 
 ### Graf obliczeniowy
 
@@ -34,17 +34,18 @@ Rozbijmy funkcję na elementarne operacje:
 a ──┐
     ├──[×]── d ──┐
 b ──┘            ├──[+]── e ──[^2]── L
-            c ──┘
+             c ──┘
 ```
 
 Gdzie:
-- $d = a \cdot b$
-- $e = d + c$
-- $L = e^2$
 
-Ta dekompozycja jest kluczowa — backpropagation operuje na grafie prostych operacji, dla których pochodne są trywialne.
+* $d = a \cdot b$
+* $e = d + c$
+* $L = e^2$
 
-## Krok 1: Forward Pass
+Kluczowe jest zdekomponowanie całej funkcji na atomowe operacje, dzięki temu policzenie pochodnych dla każdej z nich będzie trywialne.
+
+### Krok 1: Forward Pass
 
 Obliczamy wartości "do przodu", od wejść do wyjścia:
 
@@ -72,6 +73,8 @@ Teraz propagujemy gradienty "wstecz", od wyjścia do wejść. Używamy **reguły
 $$\frac{\partial L}{\partial x} = \frac{\partial L}{\partial y} \cdot \frac{\partial y}{\partial x}$$
 
 gdzie $y$ jest zmienną pośrednią między $L$ a $x$.
+
+W Wikipedii można znaleźć bardzo intuicyjne wyjaśnienie tej reguły, które podaje George F. Simmons: "Jeśli samochód jedzie dwa razy szybciej niż rower, a rower cztery razy szybciej niż idący człowiek, to samochód jedzie 2 × 4 = 8 razy szybciej niż człowiek."
 
 ### 2.1 Gradient wyjściowy
 
@@ -119,7 +122,7 @@ $$\frac{\partial L}{\partial b} = \frac{\partial L}{\partial d} \cdot \frac{\par
 | $b$ | $16$ |
 | $c$ | $8$ |
 
-## Interpretacja gradientów
+### Interpretacja gradientów
 
 Co nam mówią te liczby?
 
@@ -161,13 +164,15 @@ $$L_{new} = 2.84^2 = 8.07$$
 
 Powtarzając ten proces (forward → backward → update) wielokrotnie, loss będzie dalej maleć, aż osiągnie minimum.
 
-## Dlaczego odejmujemy gradient?
+## Parę słów na koniec
 
-Gradient wskazuje kierunek najszybszego **wzrostu** funkcji. My chcemy ją **minimalizować**, więc idziemy w przeciwnym kierunku — stąd minus w regule aktualizacji.
+### Dlaczego odejmujemy gradient?
+
+Gradient wskazuje kierunek najszybszego **wzrostu** funkcji. My chcemy ją **minimalizować**, więc idziemy w przeciwnym kierunku, stąd minus w regule aktualizacji.
 
 Intuicja: jeśli stoisz na zboczu góry i chcesz zejść w dół, idziesz w kierunku przeciwnym do najstromszego wznoszenia.
 
-## Rola learning rate
+### Rola learning rate
 
 Learning rate $\eta$ kontroluje wielkość kroku:
 
@@ -177,7 +182,7 @@ Learning rate $\eta$ kontroluje wielkość kroku:
 
 W praktyce dobór learning rate to jeden z kluczowych hiperparametrów. Nowoczesne optymalizatory (Adam, AdaGrad) adaptują go automatycznie dla każdego parametru.
 
-## Od przykładu do sieci neuronowej
+### Od przykładu do sieci neuronowej
 
 W prawdziwej sieci neuronowej mamy:
 - Tysiące/miliony parametrów (wagi $w$ i biasy $b$)
