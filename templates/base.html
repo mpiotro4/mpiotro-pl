@@ -34,12 +34,10 @@
 <nav>
     <a class="menu {% if request.endpoint == 'blog.index' or request.endpoint == 'blog.post' %}active{% endif %} first"
        href="{{ url_for('blog.index') }}">{{ translations['blog'] }}</a>
-    <a class="menu {% if request.endpoint == 'main.about' %}active{% endif %}"
-       href="{{ url_for('main.about') }}">{{ translations['about_me'] }}</a>
     <a class="menu {% if request.endpoint == 'projects.index' %}active{% endif %}"
        href="{{ url_for('projects.index') }}">{{ translations['projects'] }}</a>
-    <a class="menu {% if request.endpoint == 'contact.index' %}active{% endif %}"
-       href="{{ url_for('contact.index') }}">{{ translations['contact'] }}</a>
+    <a class="menu {% if request.endpoint == 'main.about' %}active{% endif %}"
+       href="{{ url_for('main.about') }}">{{ translations['about_me'] }}</a>
     <div class="menu language-selector">
         {% if current_lang == 'pl' %}
         <a href="{{ url_for('main.set_language', language='en') }}"
