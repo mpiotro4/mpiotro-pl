@@ -9,7 +9,7 @@ build/
 .venv/
 venv/
 .idea/
-
+.claude
 # Node
 node_modules/
 package-lock.json
