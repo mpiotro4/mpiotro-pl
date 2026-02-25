@@ -214,6 +214,53 @@ Ale mechanizm jest identyczny:
 3. **Update** — zaktualizuj wagi w kierunku przeciwnym do gradientu
 4. **Repeat** — powtarzaj aż loss będzie wystarczająco mały
 
+## Implementacja w PyTorch
+
+Na **sam koniec** jeszcze jedna ciekawostka.
+PyTorch (i inne frameworki deep learningowe) automatycznie obliczają gradienty za nas. Zobaczmy, jak wygląda nasz przykład w kodzie:
+```python
+import torch
+
+# Definiujemy parametry jako tensory z włączonym śledzeniem gradientów
+a = torch.tensor([2.0], requires_grad=True)
+b = torch.tensor([-3.0], requires_grad=True)
+c = torch.tensor([10.0], requires_grad=True)
+
+# Forward pass - PyTorch buduje graf obliczeniowy automatycznie
+d = a * b
+e = d + c
+L = e ** 2
+
+print(f"Loss: {L.item()}")  # 16.0
+
+# Backward pass - jeden wywołanie oblicza wszystkie gradienty
+L.backward()
+
+# Odczytujemy gradienty
+print('---')
+print(f'∂L/∂a = {a.grad.item()}')  # -24.0
+print(f'∂L/∂b = {b.grad.item()}')  # 16.0
+print(f'∂L/∂c = {c.grad.item()}')  # 8.0
+```
+
+**Wynik:**
+```
+Loss: 16.0
+---
+∂L/∂a = -24.0
+∂L/∂b = 16.0
+∂L/∂c = 8.0
+```
+
+Dokładnie te same wartości, które obliczyliśmy ręcznie! PyTorch wykonał za nas całą pracę: zbudował graf obliczeniowy, zapamiętał wartości pośrednie i zastosował regułę łańcuchową.
+
+**Kluczowe elementy:**
+- `requires_grad=True` – włącza śledzenie operacji dla danego tensora
+- `L.backward()` – uruchamia backpropagation od zmiennej `L`
+- `.grad` – zawiera obliczony gradient dla każdego parametru
+
+Przyjrzymy się bliżej temu mechanizmowi w kolejnym wpisie, gdzie stworzymy prostą sieć neuronową od zera.
+
 ## Podsumowanie
 
 Backpropagation to eleganckie zastosowanie reguły łańcuchowej do efektywnego obliczania gradientów w grafach obliczeniowych. Kluczowe elementy:
