@@ -181,3 +181,173 @@ EntityManager (JPA) i Session (Hibernate) to API przez które wykonujesz operacj
 Języki zapytań dają różne sposoby wyciągania danych: JPQL (standard JPA, stringi na obiektach), HQL (rozszerzenie od Hibernate), Criteria API (type-safe, dynamiczne zapytania) i raw SQL (pełna kontrola gdy ORM nie wystarcza).
 
 ## EN
+
+## Introduction
+
+ORM (Object-Relational Mapping) is a programming technique that allows mapping database entities to objects, in order to avoid writing raw SQL at every step. In Java, the most popular ORM is Hibernate, but along with it come mysterious words and abbreviations, such as JPA, JPQL, or HQL. For years I used Hibernate on a "somehow it works" basis and never took the time to properly organize my knowledge of all these concepts. This post aims to change that.
+
+Let's start with a high-level summary, where each element will be discussed in detail further in the post. ORM in Java can be represented as the following chain:
+**JPA (Standard) → Hibernate (Implementation) → EntityManager/Session (Communication API) → JPQL/HQL/Criteria API (Query Language)**
+
+## JPA (Java Persistence API)
+
+Everything starts with JPA, or Java Persistence API. It is an interface that has been part of Java since 2006, with the goal of standardizing the management of relational data in applications. JPA is not a library, but a set of interfaces and rules that define how an ORM should work.
+
+JPA introduces key annotations such as `@Entity`, `@Table`, and `@Id`:
+```java
+@Entity
+public class Person {
+    @Id
+    private Long id;
+    private String firstName;
+    private String lastName;
+    private int age;
+}
+```
+
+## Hibernate
+
+Hibernate is the most popular implementation of the JPA standard. Red Hat released it in 2001 — before JPA even existed! It turned out to be so popular that when the JPA specification was being created in 2006, it was largely modeled after Hibernate.
+
+What does Hibernate do?
+
+* Implements all JPA interfaces (including `EntityManager`, `CriteriaBuilder`)
+* Translates operations on objects into SQL queries
+* Manages the lifecycle of objects (persistent, detached, transient)
+* Optimizes performance (caching, lazy loading, batch processing)
+
+Additional capabilities beyond JPA:
+
+* Session API - older Hibernate interface (alternative to `EntityManager`)
+* HQL (Hibernate Query Language) - extension of JPQL with additional features
+* Custom data types
+* Advanced caching strategies (first-level, second-level cache)
+
+## API for communicating with the database
+
+> The source code for this post is available in the [GitHub repository](https://github.com/mpiotro4/HibernatePlayground/tree/blog/2025-12-22-hibernate)
+
+There are two implementations of the API for communicating with the database — **EntityManager** (JPA) and **Session** (Hibernate). Both are objects through which database operations are performed. They act as a bridge between Java code and database tables.
+
+### EntityManager (JPA standard)
+```java
+EntityManager em = entityManagerFactory.createEntityManager();
+
+// Begin transaction
+em.getTransaction().begin();
+
+// Save object to database
+Person person = new Person();
+person.setFirstName("Jan");
+em.persist(person);
+
+// Retrieve object from database
+Person found = em.find(Person.class, 1L);
+
+// Commit transaction
+em.getTransaction().commit();
+em.close();
+```
+
+### Session (Hibernate API)
+```java
+Session session = sessionFactory.openSession();
+
+// Begin transaction
+session.beginTransaction();
+
+// Save object to database
+Person person = new Person();
+person.setFirstName("Jan");
+session.save(person);
+
+// Retrieve object from database
+Person found = session.get(Person.class, 1L);
+
+// Commit transaction
+session.getTransaction().commit();
+session.close();
+```
+
+Differences:
+
+* EntityManager - JPA standard, portable between implementations
+* Session - Hibernate-specific, provides access to additional Hibernate features
+
+In modern applications (especially with Spring), EntityManager is more commonly used because it is the standard. You'll encounter Session in older projects or when a project consciously uses advanced Hibernate features.
+
+## Query Languages
+
+When you need more complex operations than simple `find()` or `persist()`, you use query languages. You have four approaches to choose from:
+
+### 1. JPQL (Java Persistence Query Language) - JPA standard
+
+SQL-style queries, but you operate on objects and fields instead of tables and columns:
+```java
+List<Person> adults = em.createQuery(
+    "SELECT p FROM Person p WHERE p.age >= 18", 
+    Person.class
+).getResultList();
+```
+
+Note: `Person` is the class name, not the table name. `age` is the object field, not the column.
+
+### 2. HQL (Hibernate Query Language) - JPQL extension
+
+Works identically to JPQL, but has additional Hibernate-specific capabilities:
+```java
+List<Person> adults = session.createQuery(
+    "FROM Person p WHERE p.age >= 18", 
+    Person.class
+).list();
+```
+
+HQL is fully compatible with JPQL — every JPQL query will work in HQL.
+
+### 3. Criteria API - programmatic query building
+
+Type-safe alternative to string-based queries, ideal for dynamic filters:
+```java
+CriteriaBuilder cb = em.getCriteriaBuilder();
+CriteriaQuery<Person> query = cb.createQuery(Person.class);
+Root<Person> person = query.from(Person.class);
+
+query.select(person)
+     .where(cb.ge(person.get("age"), 18));
+
+List<Person> adults = em.createQuery(query).getResultList();
+```
+
+When to use Criteria API? When you're building a query dynamically at runtime — e.g. a search form where the user can choose different combinations of filters.
+
+### 4. Native SQL - plain SQL
+
+You can use plain SQL when you need:
+```java
+List<Person> adults = em.createNativeQuery(
+    "SELECT * FROM persons WHERE age >= 18", 
+    Person.class
+).getResultList();
+```
+
+When to use raw SQL?
+
+* Database-specific features (e.g. PostgreSQL JSONB)
+* Performance optimization for complex queries
+* Legacy - you already have ready, tested SQL queries
+* Bulk operations on large amounts of data
+
+Practical choice:
+
+* Simple queries → JPQL
+* Dynamic filters → Criteria API
+* Advanced Hibernate features → HQL
+* Full control or DB-specific features → Native SQL
+
+## Summary
+
+ORM in Java is a system that allows working with databases through objects instead of SQL. It is based on a four-layer architecture.
+JPA is the standard defining how ORM should work — it introduces annotations (`@Entity`, `@Id`) and interfaces. This makes the code portable between implementations.
+Hibernate is the most popular JPA implementation that realizes these interfaces. In practice it holds ~95% of the market and is the de facto standard in Java projects.
+EntityManager (JPA) and Session (Hibernate) are the APIs through which you perform database operations — saving, retrieving, and updating data.
+Query languages provide different ways of fetching data: JPQL (JPA standard, strings on objects), HQL (Hibernate extension), Criteria API (type-safe, dynamic queries), and raw SQL (full control when ORM isn't enough).
