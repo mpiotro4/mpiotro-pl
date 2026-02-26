@@ -1,9 +1,11 @@
 ---
 title_pl: "Wsteczna propagacja gradientu krok po kroku - przykład obliczeniowy"
+title_en: "Backpropagation Step by Step - A Computational Example"
 date: 2025-01-06
 author: "Marcin Piotrowski"
-tags: ["deep learning", "backpropagation", "gradient descent", "sieci neuronowe"]
+tags: ["deep learning", "backpropagation", "gradient descent", "neural networks"]
 description_pl: "Szczegółowy przykład obliczeniowy backpropagation z ręcznymi obliczeniami. Od forward pass przez backward pass aż po krok optymalizatora."
+description_en: "A detailed computational example of backpropagation with manual calculations. From forward pass through backward pass to the optimizer step."
 ---
 
 ## PL
