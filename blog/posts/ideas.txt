@@ -3,3 +3,64 @@ pomysły na wpisy:
 -tamto zadanie rekturacyjne z cachem
 -java predicate
 -n + 1 problem
+
+
+# 1. Najbliższy — spina dotychczasowe wpisy
+
+---
+title_pl: "Jak LLM się uczy — next token prediction krok po kroku"
+title_en: "How LLMs Learn — Next Token Prediction Step by Step"
+date: 2026-03-01
+author: "Marcin Piotrowski"
+tags: ["LLM", "training", "cross-entropy", "next token prediction", "deep learning"]
+description_pl: "Jak z mechanizmu attention, backpropagation i tokenizacji powstaje działający model językowy. Cross-entropy loss, training loop i intuicja stojąca za przewidywaniem następnego tokenu."
+description_en: "How attention, backpropagation and tokenization come together to create a working language model. Cross-entropy loss, training loop and the intuition behind next token prediction."
+---
+
+# 2. Uzupełnia wpis o attention
+
+---
+title_pl: "Positional Encoding — jak Transformer rozumie kolejność słów"
+title_en: "Positional Encoding — How Transformers Understand Word Order"
+date: 2026-03-15
+author: "Marcin Piotrowski"
+tags: ["NLP", "transformers", "positional encoding", "RoPE", "ALiBi"]
+description_pl: "Sinusoidalny, RoPE, ALiBi — dlaczego mechanizm attention nie rozumie kolejności tokenów i jak positional encoding rozwiązuje ten problem. Z przykładami obliczeniowymi."
+description_en: "Sinusoidal, RoPE, ALiBi — why the attention mechanism doesn't understand token order and how positional encoding solves this problem. With computational examples."
+---
+
+# 3. Praktyczny i popularny temat
+
+---
+title_pl: "Fine-tuning i LoRA — jak dostosować LLM do swoich potrzeb"
+title_en: "Fine-tuning and LoRA — How to Adapt an LLM to Your Needs"
+date: 2026-04-01
+author: "Marcin Piotrowski"
+tags: ["fine-tuning", "LoRA", "QLoRA", "transfer learning", "LLM"]
+description_pl: "Czym jest fine-tuning, dlaczego nie trenujemy modeli od zera i jak LoRA pozwala dostosować miliardowy model na zwykłej karcie graficznej. Matematyka niskorangowych adaptacji."
+description_en: "What is fine-tuning, why we don't train models from scratch, and how LoRA lets you adapt a billion-parameter model on a consumer GPU. The math behind low-rank adaptation."
+---
+
+# 4. Ludzie używają tych parametrów nie rozumiejąc ich
+
+---
+title_pl: "Temperature, top-k, top-p — jak LLM generuje tekst"
+title_en: "Temperature, Top-k, Top-p — How LLMs Generate Text"
+date: 2026-04-15
+author: "Marcin Piotrowski"
+tags: ["LLM", "sampling", "temperature", "top-k", "top-p", "generowanie tekstu"]
+description_pl: "Co się dzieje po obliczeniu logitów? Jak temperature, top-k i top-p wpływają na generowany tekst i dlaczego ten sam prompt daje różne odpowiedzi. Z przykładami numerycznymi."
+description_en: "What happens after logits are computed? How temperature, top-k and top-p affect generated text and why the same prompt gives different answers. With numerical examples."
+---
+
+# 5. Nawiązuje do wpisu o embeddingach
+
+---
+title_pl: "RAG od środka — jak LLM korzysta z zewnętrznej wiedzy"
+title_en: "RAG from the Inside — How LLMs Use External Knowledge"
+date: 2026-05-01
+author: "Marcin Piotrowski"
+tags: ["RAG", "embeddings", "vector store", "chunking", "retrieval"]
+description_pl: "Chunking, embeddingi, vector store, retrieval i generowanie — pełny pipeline RAG z przykładami. Dlaczego LLM-y potrzebują zewnętrznej pamięci i jak ją dostarczyć."
+description_en: "Chunking, embeddings, vector store, retrieval and generation — full RAG pipeline with examples. Why LLMs need external memory and how to provide it."
+---
