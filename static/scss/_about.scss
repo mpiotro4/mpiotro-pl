@@ -1,0 +1,493 @@
+// =========================================================
+// ABOUT - About Me page: profile intro, timeline, skills
+// =========================================================
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ---- Profile Intro ----
+
+.about-intro {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    margin-bottom: 48px;
+    padding: 32px;
+    @include glass(0.04);
+    border: 1px solid $color-border-subtle;
+    border-radius: $radius-xl;
+    box-shadow: $shadow-default, $shadow-inset;
+
+    @include mobile {
+        flex-direction: column;
+        gap: 24px;
+        padding: 20px;
+        align-items: center;
+    }
+}
+
+.about-photo {
+    flex-shrink: 0;
+
+    img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid $color-primary;
+        box-shadow: $shadow-default, 0 0 0 5px rgba(100, 124, 100, 0.12);
+        transition: transform $transition-transform, box-shadow $transition-default;
+        display: block;
+
+        &:hover {
+            transform: scale(1.03);
+            box-shadow: $shadow-hover, 0 0 0 7px rgba(100, 124, 100, 0.18);
+        }
+
+        @include mobile {
+            width: 140px;
+            height: 140px;
+        }
+    }
+}
+
+.about-summary {
+    flex: 1;
+    min-width: 0;
+}
+
+.about-name {
+    font-size: 28px;
+    font-weight: 600;
+    margin: 0 0 4px;
+    background: linear-gradient(135deg, $color-text 0%, rgba(255, 255, 255, 0.85) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    @include mobile {
+        font-size: 22px;
+        text-align: center;
+    }
+}
+
+.about-role {
+    font-size: 14px;
+    color: $color-primary-light;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin: 0 0 16px;
+
+    @include mobile {
+        text-align: center;
+    }
+}
+
+.about-text {
+    font-size: 15px;
+    line-height: 1.75;
+    color: $color-text-bright;
+    margin: 0 0 20px;
+    text-align: justify;
+}
+
+.about-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 13px;
+    color: $color-text-dim;
+
+    span {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+    }
+
+    i {
+        color: $color-primary;
+        width: 14px;
+        text-align: center;
+    }
+
+    @include mobile {
+        justify-content: center;
+    }
+}
+
+// ---- Section Titles ----
+
+.about-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: $color-primary-light;
+    margin: 0 0 28px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $color-border-lighter;
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 48px;
+        height: 2px;
+        background: $color-primary;
+        border-radius: 1px;
+    }
+}
+
+// ---- Company Groups ----
+
+.about-timeline-section {
+    margin-bottom: 52px;
+}
+
+.about-company-group {
+    margin-bottom: 28px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.about-company-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 18px;
+    margin-bottom: 0;
+    @include glass(0.06);
+    border: 1px solid $color-border-light;
+    border-bottom: none;
+    border-radius: $radius-l $radius-l 0 0;
+    position: relative;
+
+    // left accent strip
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: $color-primary;
+        border-radius: $radius-l 0 0 0;
+    }
+}
+
+.about-company-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: $color-text;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 0;
+
+    i {
+        color: $color-primary;
+        font-size: 13px;
+    }
+}
+
+.about-company-period {
+    font-size: 12px;
+    font-weight: 600;
+    color: $color-text-dim;
+    letter-spacing: 0.5px;
+    font-variant-numeric: tabular-nums;
+}
+
+.about-company-body {
+    @include glass(0.025);
+    border: 1px solid $color-border-light;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 0 0 $radius-l $radius-l;
+    padding: 24px 20px 20px;
+
+    @include mobile {
+        padding: 18px 14px 16px;
+    }
+}
+
+// ---- Timeline ----
+
+.about-timeline {
+    position: relative;
+    // padding-left pushes items right; line sits at left: 5px of this container
+    padding-left: 36px;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 5px;
+        top: 8px;
+        bottom: 8px;
+        width: 2px;
+        background: linear-gradient(
+            180deg,
+            $color-primary 0%,
+            $color-border-light 80%,
+            transparent 100%
+        );
+        border-radius: 1px;
+    }
+}
+
+.about-timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    // Scale up the dot on hover
+    &:hover .about-timeline-dot {
+        transform: scale(1.25);
+    }
+}
+
+// Dot centered on the line (line at left:5px of .about-timeline;
+// .about-timeline-item starts 36px in → line is 31px to left of item edge;
+// dot left edge = -31px - 6px = -37px for a 12px dot)
+.about-timeline-dot {
+    position: absolute;
+    left: -37px;
+    top: 8px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: $color-primary;
+    border: 2px solid $color-bg-darker;
+    box-shadow: 0 0 0 2px $color-primary;
+    z-index: 1;
+    transition: transform $transition-default;
+
+    &.is-current {
+        background: $color-primary-light;
+        box-shadow: 0 0 0 2px $color-primary-light;
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            border-radius: 50%;
+            border: 1px solid $color-primary-light;
+            opacity: 0;
+            animation: about-pulse 2.2s ease-out infinite;
+        }
+    }
+
+    &.is-edu {
+        background: transparent;
+        border-color: $color-primary-light;
+        box-shadow: 0 0 0 2px $color-border-light;
+    }
+}
+
+@keyframes about-pulse {
+    0%   { transform: scale(0.7); opacity: 0.7; }
+    100% { transform: scale(2.0); opacity: 0; }
+}
+
+.about-timeline-card {
+    @include card(18px, $radius-l);
+    transition: transform $transition-default, box-shadow $transition-default, border-color $transition-default;
+
+    &:hover {
+        transform: translateX(4px);
+        box-shadow: $shadow-hover;
+        border-color: $color-border-light;
+    }
+
+    @include mobile {
+        padding: 14px;
+    }
+}
+
+.about-timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.about-timeline-date {
+    font-size: 12px;
+    font-weight: 700;
+    color: $color-primary-light;
+    letter-spacing: 0.5px;
+    font-variant-numeric: tabular-nums;
+}
+
+.about-current-badge {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 2px 8px;
+    border-radius: $radius-s;
+    background: rgba(130, 154, 130, 0.15);
+    border: 1px solid rgba(130, 154, 130, 0.4);
+    color: $color-primary-light;
+}
+
+.about-timeline-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: $color-text;
+    margin: 0 0 3px;
+}
+
+.about-timeline-company {
+    font-size: 13px;
+    color: $color-text-dim;
+    margin: 0 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    i {
+        color: $color-primary;
+        font-size: 11px;
+    }
+}
+
+.about-project-tag {
+    display: inline-block;
+    background: rgba(100, 124, 100, 0.12);
+    color: $color-text-bright;
+    padding: 2px 9px;
+    border-radius: $radius-s;
+    font-size: 11px;
+    font-weight: 700;
+    border: 1px solid $color-border-light;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.about-timeline-desc {
+    font-size: 14px;
+    line-height: 1.65;
+    color: $color-text-bright;
+    margin: 0;
+    text-align: justify;
+
+    strong {
+        color: $color-text;
+        font-weight: 600;
+    }
+
+    @include mobile {
+        font-size: 13px;
+    }
+}
+
+// ---- Cross-project contributions block ----
+
+.about-contributions {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid $color-border-lighter;
+}
+
+.about-contributions-label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: $color-text-dim;
+    margin-bottom: 8px;
+}
+
+.about-contributions-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    li {
+        font-size: 13px;
+        color: $color-text-bright;
+        display: flex;
+        align-items: flex-start;
+        gap: 7px;
+        line-height: 1.5;
+
+        &::before {
+            content: '◆';
+            color: $color-primary;
+            font-size: 7px;
+            flex-shrink: 0;
+            margin-top: 4px;
+        }
+    }
+}
+
+// ---- Skills Grid ----
+
+.about-skills-section {
+    margin-bottom: 48px;
+}
+
+.about-skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+
+    @include mobile {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}
+
+.about-skill-card {
+    @include card(18px, $radius-l);
+    transition: transform $transition-default, box-shadow $transition-default, border-color $transition-default;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-hover;
+        border-color: $color-border-light;
+    }
+
+    h3 {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: $color-primary-light;
+        margin: 0 0 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        i {
+            color: $color-primary;
+            font-size: 13px;
+            width: 14px;
+            text-align: center;
+        }
+    }
+
+    p {
+        font-size: 13px;
+        line-height: 1.6;
+        color: $color-text-bright;
+        margin: 0;
+        text-align: left;
+    }
+}
