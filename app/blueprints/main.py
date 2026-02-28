@@ -4,6 +4,11 @@ from app.translations import translations
 main_bp = Blueprint('main', __name__)
 
 
+@main_bp.route('/')
+def index():
+    return redirect(url_for('main.about'))
+
+
 @main_bp.route('/about')
 def about():
     lang = session.get('lang', 'en')

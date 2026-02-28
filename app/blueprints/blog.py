@@ -7,7 +7,7 @@ from app.services.blog_service import get_all_posts, get_post_by_slug
 blog_bp = Blueprint('blog', __name__)
 
 
-@blog_bp.route('/')
+@blog_bp.route('/blog')
 def index():
     """Blog homepage - list of all posts"""
     lang = session.get('lang', 'pl')
