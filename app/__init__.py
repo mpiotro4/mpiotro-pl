@@ -1,6 +1,6 @@
 import os
-from flask import Flask, session
-from app.translations import DEFAULT_LANGUAGE
+from flask import Flask, session, render_template
+from app.translations import DEFAULT_LANGUAGE, translations
 
 
 def create_app():
@@ -15,12 +15,15 @@ def create_app():
     from app.blueprints.main import main_bp
     from app.blueprints.blog import blog_bp
     from app.blueprints.projects import projects_bp
-    from app.blueprints.contact import contact_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(blog_bp)
     app.register_blueprint(projects_bp)
-    app.register_blueprint(contact_bp)
+
+    @app.errorhandler(404)
+    def not_found(e):
+        lang = session.get('lang', DEFAULT_LANGUAGE)
+        return render_template('404.html', translations=translations[lang]), 404
 
     @app.context_processor
     def inject_language():

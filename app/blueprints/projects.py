@@ -31,7 +31,7 @@ def project(slug):
     lang = session.get('lang', DEFAULT_LANGUAGE)
     p = get_project_by_slug(slug)
     if not p:
-        return render_template('404.html', lang=lang, translations=translations[lang]), 404
+        return render_template('404.html'), 404
 
     p['date_formatted'] = format_date(p.get('date'), lang)
 

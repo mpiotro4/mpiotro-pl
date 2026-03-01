@@ -34,7 +34,7 @@ def post(slug):
     lang = session.get('lang', DEFAULT_LANGUAGE)
     post = get_post_by_slug(slug)
     if not post:
-        return render_template('404.html', lang=lang, translations=translations[lang]), 404
+        return render_template('404.html'), 404
 
     post['date_formatted'] = format_date(post.get('date'), lang)
     post['updated_formatted'] = format_date(post.get('updated'), lang) if post.get('updated') else None
