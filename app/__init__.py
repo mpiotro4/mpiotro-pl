@@ -5,7 +5,10 @@ from flask import Flask, session
 def create_app():
     """Application factory pattern"""
     app = Flask(__name__, template_folder='../templates', static_folder='../static')
-    app.secret_key = os.environ.get('SECRET_KEY', 'default_secret_key')
+    secret_key = os.environ.get('SECRET_KEY')
+    if not secret_key:
+        raise RuntimeError("SECRET_KEY environment variable is not set")
+    app.secret_key = secret_key
 
     # Register blueprints
     from app.blueprints.main import main_bp
