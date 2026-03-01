@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, session
-import markdown
 
 from app.translations import translations, format_date
+from app.utils import render_markdown
 from app.services.project_service import get_all_projects, get_project_by_slug
 
 projects_bp = Blueprint('projects', __name__)
@@ -28,28 +28,6 @@ def project(slug):
     p['date_formatted'] = format_date(p.get('date'), lang)
 
     content_key = 'content_pl' if lang == 'pl' else 'content_en'
-    content_text = p.get(content_key, '')
-    html_content = markdown.markdown(
-        content_text,
-        extensions=[
-            'tables',
-            'fenced_code',
-            'codehilite',
-            'nl2br',
-            'pymdownx.arithmatex'
-        ],
-        extension_configs={
-            'codehilite': {
-                'guess_lang': False,
-                'use_pygments': False,
-                'noclasses': True
-            },
-            'pymdownx.arithmatex': {
-                'generic': True,
-                'preview': False
-            }
-        }
-    )
-    p['html_content'] = html_content
+    p['html_content'] = render_markdown(p.get(content_key, ''))
 
     return render_template('project_post.html', lang=lang, translations=translations[lang], project=p)

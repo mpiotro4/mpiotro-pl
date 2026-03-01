@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, session
-import markdown
 
 from app.translations import translations, format_date
+from app.utils import render_markdown
 from app.services.blog_service import get_all_posts, get_post_by_slug
 
 blog_bp = Blueprint('blog', __name__)
@@ -35,28 +35,6 @@ def post(slug):
 
     # Convert markdown content to HTML (use appropriate language)
     content_key = 'content_pl' if lang == 'pl' else 'content_en'
-    content_text = post.get(content_key, '')
-    html_content = markdown.markdown(
-        content_text,
-        extensions=[
-            'tables',
-            'fenced_code',
-            'codehilite',
-            'nl2br',
-            'pymdownx.arithmatex'
-        ],
-        extension_configs={
-            'codehilite': {
-                'guess_lang': False,
-                'use_pygments': False,
-                'noclasses': True
-            },
-            'pymdownx.arithmatex': {
-                'generic': True,
-                'preview': False
-            }
-        }
-    )
-    post['html_content'] = html_content
+    post['html_content'] = render_markdown(post.get(content_key, ''))
 
     return render_template('blog_post.html', lang=lang, translations=translations[lang], post=post)
