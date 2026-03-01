@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section_title }} - Marcin Piotrowski{% endblock %}
+
+{% block content %}
+<section>
+    {% if items %}
+    <div class="post-list">
+        {% for item in items %}
+        <article class="post-card{% if item.image %} post-card--has-image{% endif %}">
+            <div class="post-card-content">
+                <h2>
+                    <a href="{{ base_url }}/{{ item.slug }}">
+                        {{ item.title_pl if lang == 'pl' else item.title_en }}
+                    </a>
+                </h2>
+                {% if item.date_formatted or item.updated_formatted or item.author %}
+                <div class="post-card-meta">
+                    {% if item.date_formatted %}
+                    <div class="post-meta-item">
+                        <i class="fa fa-calendar"></i>
+                        <span class="meta-label">{{ translations['published'] }}:</span>
+                        <time datetime="{{ item.date }}">{{ item.date_formatted }}</time>
+                    </div>
+                    {% endif %}
+                    {% if item.updated_formatted %}
+                    <div class="post-meta-item">
+                        <i class="fa fa-pencil"></i>
+                        <span class="meta-label">{{ translations['updated'] }}:</span>
+                        <time datetime="{{ item.updated }}">{{ item.updated_formatted }}</time>
+                    </div>
+                    {% endif %}
+                    {% if item.author %}
+                    <div class="post-meta-item">
+                        <i class="fa fa-user"></i>
+                        <span class="meta-label">{{ translations['author'] }}:</span>
+                        <span>{{ item.author }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+                {% if item.tags and item.tags|length > 0 %}
+                <div class="post-card-tags">
+                    <i class="fa fa-tags"></i>
+                    {% for tag in item.tags %}
+                    <span class="tag-small">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <p class="post-description">
+                    {{ item.description_pl if lang == 'pl' else item.description_en }}
+                </p>
+                <a href="{{ base_url }}/{{ item.slug }}" class="read-more-link">
+                    {{ translations['read_more'] }} →
+                </a>
+            </div>
+            {% if item.image %}
+            <div class="post-card-image">
+                <img src="{{ item.image }}" alt="{{ item.title_pl if lang == 'pl' else item.title_en }}">
+            </div>
+            {% endif %}
+        </article>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="no-posts">{{ empty_message }}</p>
+    {% endif %}
+</section>
+{% endblock %}

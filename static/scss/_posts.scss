@@ -1,16 +1,16 @@
 // =========================================================
-// BLOG - List & Post Pages
+// POSTS - List & Detail Pages
 // =========================================================
 
 @use 'variables' as *;
 @use 'mixins' as *;
 
-// Blog List
-.blog-list {
+// Post List
+.post-list {
     margin: 32px 0;
 }
 
-.blog-card {
+.post-card {
     @include card(24px, $radius-l);
     border: 1px solid $color-border-subtle;
     margin: 20px 0;
@@ -46,7 +46,7 @@
     }
 }
 
-.blog-meta {
+.post-meta {
     font-size: 14px;
     color: $color-text-dim;
     margin-bottom: 15px;
@@ -59,8 +59,8 @@
     }
 }
 
-// Blog Card Metadata
-.blog-card-meta {
+// Post Card Metadata
+.post-card-meta {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
@@ -74,7 +74,7 @@
     }
 }
 
-.blog-meta-item {
+.post-meta-item {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -98,8 +98,8 @@
     }
 }
 
-// Blog Card Tags
-.blog-card-tags {
+// Post Card Tags
+.post-card-tags {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
@@ -135,8 +135,8 @@
     }
 }
 
-// Blog Post Dates
-.blog-dates {
+// Post Detail Dates
+.post-dates {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -154,7 +154,7 @@
     }
 }
 
-.blog-date-item {
+.post-date-item {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -188,7 +188,7 @@
     }
 }
 
-.blog-date-updated {
+.post-date-updated {
     padding-left: 20px;
     border-left: 1px solid rgba(100, 124, 100, 0.3);
 
@@ -200,7 +200,7 @@
     }
 }
 
-.blog-author {
+.post-author {
     padding-left: 20px;
     border-left: 1px solid rgba(100, 124, 100, 0.3);
 
@@ -217,7 +217,7 @@
     }
 }
 
-.blog-tags {
+.post-tags {
     flex: 1 1 100%;
     padding-top: 12px;
     border-top: 1px solid rgba(100, 124, 100, 0.3);
@@ -257,7 +257,7 @@
     }
 }
 
-.blog-description {
+.post-description {
     margin: 10px 0;
     line-height: 1.6;
     color: $color-text-bright;
@@ -277,8 +277,8 @@
     }
 }
 
-// Blog Post Page
-.blog-post {
+// Post Detail Page
+.post {
     padding: 32px 0;
 
     &-header {

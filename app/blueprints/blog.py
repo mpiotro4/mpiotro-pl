@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session
+from flask import Blueprint, render_template, session, url_for
 
 from app.translations import translations, format_date
 from app.utils import render_markdown
@@ -13,12 +13,19 @@ def index():
     lang = session.get('lang', 'pl')
     posts = get_all_posts()
 
-    # Format dates for all posts
     for post in posts:
         post['date_formatted'] = format_date(post.get('date'), lang)
         post['updated_formatted'] = format_date(post.get('updated'), lang) if post.get('updated') else None
 
-    return render_template('blog.html', lang=lang, translations=translations[lang], posts=posts)
+    return render_template(
+        'post_list.html',
+        lang=lang,
+        translations=translations[lang],
+        items=posts,
+        base_url='/blog',
+        section_title=translations[lang]['blog'],
+        empty_message=translations[lang]['no_posts'],
+    )
 
 
 @blog_bp.route('/blog/<slug>')
@@ -29,12 +36,17 @@ def post(slug):
     if not post:
         return render_template('404.html', lang=lang, translations=translations[lang]), 404
 
-    # Format dates for display
     post['date_formatted'] = format_date(post.get('date'), lang)
     post['updated_formatted'] = format_date(post.get('updated'), lang) if post.get('updated') else None
 
-    # Convert markdown content to HTML (use appropriate language)
     content_key = 'content_pl' if lang == 'pl' else 'content_en'
     post['html_content'] = render_markdown(post.get(content_key, ''))
 
-    return render_template('blog_post.html', lang=lang, translations=translations[lang], post=post)
+    return render_template(
+        'post_detail.html',
+        lang=lang,
+        translations=translations[lang],
+        item=post,
+        index_url=url_for('blog.index'),
+        back_label=translations[lang]['back_to_blog'],
+    )

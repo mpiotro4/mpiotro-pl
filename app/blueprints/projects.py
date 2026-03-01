@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, session
+from flask import Blueprint, render_template, session, url_for
 
 from app.translations import translations, format_date
 from app.utils import render_markdown
@@ -15,7 +15,15 @@ def index():
     for project in projects:
         project['date_formatted'] = format_date(project.get('date'), lang)
 
-    return render_template('projects.html', lang=lang, translations=translations[lang], projects=projects)
+    return render_template(
+        'post_list.html',
+        lang=lang,
+        translations=translations[lang],
+        items=projects,
+        base_url='/projects',
+        section_title=translations[lang]['projects'],
+        empty_message=translations[lang]['no_projects'],
+    )
 
 
 @projects_bp.route('/projects/<slug>')
@@ -30,4 +38,11 @@ def project(slug):
     content_key = 'content_pl' if lang == 'pl' else 'content_en'
     p['html_content'] = render_markdown(p.get(content_key, ''))
 
-    return render_template('project_post.html', lang=lang, translations=translations[lang], project=p)
+    return render_template(
+        'post_detail.html',
+        lang=lang,
+        translations=translations[lang],
+        item=p,
+        index_url=url_for('projects.index'),
+        back_label=translations[lang]['back_to_projects'],
+    )
