@@ -1,25 +1,15 @@
 from pathlib import Path
 import frontmatter
 
+from app.utils import parse_multilingual_content
+
 
 def parse_blog_post(filepath):
     """Parse markdown file with front matter and multilingual content"""
     post = frontmatter.load(filepath)
 
     # Parse multilingual content
-    content_pl = ''
-    content_en = ''
-
-    if '## PL' in post.content and '## EN' in post.content:
-        pl_start = post.content.find('## PL') + len('## PL')
-        pl_end = post.content.find('## EN')
-        content_pl = post.content[pl_start:pl_end].strip()
-
-        en_start = post.content.find('## EN') + len('## EN')
-        content_en = post.content[en_start:].strip()
-    else:
-        content_pl = post.content
-        content_en = post.content
+    content_pl, content_en = parse_multilingual_content(post.content)
 
     slug = Path(filepath).stem
 

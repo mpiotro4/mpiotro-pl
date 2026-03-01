@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, session, url_for
 
-from app.translations import translations, format_date
+from app.translations import translations, format_date, DEFAULT_LANGUAGE
 from app.utils import render_markdown
 from app.services.blog_service import get_all_posts, get_post_by_slug
 
@@ -10,7 +10,7 @@ blog_bp = Blueprint('blog', __name__)
 @blog_bp.route('/blog')
 def index():
     """Blog homepage - list of all posts"""
-    lang = session.get('lang', 'pl')
+    lang = session.get('lang', DEFAULT_LANGUAGE)
     posts = get_all_posts()
 
     for post in posts:
@@ -31,7 +31,7 @@ def index():
 @blog_bp.route('/blog/<slug>')
 def post(slug):
     """Single blog post"""
-    lang = session.get('lang', 'pl')
+    lang = session.get('lang', DEFAULT_LANGUAGE)
     post = get_post_by_slug(slug)
     if not post:
         return render_template('404.html', lang=lang, translations=translations[lang]), 404

@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, session, url_for
 
-from app.translations import translations, format_date
+from app.translations import translations, format_date, DEFAULT_LANGUAGE
 from app.utils import render_markdown
 from app.services.project_service import get_all_projects, get_project_by_slug
 
@@ -9,7 +9,7 @@ projects_bp = Blueprint('projects', __name__)
 
 @projects_bp.route('/projects')
 def index():
-    lang = session.get('lang', 'pl')
+    lang = session.get('lang', DEFAULT_LANGUAGE)
     projects = get_all_projects()
 
     for project in projects:
@@ -28,7 +28,7 @@ def index():
 
 @projects_bp.route('/projects/<slug>')
 def project(slug):
-    lang = session.get('lang', 'pl')
+    lang = session.get('lang', DEFAULT_LANGUAGE)
     p = get_project_by_slug(slug)
     if not p:
         return render_template('404.html', lang=lang, translations=translations[lang]), 404

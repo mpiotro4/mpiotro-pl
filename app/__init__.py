@@ -1,5 +1,6 @@
 import os
 from flask import Flask, session
+from app.translations import DEFAULT_LANGUAGE
 
 
 def create_app():
@@ -23,6 +24,12 @@ def create_app():
 
     @app.context_processor
     def inject_language():
-        return {'current_lang': session.get('lang', 'pl')}
+        return {'current_lang': session.get('lang', DEFAULT_LANGUAGE)}
+
+    def localize(obj, attr, lang):
+        """Return obj[attr_lang], falling back to the English value."""
+        return obj.get(f'{attr}_{lang}', obj.get(f'{attr}_en', ''))
+
+    app.jinja_env.globals['localize'] = localize
 
     return app

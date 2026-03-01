@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-    {{ item.title_pl if lang == 'pl' else item.title_en }} - Marcin Piotrowski
+    {{ localize(item, 'title', lang) }} - Marcin Piotrowski
 {% endblock %}
 
 {% block content %}
@@ -12,7 +12,7 @@
             ← {{ back_label }}
         </a>
         <h1>
-            {{ item.title_pl if lang == 'pl' else item.title_en }}
+            {{ localize(item, 'title', lang) }}
         </h1>
 
         <div class="post-dates">

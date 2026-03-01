@@ -1,5 +1,7 @@
 from datetime import datetime
 
+DEFAULT_LANGUAGE = 'pl'
+
 
 def format_date(date_obj, lang='en'):
     """Format date according to language"""

@@ -11,7 +11,7 @@
             <div class="post-card-content">
                 <h2>
                     <a href="{{ base_url }}/{{ item.slug }}">
-                        {{ item.title_pl if lang == 'pl' else item.title_en }}
+                        {{ localize(item, 'title', lang) }}
                     </a>
                 </h2>
                 {% if item.date_formatted or item.updated_formatted or item.author %}
@@ -48,7 +48,7 @@
                 </div>
                 {% endif %}
                 <p class="post-description">
-                    {{ item.description_pl if lang == 'pl' else item.description_en }}
+                    {{ localize(item, 'description', lang) }}
                 </p>
                 <a href="{{ base_url }}/{{ item.slug }}" class="read-more-link">
                     {{ translations['read_more'] }} →
@@ -56,7 +56,7 @@
             </div>
             {% if item.image %}
             <div class="post-card-image">
-                <img src="{{ item.image }}" alt="{{ item.title_pl if lang == 'pl' else item.title_en }}">
+                <img src="{{ item.image }}" alt="{{ localize(item, 'title', lang) }}">
             </div>
             {% endif %}
         </article>

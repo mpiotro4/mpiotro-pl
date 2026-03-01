@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request
-from app.translations import translations
+from app.translations import translations, DEFAULT_LANGUAGE
 
 main_bp = Blueprint('main', __name__)
 
@@ -11,7 +11,7 @@ def index():
 
 @main_bp.route('/about')
 def about():
-    lang = session.get('lang', 'en')
+    lang = session.get('lang', DEFAULT_LANGUAGE)
     return render_template('index.html', lang=lang, translations=translations[lang])
 
 
