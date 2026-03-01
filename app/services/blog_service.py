@@ -41,28 +41,36 @@ def parse_blog_post(filepath):
     }
 
 
-def get_all_posts():
-    """Get all blog posts sorted by date (newest first)"""
-    # Go up two levels from app/services/ to project root
-    blog_dir = Path(__file__).parent.parent.parent / 'blog' / 'posts'
+_cache: dict = {'posts': None, 'mtime': None}
+
+
+def _blog_dir() -> Path:
+    return Path(__file__).parent.parent.parent / 'blog' / 'posts'
+
+
+def _max_mtime(directory: Path) -> float:
+    mtimes = [f.stat().st_mtime for f in directory.glob('*.md')]
+    return max(mtimes) if mtimes else 0.0
+
+
+def get_all_posts() -> list:
+    """Get all blog posts sorted by date (newest first), cached until a file changes."""
+    blog_dir = _blog_dir()
     if not blog_dir.exists():
         return []
 
-    posts = []
-    for md_file in sorted(blog_dir.glob('*.md'), reverse=True):
-        post = parse_blog_post(md_file)
-        if post:
-            posts.append(post)
+    mtime = _max_mtime(blog_dir)
+    if _cache['posts'] is not None and mtime == _cache['mtime']:
+        return _cache['posts']
 
+    posts = [parse_blog_post(f) for f in sorted(blog_dir.glob('*.md'), reverse=True)]
+    posts = [p for p in posts if p]
+
+    _cache['posts'] = posts
+    _cache['mtime'] = mtime
     return posts
 
 
-def get_post_by_slug(slug):
-    """Get single blog post by slug"""
-    # Go up two levels from app/services/ to project root
-    blog_dir = Path(__file__).parent.parent.parent / 'blog' / 'posts'
-    filepath = blog_dir / f'{slug}.md'
-
-    if filepath.exists():
-        return parse_blog_post(filepath)
-    return None
+def get_post_by_slug(slug: str) -> dict | None:
+    """Get a single blog post by slug, reusing the in-memory cache."""
+    return next((p for p in get_all_posts() if p['slug'] == slug), None)

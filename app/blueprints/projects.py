@@ -20,7 +20,7 @@ def index():
         lang=lang,
         translations=translations[lang],
         items=projects,
-        base_url='/projects',
+        item_endpoint='projects.project',
         section_title=translations[lang]['projects'],
         empty_message=translations[lang]['no_projects'],
     )

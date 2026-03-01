@@ -22,7 +22,7 @@ def index():
         lang=lang,
         translations=translations[lang],
         items=posts,
-        base_url='/blog',
+        item_endpoint='blog.post',
         section_title=translations[lang]['blog'],
         empty_message=translations[lang]['no_posts'],
     )

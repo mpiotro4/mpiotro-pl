@@ -32,26 +32,36 @@ def parse_project(filepath):
     }
 
 
-def get_all_projects():
-    """Get all projects sorted by date (newest first)"""
-    projects_dir = Path(__file__).parent.parent.parent / 'projects'
+_cache: dict = {'projects': None, 'mtime': None}
+
+
+def _projects_dir() -> Path:
+    return Path(__file__).parent.parent.parent / 'projects'
+
+
+def _max_mtime(directory: Path) -> float:
+    mtimes = [f.stat().st_mtime for f in directory.glob('*.md')]
+    return max(mtimes) if mtimes else 0.0
+
+
+def get_all_projects() -> list:
+    """Get all projects sorted by date (newest first), cached until a file changes."""
+    projects_dir = _projects_dir()
     if not projects_dir.exists():
         return []
 
-    projects = []
-    for md_file in sorted(projects_dir.glob('*.md'), reverse=True):
-        project = parse_project(md_file)
-        if project:
-            projects.append(project)
+    mtime = _max_mtime(projects_dir)
+    if _cache['projects'] is not None and mtime == _cache['mtime']:
+        return _cache['projects']
 
+    projects = [parse_project(f) for f in sorted(projects_dir.glob('*.md'), reverse=True)]
+    projects = [p for p in projects if p]
+
+    _cache['projects'] = projects
+    _cache['mtime'] = mtime
     return projects
 
 
-def get_project_by_slug(slug):
-    """Get single project by slug"""
-    projects_dir = Path(__file__).parent.parent.parent / 'projects'
-    filepath = projects_dir / f'{slug}.md'
-
-    if filepath.exists():
-        return parse_project(filepath)
-    return None
+def get_project_by_slug(slug: str) -> dict | None:
+    """Get a single project by slug, reusing the in-memory cache."""
+    return next((p for p in get_all_projects() if p['slug'] == slug), None)

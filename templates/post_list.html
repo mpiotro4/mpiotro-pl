@@ -10,7 +10,7 @@
         <article class="post-card{% if item.image %} post-card--has-image{% endif %}">
             <div class="post-card-content">
                 <h2>
-                    <a href="{{ base_url }}/{{ item.slug }}">
+                    <a href="{{ url_for(item_endpoint, slug=item.slug) }}">
                         {{ localize(item, 'title', lang) }}
                     </a>
                 </h2>
@@ -50,7 +50,7 @@
                 <p class="post-description">
                     {{ localize(item, 'description', lang) }}
                 </p>
-                <a href="{{ base_url }}/{{ item.slug }}" class="read-more-link">
+                <a href="{{ url_for(item_endpoint, slug=item.slug) }}" class="read-more-link">
                     {{ translations['read_more'] }} →
                 </a>
             </div>
