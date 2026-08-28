@@ -40,9 +40,9 @@ translations = {
                             'dotyczących ceł i podatków dla duńskiego sektora publicznego. Posiadałem szeroki zakres '
                             'obowiązków, od tworzenia testów automatycznych, implementacji nowych funkcjonalności i '
                             'wdrożeń po przygotowywanie kontraktów. Ukończyłem studia magisterskie z informatyki na '
-                            'wydziale elektroniki i technik informacyjnych politechniki warszawskiej.',
+                            'Wydziale Elektroniki i Technik Informacyjnych Politechniki Warszawskiej.',
         'projects': 'Projekty',
-            'blog': 'Blog',
+        'blog': 'Blog',
         'my_projects': 'Lista moich projektów.',
         'read_more': 'Czytaj więcej',
         'back_to_blog': 'Powrót do bloga',

@@ -6,13 +6,14 @@ author: "Marcin Piotrowski"
 tags: ["UML", "BPMN", "graph theory", "software engineering", "Python", "compliance testing"]
 description_pl: "Narzędzie przekształcające diagramy UML i BPMN w struktury grafowe, a następnie weryfikujące ich zgodność za pomocą autorskiego algorytmu opartego na teorii grafów."
 description_en: "A tool that transforms UML and BPMN diagrams into graph structures and verifies their consistency using a custom graph-based algorithm."
+image: /static/images/projects/uml-bpmn/Wyplata.png
 ---
 
 ## PL
 
 ## BPMN vs UML
 
-W procesie wytwarzania oprogramowania analitycy biznesowi modelują procesy w notacji BPMN, a architekci systemu definiują wymagania funkcjonalne za pomocą przypadków użycia UML. Problem polega na tym, że oba modele operują na różnych poziomach abstrakcji i nie da się ich ze sobą bezpośrednio porównać. Ręczna weryfikacja czy proces biznesowy faktycznie realizuje to, co opisuje przypadek użycia, jest czasochłonna i podatna na błędy.
+W procesie wytwarzania oprogramowania analitycy biznesowi modelują procesy w notacji BPMN, a architekci systemu definiują wymagania funkcjonalne za pomocą przypadków użycia UML. Problem polega na tym, że oba modele operują na różnych poziomach abstrakcji i nie da się ich ze sobą bezpośrednio porównać. Ręczna weryfikacja, czy proces biznesowy faktycznie realizuje to, co opisuje przypadek użycia, jest czasochłonna i podatna na błędy.
 
 Przegląd literatury pokazał, że choć istnieją próby konwersji między tymi notacjami (np. Lubke et al. proponowali wizualizację przypadków użycia jako procesów BPMN, Bouzidi et al. badali odwrotny kierunek), nikt dotąd nie zaproponował narzędzia do **weryfikacji zgodności** między istniejącymi diagramami obu typów.
 
@@ -25,7 +26,7 @@ Warto rozróżnić dwie rzeczy, bo łatwo je pomylić. **Przypadek użycia** (us
 - **Scenariusz podstawowy:** wypłata gotówki
     1. Klient umieszcza kartę w bankomacie
     2. Bankomat wyświetla menu główne
-    3. Klient wybiera opcję wypłata
+    3. Klient wybiera opcję wypłaty
     4. Bankomat prosi o wprowadzenie kwoty
     5. ...
 - **Scenariusz alternatywny:** Brak środków (początek: krok 5, złączenie: krok 8)
@@ -64,7 +65,7 @@ Zgodność jest mierzona dwoma niezależnymi metrykami.
 
 $$C_n(A,B) = \frac{|V_A \cap V_B|}{|V_A|} \cdot 100\%$$
 
-gdzie $V_A$ to zbiór wierzchołków grafu przypadku użycia, a $V_B$ grafu BPMN. Krok i zadanie uznaje się za zgodne, jeśli ich nazwy są identyczne. BPMN jako bardziej szczegółowy opis może zawierać nadmiarowe zadania — to jest dopuszczalne, ważne żeby wszystkie kroki z przypadku użycia były pokryte.
+gdzie $V_A$ to zbiór wierzchołków grafu przypadku użycia, a $V_B$ grafu BPMN. Krok i zadanie uznaje się za zgodne, jeśli ich nazwy są identyczne. BPMN jako bardziej szczegółowy opis może zawierać nadmiarowe zadania — to jest dopuszczalne, ważne, żeby wszystkie kroki z przypadku użycia były pokryte.
 
 **Zgodność ścieżek** — czy każda ścieżka (scenariusz) z przypadku użycia występuje również w procesie biznesowym:
 
@@ -90,7 +91,7 @@ Weźmy przypadek użycia z pięcioma krokami w scenariuszu głównym i dwoma sce
     3. C
     4. E
     5. F
-- **Scenariusz alternatywny** (początek: krok 3, złączenie: krok 4):
+- **Scenariusz alternatywny 1** (początek: krok 3, złączenie: krok 4):
     1. G
 - **Scenariusz alternatywny 2** (początek: krok 3, złączenie: krok 4):
     1. D
@@ -152,7 +153,7 @@ Narzędzie poprawnie wskazało brakujący wierzchołek "G" oraz ścieżkę, któ
 
 ## Studium przypadku: system bankomatu
 
-Aby zweryfikować praktyczną użyteczność narzędzia, zaprojektowałem kompletny system bankomatu z czterema funkcjami: autoryzacja użytkownika, wpłata gotówki, wypłata gotówki i sprawdzenie salda. Dla każdej funkcji stworzyłem przypadki użycia UML i odpowiadające im procesy biznesowe BPMN, a następnie celowo wprowadzałem niespójności, żeby sprawdzić czy narzędzie je wykryje.
+Aby zweryfikować praktyczną użyteczność narzędzia, zaprojektowałem kompletny system bankomatu z czterema funkcjami: autoryzacja użytkownika, wpłata gotówki, wypłata gotówki i sprawdzenie salda. Dla każdej funkcji stworzyłem przypadki użycia UML i odpowiadające im procesy biznesowe BPMN, a następnie celowo wprowadzałem niespójności, żeby sprawdzić, czy narzędzie je wykryje.
 
 <img alt="Diagram przypadków użycia bankomatu" src="/static/images/projects/uml-bpmn/bakomat_use_case.png" width="600"/>
 
@@ -167,7 +168,7 @@ Przypadek użycia "Sprawdzenie PIN" porównany z procesem biznesowym, który go 
 - **Scenariusz podstawowy:** Sprawdzenie PIN
     1. Karta zostaje umieszczona w bankomacie
     2. Bankomat prosi o podanie PIN
-    3. Bankomat wysyła zapytanie do banku czy PIN poprawny
+    3. Bankomat wysyła zapytanie do banku, czy PIN poprawny
     4. Bank weryfikuje poprawność PIN
     5. Bank potwierdza poprawność PIN
     6. Bankomat informuje o autoryzacji zakończonej pomyślnie
@@ -198,9 +199,9 @@ Przypadek użycia "Obsługa wypłaty" porównany z procesem BPMN, w którym jedn
 
 - **Scenariusz podstawowy:** Obsługa wypłaty
     1. Bankomat wyświetla menu główne
-    2. Klient wybiera opcje wypłata gotówki
+    2. Klient wybiera opcję wypłaty gotówki
     3. Bankomat prosi o wprowadzenie kwoty
-    4. Bankomat prosi bank o weryfikacje dostępności środków
+    4. Bankomat prosi bank o weryfikację dostępności środków
     5. Bank autoryzuje wypłatę
     6. Bank aktualizuje stan konta użytkownika
     7. Bankomat wydaje banknoty
@@ -220,14 +221,14 @@ Proces biznesowy:
 | **Wynikowy współczynnik** | **75%** |
 | Brakujące ścieżki | 1 |
 
-Narzędzie wskazało dokładnie którą ścieżkę (scenariusz alternatywny "Brak środków") nie da się odtworzyć w procesie biznesowym.
+Narzędzie wskazało dokładnie, którą ścieżkę (scenariusz alternatywny "Brak środków") nie da się odtworzyć w procesie biznesowym.
 
 ### Brak zgodności kroków
 
 Przypadek użycia "Wypłata" porównany z procesem BPMN, w którym celowo pominięto zadanie "Klient odbiera gotówkę i potwierdzenie".
 
 - **Scenariusz podstawowy:** Wypłata
-    1. Klient wybiera opcje wypłata
+    1. Klient wybiera opcję wypłaty
     2. Bankomat prosi o podanie kwoty
     3. Klient wprowadza kwotę
     4. Bankomat wysyła żądanie wypłaty do banku
@@ -237,7 +238,7 @@ Przypadek użycia "Wypłata" porównany z procesem BPMN, w którym celowo pomini
     8. Bankomat zwraca kartę
     9. Klient odbiera kartę
 - **Scenariusz alternatywny:** Brak środków (początek: krok 5, złączenie: krok 8)
-    1. Bankomat odbiera negatywną decyzje
+    1. Bankomat odbiera negatywną decyzję
     2. Bankomat wyświetla komunikat o braku środków
 
 Proces biznesowy:
@@ -440,7 +441,7 @@ To validate the tool's practical usefulness, I designed a complete ATM system wi
 
 <img alt="ATM use case diagram" src="/static/images/projects/uml-bpmn/bakomat_use_case.png" width="600"/>
 
-The ATM requires authorization before every operation, so "PIN Verification" is a separate use case linked to the others via an `<<include>>` relationship. Each use case has a separate definition for the customer and for the bank — this follows from the assumption that one use case is compared against one BPMN process, which doesn't split into pools or lanes.
+The ATM requires authorization before every operation, so "PIN Verification" is a separate use case linked to the others via an `<<include>>` relationship. Each use case has a separate definition for the customer and for the bank — this follows from the assumption that one use case is compared against one BPMN process, which doesn't split into pools.
 
 I ran four test scenarios.
 

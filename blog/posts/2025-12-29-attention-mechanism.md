@@ -31,14 +31,14 @@ I następujący słownik o rozmiarze 5:
 
 Każdy token reprezentujemy jako wektor embeddingów o wymiarze $d_{model} = 2$ (w rzeczywistych modelach to zazwyczaj 512, 768 lub więcej).
 
-Każdy z tokenów posiada następujące embedingi:
+Każdy z tokenów posiada następujące embeddingi:
 
 $$W_{vocab} = \begin{bmatrix}
 1.0 & 0.2 & 0.8 & 0.0 &  0.0 \\
 0.0 & 1.0 & 0.0 & 0.5 &  0.0
 \end{bmatrix}$$
 
-gdzie kolumny oodpowiadają kolejnym tokenom ze słownika.
+gdzie kolumny odpowiadają kolejnym tokenom ze słownika.
 
 **Embeddingi:**
 
@@ -54,7 +54,7 @@ gdzie:
 - $E[2] = [0.8, 0.0]$ - embedding dla "mouse"
 
 #### Interpretacja wymiarów:
-Choć nie kontrolujemy bezpośrednio, co oznacza każdy wymiar, możemy próbować to odkryć post hoc. W sieci można znaleźć wiele przykładów gdzie np. embedingi tokenów `wujek` i `ciocia` są przesuniętę o pewną stałą wartość tak samo jak tokeny `król` i `królowa`. Oznacza to, że model zakodował informację o płci w konkretnym kierunku przestrzeni.
+Choć nie kontrolujemy bezpośrednio, co oznacza każdy wymiar, możemy próbować to odkryć post hoc. W sieci można znaleźć wiele przykładów, gdzie np. embeddingi tokenów `wujek` i `ciocia` są przesunięte o pewną stałą wartość tak samo jak tokeny `król` i `królowa`. Oznacza to, że model zakodował informację o płci w konkretnym kierunku przestrzeni.
 W naszym przykładzie można spekulować:
 - Pierwszy wymiar — "zwierzęcość" (cat=1.0, mouse=0.8, chases=0.2)
 - Drugi wymiar — "akcja/ruch" (chases=1.0, reszta=0.0)
@@ -217,7 +217,7 @@ Ostateczna macierz wyjściowa zawiera **kontekstowe reprezentacje** (contextuali
 - **"chases"** — zmiana z $[0.2, 1.0]$ na $[0.48, 0.65]$: wzrosła "zwierzęcość" (wpływ "cat"), spadła "akcja"
 - **"mouse"** — zmiana z $[0.8, 0.0]$ na $[0.73, 0.25]$: pojawiła się składowa "akcji" (wpływ "chases")
 
-Każdy token wchłonął informację o swoim kontekście. "Mouse" wie teraz, że jest goniona, informacja, zakodowana w wymiarze "akcji", będzie kluczowa przy predykcji następnego tokenu.
+Każdy token wchłonął informację o swoim kontekście. "Mouse" wie teraz, że jest goniona – informacja zakodowana w wymiarze "akcji" będzie kluczowa przy predykcji następnego tokenu.
 
 To uproszczony przykład, ale dokładnie ten sam mechanizm agregacji kontekstu przez ważone sumy zachodzi w powszechnie używanych modelach.
 
@@ -228,7 +228,7 @@ Po bloku attention następuje sieć feed-forward (FFN), stosowana niezależnie d
 
 $$\text{FFN}(x) = \max(0, xW_1 + b_1)W_2 + b_2$$
 
-Dla uproszczenia użyjemy minimalnego FFN z jedną warstwą liniową bez aktywacji bez bias:
+Dla uproszczenia użyjemy minimalnego FFN z jedną warstwą liniową, bez aktywacji i bez biasu:
 
 $$\text{FFN}(x) = xW_{FFN}$$
 
@@ -255,15 +255,15 @@ $$\text{FFN Out} = \text{Output} \cdot W_{FFN} =
 \end{bmatrix}
 $$
 
->Uwaga: Pomijamy tu LayerNorm i residual connections, które w prawdziwym Transformerze stabilizują uczenie.
+> **Uwaga:** Pomijamy tu LayerNorm i residual connections, które w prawdziwym Transformerze stabilizują uczenie.
 
-### Krok 8: Predykcja następnego tokena
+### Krok 8: Predykcja następnego tokenu
 
-Aby przewidzieć następny token, potrzebna jest reprezentacja ostatniego tokena:
+Aby przewidzieć następny token, potrzebna jest reprezentacja ostatniego tokenu:
 
 $$\text{h_mouse} = \begin{bmatrix} 0.62 & 0.86 \end{bmatrix} $$
 
-Warto zauważyć, że na tym etapie wszystkie pozostałe tokeny nie są nam potrzebne. Po etapie attention wszystkie informacje, które niosą powinny być już zawarte w ostatnim tokenie.
+Warto zauważyć, że na tym etapie wszystkie pozostałe tokeny nie są nam potrzebne. Po etapie attention wszystkie informacje, które niosą, powinny być już zawarte w ostatnim tokenie.
 
 #### Predykcja na logity (unembedding)
 
@@ -291,7 +291,7 @@ $$ P = softmax(logits) = softmax(\begin{bmatrix}0.62 & 0.984 & 0.496 & 0.43 & 0.
 | quickly | 18%                |
 | sleeping | 11%                |
 
-Wychodzi na to że wg. naszego prostego modelu kolejny najbardziej prawdopodobny token to "chases" czyli zdanie brzmi:
+Wychodzi na to, że wg. naszego prostego modelu kolejny najbardziej prawdopodobny token to "chases", czyli zdanie brzmi:
 
     Cat chases mouse chases
 
@@ -301,7 +301,7 @@ Co jest totalnie bez sensu?
 
 Bo wagi zostały dobrane nie na drodze treningu, lecz arbitralnie. Początkowo chciałem dobrać wagi tak, aby uzyskać sensowny wynik, po czym stwierdziłem, że większą wartość będzie miało, jeśli znowu przypomnę, że w prawdziwych modelach tych wag są miliony, więc ten prosty przykład nie ma prawa działać poprawnie (tak naprawdę w pierwszej kolejności było to motywowane lenistwem, dopiero potem dorobiłem tę opowieść o większej wartości edukacyjnej).
 
-Gdy jednak uwierzymy, że to wszystko działa to warto wspomnieć, że jest to zasługa mechanizmu attention, który pozwala każdemu tokenowi "spojrzeć" na dostępne tokeny i zadecydować, które z nich są najważniejsze dla jego reprezentacji. 
+Gdy jednak uwierzymy, że to wszystko działa, to warto wspomnieć, że jest to zasługa mechanizmu attention, który pozwala każdemu tokenowi "spojrzeć" na dostępne tokeny i zadecydować, które z nich są najważniejsze dla jego reprezentacji. 
 
 W architekturze **decoder-only** z maską przyczynową (jak w naszym przykładzie):
 - Każdy token buduje swoją reprezentację tylko na podstawie siebie i poprzednich tokenów
@@ -349,7 +349,7 @@ gdzie:
 
 $$\text{head}_i = \text{Attention}(QW_Q^{(i)}, KW_K^{(i)}, VW_V^{(i)})$$
 
-To pozwala modelowi uczyć się różnych typów relacji równocześnie - Jedna głowica może śledzić relacje składniowe, inna semantyczne, jeszcze inna pozycyjne.
+To pozwala modelowi uczyć się różnych typów relacji równocześnie - jedna głowica może śledzić relacje składniowe, inna semantyczne, jeszcze inna pozycyjne.
 
 ## Podsumowanie
 
@@ -529,7 +529,17 @@ $$\frac{QK^T}{\sqrt{2}} + \text{Mask} = \begin{bmatrix}
 0.71 & -\infty & -\infty \\
 0.14 & 0.74 & -\infty \\
 0.57 & 0.11 & 0.45
-\end{bmatrix}$$
+\end{bmatrix} +
+\begin{bmatrix}
+0 & -\infty & -\infty \\
+0 & 0 & -\infty \\
+0 & 0 & 0
+\end{bmatrix} = \begin{bmatrix}
+0.71 & -\infty & -\infty \\
+0.14 & 0.74 & -\infty \\
+0.57 & 0.11 & 0.45
+\end{bmatrix}
+$$
 
 > **Note:** The notation $a + (-\infty)$ is mathematically informal, but is standard convention in programming. In floating-point arithmetic, `-inf` is a concrete value for which $\exp(-\infty) = 0$, effectively zeroing out masked positions after softmax.
 
@@ -618,7 +628,7 @@ $$\text{FFN Out} = \text{Output} \cdot W_{FFN} =
 \end{bmatrix}
 $$
 
-> Note: We omit LayerNorm and residual connections, which in a real Transformer stabilize training.
+> **Note:** We omit LayerNorm and residual connections, which in a real Transformer stabilize training.
 
 ### Step 8: Predicting the Next Token
 
@@ -658,7 +668,7 @@ According to our simple model, the most probable next token is "chases", making 
 
     Cat chases mouse chases
 
-Which is complete nonsense.
+Which is complete nonsense?
 
 ## Why This Does (Not) Work
 

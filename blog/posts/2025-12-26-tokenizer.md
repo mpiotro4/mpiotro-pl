@@ -129,7 +129,7 @@ Vocab length: 28996
 ---
 
 ### BERT base-uncased
-**Charakterystyka:** Wariant BERT z normalizacją do małych liter, słownik: 30,522 tokenów
+**Charakterystyka:** Wariant BERT z normalizacją do małych liter, słownik: 30,522 tokeny
 ```
 ocab length: 30522
 [CLS] english and capital ##ization [UNK] [UNK] [UNK] show _ token ##s false none eli ##f = = > = else : two tab ##s : " " three tab ##s : " " 12 . 0 * 50 = 600 pr ##zy ##k ##ła ##do ##we z ##dan ##ie w je ##zy ##ku pol ##ski ##m , z ##o ##ł ##c [SEP]
@@ -261,7 +261,7 @@ Wybór odpowiedniego tokenizera powinien być uzależniony od konkretnego przypa
 > Przykład własnego tokenizera pochodzi z kursu Andreja Karpathy'ego: [Building makemore](https://www.youtube.com/watch?v=kCc8FmEb1nY)
 
 Możemy również stworzyć własny tokenizer. Nie będzie on tak zaawansowany jak wcześniej omawiane, lecz świetnie nada się do celów edukacyjnych. Zbudujemy najprostszy możliwy tokenizer, w którym tokenami są pojedyncze znaki.
-Zaczniemy od tekstu, który chcemy podzielić na tokeny. Wykorzystamy publicznie dostępny dataset zawierający wszystkie teksty Shakespearea: [Tiny Shakespeare](https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt)
+Zaczniemy od tekstu, który chcemy podzielić na tokeny. Wykorzystamy publicznie dostępny dataset zawierający wszystkie teksty Shakespeare'a: [Tiny Shakespeare](https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt)
 Po wczytaniu całego datasetu wystarczy zamienić go na `set`, aby uzyskać zbiór unikalnych znaków. Następnie konwertujemy z powrotem do listy i sortujemy:
 ```python
 chars = sorted(list(set(text)))
@@ -302,7 +302,7 @@ Tokenizer to często niedoceniany, ale kluczowy element każdego LLM. Jak pokazu
 Wybór tokenizera ma bezpośredni wpływ na:
 - **Efektywność** - mniej tokenów = szybsze przetwarzanie i niższe koszty API
 - **Jakość** - lepsza reprezentacja = lepsze zrozumienie kontekstu przez model
-- **Uniwersalność** - wsparcia dla różnych języków i formatów tekstu
+- **Uniwersalność** - wsparcie dla różnych języków i formatów tekstu
 Warto eksperymentować z różnymi modelami i tokenizerami, aby znaleźć optymalne rozwiązanie dla swojego przypadku użycia.
 **Ciekawostka na koniec:** Emoji 🥸 (twarz z wąsami i okularami) jest stosunkowo nowe (Unicode 13.0, 2020), dlatego żaden z testowanych tokenizerów nie rozpoznał go poprawnie - większość modeli była trenowana wcześniej i nie ma tego znaku w swoim słowniku.
 
@@ -315,15 +315,6 @@ Warto eksperymentować z różnymi modelami i tokenizerami, aby znaleźć optyma
 
 
 ## EN
-
----
-title: "Tokenizers in Language Models - A Practical Comparison"
-date: 2025-12-26
-updated: 2025-12-28
-author: "Marcin Piotrowski"
-tags: ["NLP", "tokenization", "transformers", "LLM", "BERT", "GPT"]
-description: "A practical guide to tokenizers in large language models. Comparison of BERT, GPT-4, GPT-2, T5, StarCoder and XLM-RoBERTa with multilingual examples, plus building your own tokenizer from scratch."
----
 
 ## Introduction
 

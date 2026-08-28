@@ -7,7 +7,7 @@
     {% if items %}
     <div class="post-list">
         {% for item in items %}
-        <article class="post-card{% if item.image %} post-card--has-image{% endif %}">
+        <article class="post-card">
             <div class="post-card-content">
                 <h2>
                     <a href="{{ url_for(item_endpoint, slug=item.slug) }}">
@@ -54,11 +54,6 @@
                     {{ translations['read_more'] }} →
                 </a>
             </div>
-            {% if item.image %}
-            <div class="post-card-image">
-                <img src="{{ item.image }}" alt="{{ localize(item, 'title', lang) }}">
-            </div>
-            {% endif %}
         </article>
         {% endfor %}
     </div>

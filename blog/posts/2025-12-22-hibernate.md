@@ -1,8 +1,8 @@
 ---
 title_pl: "JPA, Hibernate, JPQL, HQL - wyjaśnienie pojęć związanych z ORM w Javie"
 title_en: "JPA, Hibernate, JPQL, HQL - Java ORM concepts explained"
-date: 2025-12-25
-updated: 2025-12-22
+date: 2025-12-22
+updated: 2025-12-25
 author: "Marcin Piotrowski"
 tags: ["java", "hibernate", "jpa", "orm", "database"]
 description_pl: "Kompleksowe wyjaśnienie ekosystemu ORM w Javie - czym są JPA, Hibernate, EntityManager, Session, JPQL, HQL i Criteria API oraz jak się do siebie mają."
@@ -19,7 +19,7 @@ Zacznijmy od wysokopoziomowego podsumowania, gdzie w dalszej części wpisu po k
 **JPA (Standard) → Hibernate (Implementacja) → EntityManager/Session (API do rozmowy) → JPQL/HQL/Criteria API (Język zapytań)**
 ## JPA (Java Persistence API)
 
-Wszystko zaczyna się od JPA, czyli Java Persistence API. Jest to interfejs będąca częścią Javy od 2006 roku, która ma na celu ustandaryzować zarządzanie relacyjnymi danymi w aplikacjach. JPA nie jest biblioteką, lecz zestawem interfejsów i reguł, które definiują jak powinien działać ORM.
+Wszystko zaczyna się od JPA, czyli Java Persistence API. Jest to interfejs będący częścią Javy od 2006 roku, który ma na celu ustandaryzować zarządzanie relacyjnymi danymi w aplikacjach. JPA nie jest biblioteką, lecz zestawem interfejsów i reguł, które definiują jak powinien działać ORM.
 
 JPA wprowadza kluczowe adnotacje takie jak `@Entity`, `@Table`, czy `@Id`:
 ```java
@@ -53,7 +53,7 @@ Dodatkowe możliwości poza JPA:
 
 ## API do rozmowy z bazą
 
-> Kod źródłowy do tego wpisu dostępny jest w [repozytorium github]( https://github.com/mpiotro4/HibernatePlayground/tree/blog/2025-12-22-hibernate)
+> Kod źródłowy do tego wpisu dostępny jest w [repozytorium GitHub](https://github.com/mpiotro4/HibernatePlayground/tree/blog/2025-12-22-hibernate)
 
 Istnieją dwie implementacje API do rozmowy z bazą - **EntityManager** (JPA) i **Session** (Hibernate). Oba to obiekty, przez które wykonuje się operacje na bazie danych. Pełnią rolę mostu pomiędzy kodem Java a tabelami w bazie.
 
@@ -110,7 +110,7 @@ Gdy potrzebujesz bardziej złożonych operacji niż proste `find()` czy `persist
 
 ### 1. JPQL (Java Persistence Query Language) - standard JPA
 
-Zapytania w stylu SQL, ale operujesz na obiektach i polach zamiast tabelach i kolumnach:
+Zapytania w stylu SQL, ale operujesz na obiektach i polach zamiast tabel i kolumn:
 ```java
 List<Person> adults = em.createQuery(
     "SELECT p FROM Person p WHERE p.age >= 18", 
@@ -146,7 +146,7 @@ query.select(person)
 List<Person> adults = em.createQuery(query).getResultList();
 ```
 
-Kiedy używać Criteria API? Gdy budujesz zapytanie dynamicznie w runtime - np. formularz wyszukiwania gdzie użytkownik może wybrać różne kombinacje filtrów.
+Kiedy używać Criteria API? Gdy budujesz zapytanie dynamicznie w runtime - np. formularz wyszukiwania, gdzie użytkownik może wybrać różne kombinacje filtrów.
 
 ### 4. Native SQL - czysty SQL
 

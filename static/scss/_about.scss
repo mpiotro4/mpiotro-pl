@@ -445,8 +445,12 @@
 
 .about-skills-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
+
+    @include tablet {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
     @include mobile {
         grid-template-columns: 1fr;
@@ -490,4 +494,21 @@
         margin: 0;
         text-align: left;
     }
+}
+
+.about-skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.about-skill-tag {
+    font-size: 12px;
+    font-weight: 500;
+    color: $color-text-bright;
+    background: rgba(100, 124, 100, 0.1);
+    border: 1px solid $color-border-light;
+    border-radius: $radius-m;
+    padding: 3px 10px;
+    white-space: nowrap;
 }

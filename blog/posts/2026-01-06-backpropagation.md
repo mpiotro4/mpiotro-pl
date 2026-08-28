@@ -1,7 +1,7 @@
 ---
 title_pl: "Wsteczna propagacja gradientu krok po kroku - przykład obliczeniowy"
 title_en: "Backpropagation Step by Step - A Computational Example"
-date: 2025-01-06
+date: 2026-01-06
 author: "Marcin Piotrowski"
 tags: ["deep learning", "backpropagation", "gradient descent", "neural networks"]
 description_pl: "Szczegółowy przykład obliczeniowy backpropagation z ręcznymi obliczeniami. Od forward pass przez backward pass aż po krok optymalizatora."
@@ -31,7 +31,7 @@ $$\nabla f = \left[\frac{\partial f}{\partial x}, \frac{\partial f}{\partial y},
 
 Gradient wskazuje kierunek najszybszego wzrostu funkcji.
 
-**W tym wpisie** używamy terminu "gradient" w kontekście całego wektora gradientów (np. "obliczamy gradienty parametrów"), a "pochodna cząstkowa" dla poszczególnych składowych (np. $\frac{\partial L}{\partial a}$)
+**W tym wpisie** używamy terminu "gradient" w kontekście całego wektora gradientów (np. "obliczamy gradienty parametrów"), a "pochodna cząstkowa" dla poszczególnych składowych (np. $\frac{\partial L}{\partial a}$).
 
 ## Przykład obliczeniowy
 
@@ -282,21 +282,13 @@ Ten prosty algorytm, zaimplementowany efektywnie na GPU, umożliwia trenowanie m
 
 ## EN
 
----
-title: "Backpropagation Step by Step — A Worked Example"
-date: 2025-01-06
-author: "Marcin Piotrowski"
-tags: ["deep learning", "backpropagation", "gradient descent", "neural networks"]
-description: "A detailed walkthrough of backpropagation with manual calculations. From forward pass through backward pass all the way to the optimizer step."
----
-
 ## Introduction
 
 Backpropagation is the algorithm that made training deep neural networks practical. The idea is straightforward: compute the derivatives of the loss function with respect to the network's parameters, telling us in which direction to nudge each one to reduce the error.
 
 Worth noting — backpropagation is a general-purpose optimization algorithm. It works for any function built from composable operations, not just neural networks. In transformers, for example, the same mechanism trains both the network weights and the token embeddings, which are simply a table of parameters rather than a neural layer.
 
-The best way to build real intuition for backpropagation is to work through a concrete example by hand. That's exactly what we'll do here.
+The best way to build real intuition for backpropagation is to work through a concrete example by hand. In this post, we'll carry out the complete calculations for a simple function.
 
 ## Gradient, Derivative, Partial Derivative — Quick Definitions
 
@@ -376,7 +368,7 @@ $$\frac{\partial L}{\partial x} = \frac{\partial L}{\partial y} \cdot \frac{\par
 
 where $y$ is an intermediate variable between $L$ and $x$.
 
-A nice intuition for the chain rule comes from George F. Simmons: *"If a car travels twice as fast as a bicycle, and the bicycle travels four times as fast as a walking person, then the car travels 2 × 4 = 8 times as fast as the person."*
+Wikipedia has a nice intuition for the chain rule, courtesy of George F. Simmons: *"If a car travels twice as fast as a bicycle, and the bicycle travels four times as fast as a walking person, then the car travels 2 × 4 = 8 times as fast as the person."*
 
 ### 2.1 Output Gradient
 
@@ -500,7 +492,7 @@ But the mechanism is identical:
 
 ## Implementation in PyTorch
 
-One last thing — PyTorch computes all of this for us automatically. Here's our example in code:
+One last thing — PyTorch (and other deep learning frameworks) compute all of this for us automatically. Here's our example in code:
 
 ```python
 import torch

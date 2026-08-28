@@ -11,8 +11,11 @@
 }
 
 .post-card {
-    @include card(24px, $radius-l);
+    @include glass(0.03);
+    border-radius: $radius-l;
+    box-shadow: $shadow-default, $shadow-inset;
     border: 1px solid $color-border-subtle;
+    overflow: hidden;
     margin: 20px 0;
     @include hover-lift;
 
@@ -21,7 +24,6 @@
     }
 
     @include mobile {
-        padding: 16px;
         margin: 16px 0;
     }
 
@@ -43,6 +45,14 @@
                 color: $color-primary-light;
             }
         }
+    }
+}
+
+.post-card-content {
+    padding: 24px;
+
+    @include mobile {
+        padding: 16px;
     }
 }
 

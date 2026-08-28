@@ -17,9 +17,9 @@
                 </p>
                 <p class="about-text">
                     {% if current_lang == 'pl' %}
-                    Programista z ponad 4-letnim komercyjnym doświadczeniem, specjalizujący się w backendzie w Java. Brałem udział w dużych projektach publicznych obejmujących systemy celne i podatkowe obsługujące miliony transakcji. Absolwent Politechniki Warszawskiej z tytułem magistra informatyki.
+                    Programista z ponad 4-letnim doświadczeniem komercyjnym, specjalizujący się w tworzeniu backendu w Javie. Brałem udział w dużych projektach sektora publicznego, obejmujących systemy celne i podatkowe obsługujące miliony transakcji, oraz uzyskałem tytuł magistra informatyki na Politechnice Warszawskiej.
                     {% else %}
-                    Software developer with over 4 years of commercial experience, specialising in Java backend. Contributed to large-scale public sector systems handling customs and tax operations for millions of transactions. Graduate of Warsaw University of Technology with a Master's degree in Computer Science.
+                    Software developer with 4+ years of commercial experience specialising in Java backend development. I've contributed to large-scale public sector systems handling customs and tax operations for millions of transactions, and hold a Master's degree in Computer Science from Warsaw University of Technology.
                     {% endif %}
                 </p>
                 <div class="about-contact">
@@ -27,6 +27,68 @@
                     <span><i class="fa fa-envelope-o"></i> mpiotro4@outlook.com</span>
                     <span><i class="fa fa-github"></i> <a href="https://github.com/mpiotro4" target="_blank" rel="noopener noreferrer">mpiotro4</a></span>
                     <span><i class="fa fa-linkedin"></i> <a href="https://www.linkedin.com/in/marcin-piotrowski-a0b7951a3/" target="_blank" rel="noopener noreferrer">LinkedIn</a></span>
+                    <span><i class="fa fa-language"></i> {% if current_lang == 'pl' %}Polski (ojczysty), Angielski (C1){% else %}Polish (native), English (C1){% endif %}</span>
+                </div>
+            </div>
+        </div>
+
+        {# ── Skills ── #}
+        <div class="about-skills-section">
+            <h2 class="about-section-title">
+                {% if current_lang == 'pl' %}Umiejętności{% else %}Skills{% endif %}
+            </h2>
+            <div class="about-skills-grid">
+                <div class="about-skill-card">
+                    <h3><i class="fa fa-code"></i> {% if current_lang == 'pl' %}Backend{% else %}Backend Development{% endif %}</h3>
+                    <div class="about-skill-tags">
+                        <span class="about-skill-tag">Java 17</span>
+                        <span class="about-skill-tag">Spring Framework</span>
+                        <span class="about-skill-tag">REST API</span>
+                        <span class="about-skill-tag">{% if current_lang == 'pl' %}Mikroserwisy{% else %}Microservices{% endif %}</span>
+                        <span class="about-skill-tag">{% if current_lang == 'pl' %}Monolity{% else %}Monoliths{% endif %}</span>
+                    </div>
+                </div>
+                <div class="about-skill-card">
+                    <h3><i class="fa fa-database"></i> {% if current_lang == 'pl' %}Dane i komunikacja{% else %}Data & Messaging{% endif %}</h3>
+                    <div class="about-skill-tags">
+                        <span class="about-skill-tag">PostgreSQL</span>
+                        <span class="about-skill-tag">SQL</span>
+                        <span class="about-skill-tag">Apache Kafka</span>
+                    </div>
+                </div>
+                <div class="about-skill-card">
+                    <h3><i class="fa fa-flask"></i> {% if current_lang == 'pl' %}Testowanie i jakość kodu{% else %}Testing & Code Quality{% endif %}</h3>
+                    <div class="about-skill-tags">
+                        <span class="about-skill-tag">JUnit</span>
+                        <span class="about-skill-tag">Mockito</span>
+                        <span class="about-skill-tag">TDD</span>
+                        <span class="about-skill-tag">{% if current_lang == 'pl' %}Code review{% else %}Code Reviews{% endif %}</span>
+                    </div>
+                </div>
+                <div class="about-skill-card">
+                    <h3><i class="fa fa-sitemap"></i> {% if current_lang == 'pl' %}Automatyzacja procesów{% else %}Business Process Automation{% endif %}</h3>
+                    <div class="about-skill-tags">
+                        <span class="about-skill-tag">BPMN</span>
+                        <span class="about-skill-tag">Camunda 7</span>
+                    </div>
+                </div>
+                <div class="about-skill-card">
+                    <h3><i class="fa fa-server"></i> {% if current_lang == 'pl' %}DevOps i infrastruktura{% else %}DevOps & Infrastructure{% endif %}</h3>
+                    <div class="about-skill-tags">
+                        <span class="about-skill-tag">Kubernetes</span>
+                        <span class="about-skill-tag">Docker</span>
+                        <span class="about-skill-tag">Jenkins</span>
+                        <span class="about-skill-tag">CI/CD</span>
+                        <span class="about-skill-tag">Git</span>
+                    </div>
+                </div>
+                <div class="about-skill-card">
+                    <h3><i class="fa fa-wrench"></i> {% if current_lang == 'pl' %}Inne technologie{% else %}Also Worked With{% endif %}</h3>
+                    <div class="about-skill-tags">
+                        <span class="about-skill-tag">PHP</span>
+                        <span class="about-skill-tag">VBA</span>
+                        <span class="about-skill-tag">JavaScript</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -50,7 +112,7 @@
                 <div class="about-company-body">
                     <div class="about-timeline">
 
-                        {# ── Career milestone: Promoted to Senior ── #}
+                        {# ── Project: SOLON TAX (after promotion) ── #}
                         <div class="about-timeline-item">
                             <div class="about-timeline-dot is-current"></div>
                             <div class="about-timeline-card">
@@ -65,14 +127,18 @@
                                 <h3 class="about-timeline-title">
                                     {% if current_lang == 'pl' %}Awans: Starszy Programista Java{% else %}Promoted to Senior Java Developer{% endif %}
                                 </h3>
-                                <span class="about-project-tag">{% if current_lang == 'pl' %}Nowy projekt{% else %}New project{% endif %}</span>
+                                <span class="about-project-tag">SOLON TAX</span>
                                 <p class="about-timeline-desc">
-                                    {% if current_lang == 'pl' %}Szczegóły wkrótce.{% else %}Details coming soon.{% endif %}
+                                    {% if current_lang == 'pl' %}
+                                    Zostałem awansowany na starszego programistę Java, pozostając przy projekcie SOLON TAX. Obecnie pełnię silnie techniczną rolę skoncentrowaną na backendzie — prowadzę konsolidację mikroserwisów, szerokie zadanie obejmujące zarówno development, jak i DevOps.
+                                    {% else %}
+                                    Promoted to Senior Java Developer while remaining on SOLON TAX. Now in a strong, hands-on technical role focused on backend development — leading microservice consolidation, a wide-reaching task spanning everything from development to DevOps.
+                                    {% endif %}
                                 </p>
                             </div>
                         </div>
 
-                        {# ── Project: SOLON TAX ── #}
+                        {# ── Project: SOLON TAX (before promotion) ── #}
                         <div class="about-timeline-item">
                             <div class="about-timeline-dot"></div>
                             <div class="about-timeline-card">
@@ -84,9 +150,9 @@
                                 <span class="about-project-tag">SOLON TAX</span>
                                 <p class="about-timeline-desc">
                                     {% if current_lang == 'pl' %}
-                                    <strong>SOLON TAX</strong> — platforma Netcompany do pośredniego opodatkowania w wielu jurysdykcjach. Rozwiązanie oparte na mikroserwisach, dostosowywane do specyficznych wymagań klientów przed wdrożeniem na żywo.
+                                    Platforma Netcompany do rozliczania podatków pośrednich w wielu jurysdykcjach, oparta na mikroserwisach. Dostosowałem rozwiązanie do wymagań konkretnych klientów przed wdrożeniem produkcyjnym.
                                     {% else %}
-                                    <strong>SOLON TAX</strong> — Netcompany's multijurisdiction indirect tax platform. A microservice-based solution being tailored to client-specific needs prior to its live implementation.
+                                    Netcompany's multi-jurisdiction indirect tax platform, built on microservices. Tailored the solution to client-specific requirements ahead of go-live.
                                     {% endif %}
                                 </p>
                             </div>
@@ -104,9 +170,9 @@
                                 <span class="about-project-tag">ERMIS</span>
                                 <p class="about-timeline-desc">
                                     {% if current_lang == 'pl' %}
-                                    <strong>ERMIS</strong> — wiodąca europejska platforma celna oparta na mikroserwisach, obejmująca pełen cykl życia zgłoszenia celnego. Analiza, projektowanie i implementacja nowych funkcjonalności zgodnie z ewoluującym prawodawstwem UE.
+                                    Wiodąca europejska platforma celna oparta na mikroserwisach, obsługująca pełen cykl życia zgłoszenia celnego. Analizowałem, projektowałem i wdrażałem nowe funkcjonalności zgodnie ze zmieniającym się prawodawstwem celnym UE.
                                     {% else %}
-                                    <strong>ERMIS</strong> — Europe's leading microservice-based customs platform covering the entire declaration lifecycle. Analysis, design, and implementation of new features in compliance with evolving EU customs legislation.
+                                    Europe's leading microservices-based customs platform, covering the full customs declaration lifecycle. Analysed, designed, and implemented new features to keep pace with evolving EU customs legislation.
                                     {% endif %}
                                 </p>
                             </div>
@@ -124,9 +190,9 @@
                                 <span class="about-project-tag">DIAS</span>
                                 <p class="about-timeline-desc">
                                     {% if current_lang == 'pl' %}
-                                    <strong>DIAS</strong> — kompleksowa cyfrowa platforma podatkowa dla korporacji. Integracje REST API do pobierania danych podatkowych, logika rozdziału obowiązków ograniczająca ryzyko nadużyć oraz mechanizmy monitorowania terminów.
+                                    Kompleksowa cyfrowa platforma podatkowa dla korporacji. Zbudowałem integracje REST API do pobierania danych podatkowych, wdrożyłem mechanizm rozdziału obowiązków ograniczający ryzyko nadużyć oraz usprawniłem monitorowanie terminów.
                                     {% else %}
-                                    <strong>DIAS</strong> — comprehensive digital corporate tax platform. REST API integrations for tax data retrieval, separation-of-duty logic to reduce fraud risk, and improved deadline monitoring mechanisms.
+                                    A comprehensive digital corporate tax platform. Built REST API integrations for tax data retrieval, implemented separation-of-duty controls to reduce fraud risk, and improved deadline-monitoring mechanisms.
                                     {% endif %}
                                 </p>
                             </div>
@@ -144,9 +210,9 @@
                                 <span class="about-project-tag">ERMIS</span>
                                 <p class="about-timeline-desc">
                                     {% if current_lang == 'pl' %}
-                                    Pierwsze wdrożenie w Netcompany przy platformie celnej <strong>ERMIS</strong>. Szybkie wdrożenie siebie i kolegów w złożone środowisko, projektowanie rozwiązań gotowych do produkcji, tworzenie kontraktów z klientem i dokumentacji technicznej.
+                                    Mój pierwszy projekt w Netcompany, przy wiodącej europejskiej platformie celnej. Szybko wdrożyłem siebie i nowych kolegów w złożone środowisko, projektowałem rozwiązania gotowe do produkcji oraz zajmowałem się kontraktami z klientem, bezpośrednią komunikacją z klientem i dokumentacją techniczną.
                                     {% else %}
-                                    Initial project at Netcompany on the <strong>ERMIS</strong> customs platform. Rapid onboarding of myself and teammates, production-ready solution design, client contracts, direct client communication, and technical documentation.
+                                    My first project at Netcompany, on a leading European customs platform. Quickly onboarded myself and new teammates into a complex environment, designed production-ready solutions, and handled client contracts, direct client communication, and technical documentation.
                                     {% endif %}
                                 </p>
                                 <div class="about-contributions">
@@ -155,14 +221,14 @@
                                     </p>
                                     <ul class="about-contributions-list">
                                         {% if current_lang == 'pl' %}
-                                        <li>Mikroserwisy i monolity; projektowanie API, integracje, zarządzanie bazą danych, testy, code review</li>
-                                        <li>Dokumentacja techniczna wewnętrzna i zewnętrzna</li>
-                                        <li>Współpraca z zespołami międzynarodowymi; seminaria techniczne i programy upskillingu</li>
+                                        <li>Praca z mikroserwisami i monolitami — projektowanie API, integracje, zarządzanie bazą danych, testowanie i code review</li>
+                                        <li>Dokumentacja techniczna dla zespołów wewnętrznych i klientów zewnętrznych</li>
+                                        <li>Współpraca z zespołami międzynarodowymi; seminaria techniczne i programy podnoszenia kwalifikacji</li>
                                         <li>Kubernetes, Docker, Jenkins, CI/CD</li>
                                         {% else %}
-                                        <li>Microservices and monoliths; API design, integrations, database management, testing, code reviews</li>
+                                        <li>Microservices and monoliths — API design, integrations, database management, testing, and code reviews</li>
                                         <li>Technical documentation for internal and external stakeholders</li>
-                                        <li>International team collaboration; technical seminars and upskilling programmes</li>
+                                        <li>Collaboration with international teams; technical seminars and upskilling programmes</li>
                                         <li>Kubernetes, Docker, Jenkins, CI/CD</li>
                                         {% endif %}
                                     </ul>
@@ -216,9 +282,9 @@
                                 </h3>
                                 <p class="about-timeline-desc">
                                     {% if current_lang == 'pl' %}
-                                    Tworzyłem aplikacje webowe w PHP na wewnętrzne potrzeby zakładu produkcyjnego, poprawiając efektywność i wydajność procesów.
+                                    Tworzyłem wewnętrzne aplikacje webowe w PHP dla zakładu produkcyjnego, usprawniając procesy operacyjne.
                                     {% else %}
-                                    Developed PHP web applications for internal use in the production facility, improving process efficiency and productivity.
+                                    Built internal PHP web applications for the production facility, improving process efficiency.
                                     {% endif %}
                                 </p>
                             </div>
@@ -238,9 +304,9 @@
                                 </h3>
                                 <p class="about-timeline-desc">
                                     {% if current_lang == 'pl' %}
-                                    Automatyzowałem procesy biurowe przy użyciu VBA.
+                                    Automatyzowałem ręczne procesy biurowe przy użyciu VBA.
                                     {% else %}
-                                    Automated office processes using VBA.
+                                    Automated manual office workflows using VBA.
                                     {% endif %}
                                 </p>
                             </div>
@@ -261,7 +327,7 @@
             <div class="about-timeline">
 
                 <div class="about-timeline-item">
-                    <div class="about-timeline-dot"></div>
+                    <div class="about-timeline-dot is-edu"></div>
                     <div class="about-timeline-card">
                         <div class="about-timeline-header">
                             <span class="about-timeline-date">
@@ -273,13 +339,13 @@
                         </h3>
                         <p class="about-timeline-company">
                             <i class="fa fa-graduation-cap"></i>
-                            {% if current_lang == 'pl' %}Politechnika Warszawska, Wydział Elektroniki i Technik Informacyjnych{% else %}Warsaw University of Technology, Faculty of Electronics, Telecommunications and Information Technology{% endif %}
+                            {% if current_lang == 'pl' %}Politechnika Warszawska, Wydział Elektroniki i Technik Informacyjnych{% else %}Warsaw University of Technology, Faculty of Electronics and Information Technology{% endif %}
                         </p>
                     </div>
                 </div>
 
                 <div class="about-timeline-item">
-                    <div class="about-timeline-dot"></div>
+                    <div class="about-timeline-dot is-edu"></div>
                     <div class="about-timeline-card">
                         <div class="about-timeline-header">
                             <span class="about-timeline-date">
@@ -291,36 +357,11 @@
                         </h3>
                         <p class="about-timeline-company">
                             <i class="fa fa-graduation-cap"></i>
-                            {% if current_lang == 'pl' %}Politechnika Warszawska, Wydział Elektroniki i Technik Informacyjnych{% else %}Warsaw University of Technology, Faculty of Electronics, Telecommunications and Information Technology{% endif %}
+                            {% if current_lang == 'pl' %}Politechnika Warszawska, Wydział Elektroniki i Technik Informacyjnych{% else %}Warsaw University of Technology, Faculty of Electronics and Information Technology{% endif %}
                         </p>
                     </div>
                 </div>
 
-            </div>
-        </div>
-
-        {# ── Skills ── #}
-        <div class="about-skills-section">
-            <h2 class="about-section-title">
-                {% if current_lang == 'pl' %}Umiejętności{% else %}Skills{% endif %}
-            </h2>
-            <div class="about-skills-grid">
-                <div class="about-skill-card">
-                    <h3><i class="fa fa-code"></i> {% if current_lang == 'pl' %}Programowanie{% else %}Programming{% endif %}</h3>
-                    <p>{% if current_lang == 'pl' %}Silny fokus na backend z Java 17, Spring Framework, SQL, Git. Solidne podstawy frontendu (JavaScript){% else %}Strong focus on backend with Java 17, Spring Framework, SQL, Git. Solid understanding of frontend basics (JavaScript){% endif %}</p>
-                </div>
-                <div class="about-skill-card">
-                    <h3><i class="fa fa-cogs"></i> {% if current_lang == 'pl' %}Technologie i narzędzia{% else %}Technologies & Tools{% endif %}</h3>
-                    <p>Apache Kafka, PostgreSQL, BPMN, Camunda 7, JUnit, Mockito, TDD</p>
-                </div>
-                <div class="about-skill-card">
-                    <h3><i class="fa fa-server"></i> DevOps & Infrastructure</h3>
-                    <p>Kubernetes, Docker, CI/CD pipelines, Jenkins</p>
-                </div>
-                <div class="about-skill-card">
-                    <h3><i class="fa fa-language"></i> {% if current_lang == 'pl' %}Języki{% else %}Languages{% endif %}</h3>
-                    <p>{% if current_lang == 'pl' %}Polski (ojczysty), Angielski (C1){% else %}Polish (native), English (C1){% endif %}</p>
-                </div>
             </div>
         </div>
 

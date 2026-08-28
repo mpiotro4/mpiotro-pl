@@ -805,9 +805,8 @@ img.left {
   -webkit-backdrop-filter: blur(8px);
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  padding: 24px;
   border: 1px solid rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
   margin: 20px 0;
   transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -820,7 +819,6 @@ img.left {
 }
 @media (max-width: 600px) {
   .post-card {
-    padding: 16px;
     margin: 16px 0;
   }
 }
@@ -841,6 +839,15 @@ img.left {
 }
 .post-card h2 a:hover {
   color: rgb(130, 154, 130);
+}
+
+.post-card-content {
+  padding: 24px;
+}
+@media (max-width: 600px) {
+  .post-card-content {
+    padding: 16px;
+  }
 }
 
 .post-meta {
@@ -1703,8 +1710,13 @@ img.left {
 
 .about-skills-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 16px;
+}
+@media (min-width: 601px) and (max-width: 1024px) {
+  .about-skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 @media (max-width: 600px) {
   .about-skills-grid {
@@ -1751,6 +1763,23 @@ img.left {
   color: rgba(255, 255, 255, 0.9);
   margin: 0;
   text-align: left;
+}
+
+.about-skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.about-skill-tag {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(100, 124, 100, 0.1);
+  border: 1px solid rgba(100, 124, 100, 0.3);
+  border-radius: 8px;
+  padding: 3px 10px;
+  white-space: nowrap;
 }
 
 .blog-post-content table {
