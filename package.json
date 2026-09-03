@@ -5,7 +5,8 @@
   "scripts": {
     "sass:build": "sass static/scss:static/css --no-source-map",
     "sass:watch": "sass static/scss:static/css --watch --no-source-map",
-    "build": "npm run sass:build"
+    "build": "npm run sass:build",
+    "freeze": "npm run sass:build && python3 freeze.py"
   },
   "keywords": ["sass", "scss", "css", "flask"],
   "author": "Marcin Piotrowski",

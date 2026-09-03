@@ -52,7 +52,7 @@
     </div>
 
     <div class="post-content">
-        {{ item.html_content | safe }}
+        {{ item.html_content | resolve_static | safe }}
     </div>
 
     <div class="post-footer">

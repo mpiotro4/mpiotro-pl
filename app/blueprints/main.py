@@ -1,22 +1,10 @@
-from flask import Blueprint, render_template, session, redirect, url_for, request
-from app.translations import translations, DEFAULT_LANGUAGE
+from flask import Blueprint, render_template
+from app.translations import translations
 
 main_bp = Blueprint('main', __name__)
 
 
-@main_bp.route('/')
-def index():
-    return redirect(url_for('main.about'))
-
-
-@main_bp.route('/about')
-def about():
-    lang = session.get('lang', DEFAULT_LANGUAGE)
+@main_bp.route('/', defaults={'lang': 'pl'})
+@main_bp.route('/en/', defaults={'lang': 'en'})
+def index(lang):
     return render_template('index.html', lang=lang, translations=translations[lang])
-
-
-@main_bp.route('/set_language/<language>')
-def set_language(language):
-    session['lang'] = language
-    # Redirect to the previous page, or home if no referrer
-    return redirect(request.referrer or url_for('blog.index'))

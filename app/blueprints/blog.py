@@ -1,16 +1,16 @@
-from flask import Blueprint, render_template, session, url_for
+from flask import Blueprint, render_template, url_for, abort
 
-from app.translations import translations, format_date, DEFAULT_LANGUAGE
+from app.translations import translations, format_date
 from app.utils import render_markdown
 from app.services.blog_service import get_all_posts, get_post_by_slug
 
 blog_bp = Blueprint('blog', __name__)
 
 
-@blog_bp.route('/blog')
-def index():
+@blog_bp.route('/blog/', defaults={'lang': 'pl'})
+@blog_bp.route('/en/blog/', defaults={'lang': 'en'})
+def index(lang):
     """Blog homepage - list of all posts"""
-    lang = session.get('lang', DEFAULT_LANGUAGE)
     posts = get_all_posts()
 
     for post in posts:
@@ -28,13 +28,13 @@ def index():
     )
 
 
-@blog_bp.route('/blog/<slug>')
-def post(slug):
+@blog_bp.route('/blog/<slug>/', defaults={'lang': 'pl'})
+@blog_bp.route('/en/blog/<slug>/', defaults={'lang': 'en'})
+def post(lang, slug):
     """Single blog post"""
-    lang = session.get('lang', DEFAULT_LANGUAGE)
     post = get_post_by_slug(slug)
     if not post:
-        return render_template('404.html'), 404
+        abort(404)
 
     post['date_formatted'] = format_date(post.get('date'), lang)
     post['updated_formatted'] = format_date(post.get('updated'), lang) if post.get('updated') else None
