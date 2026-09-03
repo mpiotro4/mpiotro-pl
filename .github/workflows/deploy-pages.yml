@@ -41,7 +41,7 @@ jobs:
         run: python freeze.py
         env:
           SECRET_KEY: build-only-not-secret
-          SITE_BASE_URL: https://mpiotro4.github.io/mpiotro-pl/
+          SITE_BASE_URL: https://mpiotro.pl/
 
       - uses: actions/upload-pages-artifact@v3
         with:

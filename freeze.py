@@ -5,8 +5,12 @@ Usage::
     SECRET_KEY=build-only python freeze.py
 
 Produces a Polish tree at the root and an English mirror under ``/en/``.
-The site is served from a sub-path (``/mpiotro-pl/``) on project GitHub Pages,
-so every generated URL is prefixed via ``FREEZER_BASE_URL``.
+
+``SITE_BASE_URL`` controls where the site is served:
+
+- custom domain (default ``https://mpiotro.pl/``) -> root paths + a ``CNAME`` file
+- project pages, e.g. ``https://mpiotro4.github.io/mpiotro-pl/`` -> every URL is
+  prefixed with ``/mpiotro-pl/`` and no ``CNAME`` is written
 """
 import os
 from urllib.parse import urlsplit
@@ -18,8 +22,9 @@ from app.services.blog_service import get_all_posts
 from app.services.project_service import get_all_projects
 
 LANGUAGES = ('pl', 'en')
-BASE_URL = os.environ.get('SITE_BASE_URL', 'https://mpiotro4.github.io/mpiotro-pl/')
-BASE_PATH = urlsplit(BASE_URL).path or '/'  # e.g. "/mpiotro-pl/"
+BASE_URL = os.environ.get('SITE_BASE_URL', 'https://mpiotro.pl/')
+BASE_PATH = urlsplit(BASE_URL).path or '/'          # e.g. "/" or "/mpiotro-pl/"
+BASE_HOST = urlsplit(BASE_URL).hostname or ''       # e.g. "mpiotro.pl"
 
 os.environ.setdefault('SECRET_KEY', 'build-only-not-secret')
 
@@ -71,6 +76,10 @@ if __name__ == '__main__':
 
     # Disable Jekyll so files/dirs starting with "_" are published as-is.
     _write('.nojekyll', '')
+
+    # Bind the custom domain (skipped for *.github.io project pages).
+    if BASE_HOST and not BASE_HOST.endswith('github.io'):
+        _write('CNAME', BASE_HOST + '\n')
 
     # Keep the pre-export /about URLs working (they used to be canonical).
     root = BASE_PATH if BASE_PATH.endswith('/') else BASE_PATH + '/'

@@ -57,27 +57,27 @@ python wsgi.py
 ## Static export (GitHub Pages)
 
 The site is exported to plain HTML with [Frozen-Flask](https://frozen-flask.readthedocs.io/)
-and served from `https://mpiotro4.github.io/mpiotro-pl/`.
+and served from the custom domain `https://mpiotro.pl/`.
 
 - Polish lives at the root (`/`), English is mirrored under `/en/`.
 - Language is chosen by URL prefix (no server session), so both trees are fully static.
-- Every URL is prefixed with `/mpiotro-pl/` via `SITE_BASE_URL` in `freeze.py`.
+- `SITE_BASE_URL` (env, default `https://mpiotro.pl/`) sets link paths and, for a
+  non-`github.io` host, makes `freeze.py` emit the `CNAME` file.
 
 Build locally:
 ```bash
 npm run freeze          # compiles CSS, then runs freeze.py -> build/
-```
-
-Preview the build (paths are absolute, so serve it under the sub-path):
-```bash
-mkdir -p /tmp/preview && ln -sfn "$PWD/build" /tmp/preview/mpiotro-pl
-python -m http.server -d /tmp/preview 8000
-# open http://localhost:8000/mpiotro-pl/
+python -m http.server -d build 8000   # open http://localhost:8000/
 ```
 
 Deployment is automatic: `.github/workflows/deploy-pages.yml` builds and publishes
-to GitHub Pages on every push to `master`. Enable it once under
-**Settings → Pages → Source → GitHub Actions**.
+to GitHub Pages on every push to `master`. One-time setup:
+
+1. **Settings → Pages → Source → GitHub Actions**
+2. **Settings → Pages → Custom domain** → `mpiotro.pl` → wait for the DNS check,
+   then tick **Enforce HTTPS**
+3. DNS: `A @` → `185.199.108.153` / `.109` / `.110` / `.111`, and
+   `CNAME www` → `mpiotro4.github.io.`
 
 ## Syntax Highlighting
 
