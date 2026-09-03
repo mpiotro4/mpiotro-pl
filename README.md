@@ -59,7 +59,7 @@ python wsgi.py
 The site is exported to plain HTML with [Frozen-Flask](https://frozen-flask.readthedocs.io/)
 and served from the custom domain `https://mpiotro.pl/`.
 
-- Polish lives at the root (`/`), English is mirrored under `/en/`.
+- English lives at the root (`/`), Polish is mirrored under `/pl/`.
 - Language is chosen by URL prefix (no server session), so both trees are fully static.
 - `SITE_BASE_URL` (env, default `https://mpiotro.pl/`) sets link paths and, for a
   non-`github.io` host, makes `freeze.py` emit the `CNAME` file.

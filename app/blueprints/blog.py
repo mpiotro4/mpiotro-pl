@@ -7,8 +7,8 @@ from app.services.blog_service import get_all_posts, get_post_by_slug
 blog_bp = Blueprint('blog', __name__)
 
 
-@blog_bp.route('/blog/', defaults={'lang': 'pl'})
-@blog_bp.route('/en/blog/', defaults={'lang': 'en'})
+@blog_bp.route('/blog/', defaults={'lang': 'en'})
+@blog_bp.route('/pl/blog/', defaults={'lang': 'pl'})
 def index(lang):
     """Blog homepage - list of all posts"""
     posts = get_all_posts()
@@ -28,8 +28,8 @@ def index(lang):
     )
 
 
-@blog_bp.route('/blog/<slug>/', defaults={'lang': 'pl'})
-@blog_bp.route('/en/blog/<slug>/', defaults={'lang': 'en'})
+@blog_bp.route('/blog/<slug>/', defaults={'lang': 'en'})
+@blog_bp.route('/pl/blog/<slug>/', defaults={'lang': 'pl'})
 def post(lang, slug):
     """Single blog post"""
     post = get_post_by_slug(slug)

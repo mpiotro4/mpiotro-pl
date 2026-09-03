@@ -7,7 +7,7 @@ from app.translations import DEFAULT_LANGUAGE, translations
 # routed through url_for() (and pick up any deployment path prefix).
 _STATIC_REF_RE = re.compile(r'(src|href)="/static/([^"]+)"')
 
-# Endpoints that come in a Polish (root) and an English (/en/...) variant.
+# Endpoints that come in an English (root) and a Polish (/pl/...) variant.
 # Their url_for() calls automatically keep the current language prefix.
 LANG_AWARE_ENDPOINTS = {
     'main.index',
@@ -49,7 +49,7 @@ def create_app():
 
     @app.errorhandler(404)
     def not_found(e):
-        lang = 'en' if request.path.startswith('/en/') else DEFAULT_LANGUAGE
+        lang = 'pl' if request.path.startswith('/pl/') else DEFAULT_LANGUAGE
         g.lang = lang
         return render_template('404.html', translations=translations[lang]), 404
 

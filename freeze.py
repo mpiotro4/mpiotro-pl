@@ -4,7 +4,7 @@ Usage::
 
     SECRET_KEY=build-only python freeze.py
 
-Produces a Polish tree at the root and an English mirror under ``/en/``.
+Produces an English tree at the root and a Polish mirror under ``/pl/``.
 
 ``SITE_BASE_URL`` controls where the site is served:
 
@@ -21,7 +21,7 @@ from app import create_app
 from app.services.blog_service import get_all_posts
 from app.services.project_service import get_all_projects
 
-LANGUAGES = ('pl', 'en')
+LANGUAGES = ('en', 'pl')
 BASE_URL = os.environ.get('SITE_BASE_URL', 'https://mpiotro.pl/')
 BASE_PATH = urlsplit(BASE_URL).path or '/'          # e.g. "/" or "/mpiotro-pl/"
 BASE_HOST = urlsplit(BASE_URL).hostname or ''       # e.g. "mpiotro.pl"
@@ -34,7 +34,7 @@ app.config.update(
     FREEZER_BASE_URL=BASE_URL,
     FREEZER_REMOVE_EXTRA_FILES=True,
     FREEZER_STATIC_IGNORE=['*.scss', 'scss', '.DS_Store'],
-    FREEZER_DESTINATION_IGNORE=['.git*', 'CNAME', '.nojekyll', 'about', 'en/about'],
+    FREEZER_DESTINATION_IGNORE=['.git*', 'CNAME', '.nojekyll', 'about', 'pl/about'],
 )
 
 freezer = Freezer(app)
@@ -84,6 +84,6 @@ if __name__ == '__main__':
     # Keep the pre-export /about URLs working (they used to be canonical).
     root = BASE_PATH if BASE_PATH.endswith('/') else BASE_PATH + '/'
     _write(os.path.join('about', 'index.html'), _redirect_stub(root))
-    _write(os.path.join('en', 'about', 'index.html'), _redirect_stub(root + 'en/'))
+    _write(os.path.join('pl', 'about', 'index.html'), _redirect_stub(root + 'pl/'))
 
     print('Frozen to', app.config['FREEZER_DESTINATION'], 'with base', BASE_URL)

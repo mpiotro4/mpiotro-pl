@@ -7,8 +7,8 @@ from app.services.project_service import get_all_projects, get_project_by_slug
 projects_bp = Blueprint('projects', __name__)
 
 
-@projects_bp.route('/projects/', defaults={'lang': 'pl'})
-@projects_bp.route('/en/projects/', defaults={'lang': 'en'})
+@projects_bp.route('/projects/', defaults={'lang': 'en'})
+@projects_bp.route('/pl/projects/', defaults={'lang': 'pl'})
 def index(lang):
     projects = get_all_projects()
 
@@ -26,8 +26,8 @@ def index(lang):
     )
 
 
-@projects_bp.route('/projects/<slug>/', defaults={'lang': 'pl'})
-@projects_bp.route('/en/projects/<slug>/', defaults={'lang': 'en'})
+@projects_bp.route('/projects/<slug>/', defaults={'lang': 'en'})
+@projects_bp.route('/pl/projects/<slug>/', defaults={'lang': 'pl'})
 def project(lang, slug):
     p = get_project_by_slug(slug)
     if not p:

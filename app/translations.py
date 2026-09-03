@@ -1,6 +1,6 @@
 from datetime import datetime
 
-DEFAULT_LANGUAGE = 'pl'
+DEFAULT_LANGUAGE = 'en'
 
 
 def format_date(date_obj, lang='en'):
@@ -33,7 +33,7 @@ def format_date(date_obj, lang='en'):
 
 translations = {
     'pl': {
-        'title': 'Marcin Piotrowski - strona domowa',
+        'title': 'Marcin Piotrowski - Software Engineer',
         'about_me': 'O mnie',
         'about_me_content': 'Posiadam ponad 3 lata komercyjnego doświadczenia w wytwarzaniu oprogramowania z czego '
                             'dwa lata w języku Java. Większość czasu spędziłem nad pracą w dużych projektach '
@@ -55,7 +55,7 @@ translations = {
         'tags': 'Tagi',
     },
     'en': {
-        'title': 'Marcin Piotrowski - homepage',
+        'title': 'Marcin Piotrowski - Software Engineer',
         'about_me': 'About Me',
         'about_me_content': "I have over three years of commercial experience in software development, including two "
                             "years in Java. I spent most of my time working on large projects related to customs and "
