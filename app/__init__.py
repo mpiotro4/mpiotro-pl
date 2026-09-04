@@ -89,4 +89,11 @@ def create_app():
             html or '',
         )
 
+    @app.template_filter('static_url')
+    def static_url(path):
+        """Route a hardcoded /static/... path (e.g. frontmatter 'image') through url_for."""
+        if path and path.startswith('/static/'):
+            return url_for('static', filename=path[len('/static/'):])
+        return path
+
     return app
