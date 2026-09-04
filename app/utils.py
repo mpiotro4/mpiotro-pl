@@ -1,3 +1,5 @@
+import datetime
+
 import markdown
 
 
@@ -40,6 +42,16 @@ def parse_multilingual_content(content: str) -> tuple[str, str]:
         content_en = content
 
     return content_pl, content_en
+
+
+def date_sort_key(item: dict):
+    """Sort key for a parsed post/project dict: its 'date' field when that's
+    an actual date (frontmatter's unquoted YAML dates parse to
+    datetime.date/datetime automatically), otherwise datetime.date.min so a
+    missing or malformed date sorts as oldest instead of crashing the sort
+    (comparing a date against a plain string raises TypeError)."""
+    date = item.get('date')
+    return date if isinstance(date, datetime.date) else datetime.date.min
 
 
 def render_markdown(text: str) -> str:

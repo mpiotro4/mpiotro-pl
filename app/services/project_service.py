@@ -1,7 +1,7 @@
 from pathlib import Path
 import frontmatter
 
-from app.utils import parse_multilingual_content
+from app.utils import date_sort_key, parse_multilingual_content
 
 
 def parse_project(filepath):
@@ -54,8 +54,9 @@ def get_all_projects() -> list:
     if _cache['projects'] is not None and mtime == _cache['mtime']:
         return _cache['projects']
 
-    projects = [parse_project(f) for f in sorted(projects_dir.glob('*.md'), reverse=True)]
+    projects = [parse_project(f) for f in projects_dir.glob('*.md')]
     projects = [p for p in projects if p]
+    projects.sort(key=date_sort_key, reverse=True)
 
     _cache['projects'] = projects
     _cache['mtime'] = mtime

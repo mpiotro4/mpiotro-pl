@@ -1,7 +1,7 @@
 from pathlib import Path
 import frontmatter
 
-from app.utils import parse_multilingual_content
+from app.utils import date_sort_key, parse_multilingual_content
 
 
 def parse_blog_post(filepath):
@@ -63,8 +63,9 @@ def get_all_posts() -> list:
     if _cache['posts'] is not None and mtime == _cache['mtime']:
         return _cache['posts']
 
-    posts = [parse_blog_post(f) for f in sorted(blog_dir.glob('*.md'), reverse=True)]
+    posts = [parse_blog_post(f) for f in blog_dir.glob('*.md')]
     posts = [p for p in posts if p]
+    posts.sort(key=date_sort_key, reverse=True)
 
     _cache['posts'] = posts
     _cache['mtime'] = mtime
