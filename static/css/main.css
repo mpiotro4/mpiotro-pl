@@ -264,12 +264,29 @@ header {
   margin-bottom: 12px;
   padding: 24px 0 16px;
   animation: headerFadeIn 0.6s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
 }
 @media (max-width: 600px) {
   header {
     font-size: 30px;
     padding: 16px 0 12px;
+    gap: 12px;
   }
+}
+header .term-prompt {
+  flex-shrink: 0;
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 1.5em;
+  font-weight: 700;
+  line-height: 1;
+  color: rgb(130, 154, 130);
+  user-select: none;
+}
+header .term-cursor {
+  animation: termCursorBlink 1.1s step-end infinite;
 }
 header #top_title {
   display: inline-block;
@@ -304,6 +321,14 @@ header #bottom_ttile {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+@keyframes termCursorBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
   }
 }
 footer {
@@ -1549,8 +1574,7 @@ img.left {
   animation: about-pulse 2.2s ease-out infinite;
 }
 .about-timeline-dot.is-edu {
-  background: transparent;
-  border-color: rgb(130, 154, 130);
+  background: rgb(130, 154, 130);
   box-shadow: 0 0 0 2px rgba(100, 124, 100, 0.3);
 }
 

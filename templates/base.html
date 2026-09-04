@@ -28,8 +28,11 @@
 </head>
 <body>
 <header>
-    <div id="top_title"> Marcin Piotrowski</div>
-    <div id="bottom_ttile"> software engineer</div>
+    <span class="term-prompt" aria-hidden="true">&gt;<span class="term-cursor">_</span></span>
+    <div class="header-titles">
+        <div id="top_title"> Marcin Piotrowski</div>
+        <div id="bottom_ttile"> software engineer</div>
+    </div>
 </header>
 <div class="hamburger" onclick="toggleMenu()">☰ Menu</div>
 <nav>
@@ -65,7 +68,7 @@
     <a href="https://www.linkedin.com/in/marcin-piotrowski-a0b7951a3/" target="_blank"><i
             class="fa fa-linkedin"></i></a>
     &nbsp;&nbsp;&nbsp;&nbsp;
-    <a id="email-link" href="#">[email protected]</a>
+    <a id="email-link" class="js-mail" href="#" rel="nofollow" data-e="bW9jLmtvb2x0dW9ANG9ydG9pcG0="></a>
 </footer>
 <script>
     function toggleMenu() {
@@ -74,10 +77,14 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        const emailLink = document.getElementById('email-link');
-        const email = 'mpiotro4' + '@' + 'outlook.com';
-        emailLink.href = 'mailto:' + email;
-        emailLink.textContent = email;
+        document.querySelectorAll('.js-mail').forEach(function (el) {
+            const addr = atob(el.dataset.e).split('').reverse().join('');
+            el.href = 'mailto:' + addr;
+            if (!el.textContent.trim()) {
+                el.textContent = addr;
+            }
+            el.removeAttribute('data-e');
+        });
     });
 </script>
 <!-- Prism.js core and language components -->
