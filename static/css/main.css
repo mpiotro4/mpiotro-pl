@@ -264,26 +264,37 @@ header {
   margin-bottom: 12px;
   padding: 24px 0 16px;
   animation: headerFadeIn 0.6s ease-out;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 22px;
+  position: relative;
 }
 @media (max-width: 600px) {
   header {
     font-size: 30px;
     padding: 16px 0 12px;
-    gap: 12px;
   }
 }
+header .header-titles {
+  display: inline-block;
+  position: relative;
+}
 header .term-prompt {
-  flex-shrink: 0;
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-right: 18px;
   font-family: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
   font-size: 1.5em;
   font-weight: 700;
   line-height: 1;
   color: rgb(130, 154, 130);
+  white-space: nowrap;
   user-select: none;
+}
+@media (max-width: 600px) {
+  header .term-prompt {
+    font-size: 1em;
+    margin-right: 8px;
+  }
 }
 header .term-cursor {
   animation: termCursorBlink 1.1s step-end infinite;
