@@ -1,27 +1,30 @@
 ---
-title_pl: "LLM-Scope — wizualizacja tego, co dzieje się wewnątrz Qwen3-0.6B"
-title_en: "LLM-Scope — Visualizing What Happens Inside Qwen3-0.6B"
+title_pl: "LLM-Scope — wizualizacja tego, co dzieje się wewnątrz LLM"
+title_en: "LLM-Scope — Visualizing What Happens Inside LLM"
 date: 2026-09-04
 author: "Marcin Piotrowski"
 tags: ["LLM", "mechanistic interpretability", "PyTorch", "transformers", "attention", "visualization", "Python"]
-description_pl: "Narzędzie, które klatka po klatce — jedna klatka to jeden token — pokazuje, co dzieje się wewnątrz Qwen3-0.6B podczas czytania promptu i generowania odpowiedzi: aktywacje neuronów MLP, attention, logit lens i pełną 'podróż' pojedynczego tokenu przez wszystkie warstwy transformera."
-description_en: "A tool that shows, frame by frame — one frame per token — what happens inside Qwen3-0.6B while it reads a prompt and generates a response: MLP neuron activations, attention, a logit lens, and a full 'token journey' through every transformer layer."
+description_pl: "Narzędzie, które token po tokenie pokazuje, co dzieje się wewnątrz Qwen3-0.6B podczas czytania promptu i generowania odpowiedzi: aktywacje neuronów MLP, attention, logit lens i pełną 'podróż' pojedynczego tokenu przez wszystkie warstwy transformera."
+description_en: "A tool that shows token by token what happens inside Qwen3-0.6B while it reads a prompt and generates a response: MLP neuron activations, attention, a logit lens, and a full 'token journey' through every transformer layer."
 image: /static/images/projects/llm-scope/hero.png
 ---
 
 ## PL
 
-Duże modele językowe zwykle traktuje się jak czarną skrzynkę: prompt wchodzi, tekst wychodzi, a to, co dzieje się pomiędzy, zostaje w środku. **LLM-Scope** otwiera tę skrzynkę na modelu prawdziwym, ale na tyle małym, że da się go oprzyrządować w całości — Qwen3-0.6B, 28 warstw. Aplikacja pokazuje każdą liczbę, która realnie powstaje po drodze: aktywacje neuronów, wagi attention, pośrednie predykcje na każdej głębokości i pełną drogę pojedynczego tokenu przez sieć.
+Duże modele językowe zwykle traktuje się jak czarną skrzynkę: prompt wchodzi, tekst wychodzi, a to, co dzieje się pomiędzy, zostaje w środku. **LLM-Scope** otwiera tę skrzynkę na prawdziwym modelu, ale na tyle małym, że da się go uruchomić na każdym komputerze — Qwen3-0.6B, 28 warstw.
 
-Żywa wersja: **[mpiotro4.github.io/LLM-Scope](https://mpiotro4.github.io/LLM-Scope/)** (self-contained HTML, przechwycony na promptcie "The capital of France is") — kod: **[github.com/mpiotro4/LLM-Scope](https://github.com/mpiotro4/LLM-Scope)**.
+Aplikacja pokazuje każdą liczbę, która powstaje po drodze: aktywacje neuronów, wagi attention, pośrednie predykcje na każdej głębokości i pełną drogę pojedynczego tokenu przez sieć.
+
+> Statyczna wersja demo: **[mpiotro4.github.io/LLM-Scope](https://mpiotro4.github.io/LLM-Scope/)**
+> kod źródłowy: **[github.com/mpiotro4/LLM-Scope](https://github.com/mpiotro4/LLM-Scope)**.
 
 <img alt="Widok aplikacji: baner statycznego demo, pasek kontrolek, tekst promptu z podświetlonym attention na 'capital' i 'France' podczas generowania tokenu 'Paris', oraz lista zwiniętych paneli poniżej" src="/static/images/projects/llm-scope/hero.png" width="800"/>
 
-Każdy panel jest osobno zwijalny i ma własny przycisk **ⓘ** z dłuższym wyjaśnieniem — całą resztę tego wpisu można też po prostu kliknąć samodzielnie na żywym demie.
+Każdy panel jest osobno zwijalny i ma własny przycisk **ⓘ** z dłuższym wyjaśnieniem — całą resztę tego wpisu można też po prostu przeklikać samodzielnie w demie.
 
-## Jak się tego używa
+## Jak korzystać
 
-Wpisujesz prompt, model generuje odpowiedź, a aplikacja odtwarza całość jako **klatki: jedna klatka to jeden token**. Klatki można przewijać strzałkami, puścić jak animację i regulować tempo — najpierw widać fazę czytania promptu, potem generowanie kolejnych tokenów.
+Wpisz prompt, model generuje odpowiedź, a aplikacja odtwarza całość jako **klatki: jedna klatka to jeden token**. Klatki można przewijać strzałkami, puścić jak animację i regulować tempo — najpierw widać fazę czytania promptu, potem generowanie kolejnych tokenów.
 
 Kluczowe jest to, że wszystkie panele dzielą jedno zaznaczenie. Klik w dowolny token w tekście przestawia jednocześnie heatmapę, attention, logit lens i Token Journey na tę samą pozycję, więc zawsze patrzy się na ten sam moment obliczeń z czterech różnych stron.
 
@@ -31,12 +34,12 @@ Model ma 28 warstw, a każda kończy swoje obliczenia szeroką siecią feedforwa
 
 <img alt="Heatmapa aktywacji: 28 wierszy (warstwy) na 3072 kolumny (neurony), jasne piksele na ciemnym tle" src="/static/images/projects/llm-scope/neuron-heatmap.png" width="800"/>
 
-Dwie rzeczy, które trzeba było rozwiązać, żeby to w ogóle było czytelne:
+Dwa napotkane problemy:
 
 - **Skala.** Kilka neuronów w każdej warstwie potrafi mieć wartości o rząd wielkości większe od reszty ("massive activations" — dobrze udokumentowane zjawisko w dużych modelach). Normalizacja po maksimum zgasiłaby wtedy wszystko poza tą garstką outlierów. Zamiast tego każda warstwa jest przycinana do swojego 99. percentyla i dodatkowo pierwiastkowana, co ściska dynamikę bez gubienia słabszych sygnałów.
 - **Kolejność neuronów.** Ukryte jednostki MLP nie mają żadnego naturalnego porządku (permutation symmetry) — kolejność "z modelu" jest wizualnie czystym szumem. `compute_neuron_order.py` liczy raz, offline, stabilny porządek przez hierarchiczne klastrowanie korelacji aktywacji na zbiorze różnorodnych promptów, dzięki czemu skorelowane neurony lądują obok siebie. W interfejsie przełącza się to selektorem `order`: `raw`, `clustered` albo `by mean`.
 
-Warto od razu powiedzieć, czego ta heatmapa nie robi: przy 3072 kolumnach upchniętych w szerokość okna pojedynczy neuron zajmuje ułamek piksela. Świetnie widać ogólny wzór i różnice między warstwami, ale konkretnego neuronu się z niej nie odczyta — od tego jest lista top-k w Token Journey.
+Warto od razu powiedzieć, czego ta heatmapa nie robi: przy 3072 kolumnach ściśniętych do szerokości okna pojedynczy neuron zajmuje ułamek piksela, więc nie da się z niej niczego odczytać. To wyłącznie wizualizacja skali. Każdy z tych neuronów ma starannie dobraną wagę, którą wypracował kosztowny trening. Tym większe wrażenie robi fakt, że duże modele, z których korzystamy na co dzień, mają ich **100 razy więcej**.
 
 ## Attention
 
@@ -46,7 +49,7 @@ Kliknięcie dowolnego tokenu w tekście podświetla różowym kolorem wcześniej
 
 Ciekawostka implementacyjna: dlaczego dokładnie **jeden** kwadracik na warstwę, a nie jeden na głowicę? Bo 16 głowic jest uśrednianych już w momencie przechwytywania, po stronie Pythona, zanim cokolwiek trafi do danych wysyłanych do przeglądarki. Dla danej warstwy istnieje więc dokładnie jedna liczba na wcześniejszy token, a rozdzielczość per-głowica jest na tym etapie bezpowrotnie tracona — front-end nigdy jej nie widzi. Z tego samego powodu selektor warstwy **nie wpływa** na tryb heatmap, który zawsze pokazuje wszystkie 28 warstw naraz; działa tylko w trybie kolumnowym i na podświetleniu tekstu.
 
-Drugi smaczek: pierwszy token sekwencji regularnie zgarnia nieproporcjonalnie dużo uwagi na każdej warstwie — to znane zjawisko "attention sink". Zostawiony jako punkt odniesienia zgasiłby resztę skali do czerni, więc jest wyłączony z normalizacji, choć nadal renderuje się z pełną intensywnością. Checkbox **skip sink** ukrywa go z panelu całkowicie i przelicza skalę względem reszty — różnica jest drastyczna. Przy generowaniu tokenu "Paris" bez tej opcji wszystko wygląda na równie ciemne; po jej włączeniu widać, że model patrzy przede wszystkim na "France" i "capital", czyli dokładnie tam, gdzie powinien.
+Druga rzecz warta uwagi: pierwszy token sekwencji regularnie zgarnia nieproporcjonalnie dużo uwagi na każdej warstwie — to znane zjawisko **attention sink**. Zostawiony jako punkt odniesienia zgasiłby resztę skali do czerni, więc jest wyłączony z normalizacji, choć nadal renderuje się z pełną intensywnością. Checkbox **skip sink** ukrywa go z panelu całkowicie i przelicza skalę względem reszty — różnica jest drastyczna. Przy generowaniu tokenu "Paris" bez tej opcji wszystko wygląda na równie ciemne; po jej włączeniu widać, że model patrzy przede wszystkim na "France" i "capital", czyli dokładnie tam, gdzie powinien.
 
 Podgląd attention wymaga wag, których szybki domyślny kernel (`sdpa`) nigdy jawnie nie liczy — model trzeba załadować z `attn_implementation="eager"`, co kosztuje około 8–9× więcej czasu na token.
 
@@ -85,7 +88,7 @@ Cała logika przechwytywania (ładowanie modelu, hooki, pętla generacji, logit 
 
 ## Wdrożenie i CI/CD
 
-Wersja online (ten link u góry) nie jest ręcznie odświeżanym zrzutem — GitHub Action buduje ją od nowa **przy każdym pushu na `main`**: instaluje zależności, ściąga i cache'uje Qwen3-0.6B (~1,2 GB, tylko raz), odpala `capture.py` na CI-owym runnerze i publikuje wynikowy HTML na GitHub Pages przez oficjalny `actions/deploy-pages`. Nic nie wraca do repo jako commit — wygenerowany plik żyje wyłącznie jako deployment Pages, więc historia gita nie puchnie od kolejnych wersji tego samego kilkumegabajtowego pliku.
+**[Statyczne demo](https://mpiotro4.github.io/LLM-Scope/)** aplikacji jest automatycznie budowane przez GitHub Action, a nie ręcznie odświeżanym zrzutem. **Przy każdym pushu na `main`** pipeline instaluje zależności, ściąga i cache'uje Qwen3-0.6B (~1,2 GB, tylko raz), odpala `capture.py` na CI-owym runnerze i publikuje wynikowy HTML na GitHub Pages przez oficjalną akcję `actions/deploy-pages`. Nic nie trafia z powrotem do commitów — wygenerowany plik żyje wyłącznie jako wdrożenie Pages, więc historia repozytorium nie puchnie o kolejną kopię tego samego, kilkumegabajtowego pliku przy każdym odświeżeniu.
 
 ## Stack technologiczny
 
@@ -110,18 +113,21 @@ Wersja online (ten link u góry) nie jest ręcznie odświeżanym zrzutem — Git
 ## Źródła
 
 - [Repozytorium projektu](https://github.com/mpiotro4/LLM-Scope)
-- [Żywe demo (GitHub Pages)](https://mpiotro4.github.io/LLM-Scope/)
+- [Statyczne demo (GitHub Pages)](https://mpiotro4.github.io/LLM-Scope/)
 - [Qwen/Qwen3-0.6B na Hugging Face](https://huggingface.co/Qwen/Qwen3-0.6B)
 
 ## EN
 
-Large language models are usually treated as a black box: a prompt goes in, text comes out, and whatever happens in between stays inside. **LLM-Scope** opens that box on a model that's real but small enough to instrument end to end — Qwen3-0.6B, 28 layers. It shows every number that actually gets computed along the way: neuron activations, attention weights, intermediate predictions at every depth, and the complete path a single token takes through the network.
+Large language models are usually treated as a black box: a prompt goes in, text comes out, and whatever happens in between stays inside. **LLM-Scope** opens that box on a model that's real but small enough to run on any computer — Qwen3-0.6B, 28 layers.
 
-Live version: **[mpiotro4.github.io/LLM-Scope](https://mpiotro4.github.io/LLM-Scope/)** (a self-contained HTML file, captured on the prompt "The capital of France is") — code: **[github.com/mpiotro4/LLM-Scope](https://github.com/mpiotro4/LLM-Scope)**.
+The app shows every number that gets computed along the way: neuron activations, attention weights, intermediate predictions at every depth, and the complete path a single token takes through the network.
+
+> Static demo: **[mpiotro4.github.io/LLM-Scope](https://mpiotro4.github.io/LLM-Scope/)**
+> source code: **[github.com/mpiotro4/LLM-Scope](https://github.com/mpiotro4/LLM-Scope)**.
 
 <img alt="App overview: the static-demo banner, playback controls, the prompt text with attention highlighting 'capital' and 'France' while generating the token 'Paris', and the list of collapsed panels below" src="/static/images/projects/llm-scope/hero.png" width="800"/>
 
-Every panel is independently collapsible and has its own **ⓘ** button with a longer explanation — the rest of this write-up doubles as a walkthrough you can click through yourself on the live demo.
+Every panel is independently collapsible and has its own **ⓘ** button with a longer explanation — the rest of this write-up doubles as a walkthrough you can click through yourself in the demo.
 
 ## How you actually use it
 
@@ -140,7 +146,7 @@ Two things had to be solved to make this actually legible:
 - **Scale.** A handful of neurons in every layer can have values an order of magnitude larger than the rest ("massive activations" — a well-documented phenomenon in large models). Normalizing by the maximum would crush everything else to black. Instead, each layer is clipped to its own 99th percentile and additionally sqrt-compressed, squeezing the dynamic range without losing the weaker signal.
 - **Neuron order.** MLP hidden units have no inherent ordering (permutation symmetry) — the model's native order is visually pure noise. `compute_neuron_order.py` computes a stable order once, offline, via correlation-based hierarchical clustering over a diverse prompt corpus, so correlated neurons end up next to each other. In the UI this is the `order` selector: `raw`, `clustered` or `by mean`.
 
-Worth saying up front what this heatmap doesn't do: with 3072 columns squeezed into the window width, a single neuron occupies a fraction of a pixel. It's great for the overall pattern and for differences between layers, but you can't read an individual neuron off it — that's what the top-k list in Token Journey is for.
+Worth saying up front what this heatmap doesn't do: with 3072 columns squeezed into the window width, a single neuron occupies a fraction of a pixel, so you can't read anything off it. It's purely a visualization of scale. Every one of these neurons carries a carefully learned weight, the product of expensive training — which makes it all the more striking that the large models we use every day have **100 times as many**.
 
 ## Attention
 
@@ -189,7 +195,7 @@ All the capture logic (model loading, hooks, the generation loop, the logit lens
 
 ## Deployment and CI/CD
 
-The online version (the link at the top) isn't a manually refreshed snapshot — a GitHub Action rebuilds it from scratch **on every push to `main`**: it installs dependencies, downloads and caches Qwen3-0.6B (~1.2 GB, once), runs `capture.py` on a CI runner, and publishes the resulting HTML to GitHub Pages through the official `actions/deploy-pages`. Nothing is committed back — the generated file lives only as the Pages deployment, so the git history doesn't accumulate yet another copy of the same multi-megabyte file on every refresh.
+The **[static demo](https://mpiotro4.github.io/LLM-Scope/)** is automatically built by a GitHub Action rather than being a manually refreshed snapshot. **On every push to `main`**, the pipeline installs dependencies, downloads and caches Qwen3-0.6B (~1.2 GB, once), runs `capture.py` on a CI runner, and publishes the resulting HTML to GitHub Pages through the official `actions/deploy-pages` action. Nothing is committed back — the generated file lives only as the Pages deployment, so the git history doesn't accumulate yet another copy of the same multi-megabyte file on every refresh.
 
 ## Tech stack
 
@@ -214,5 +220,5 @@ The online version (the link at the top) isn't a manually refreshed snapshot —
 ## References
 
 - [Project repository](https://github.com/mpiotro4/LLM-Scope)
-- [Live demo (GitHub Pages)](https://mpiotro4.github.io/LLM-Scope/)
+- [Static demo (GitHub Pages)](https://mpiotro4.github.io/LLM-Scope/)
 - [Qwen/Qwen3-0.6B on Hugging Face](https://huggingface.co/Qwen/Qwen3-0.6B)
