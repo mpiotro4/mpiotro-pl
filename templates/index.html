@@ -9,6 +9,13 @@
         <div class="about-intro">
             <div class="about-photo">
                 <img src="{{ url_for('static', filename='images/mpio2.png') }}" alt="Marcin Piotrowski">
+                <div class="about-contact">
+                    <span><i class="fa fa-map-marker"></i> Warsaw, Poland</span>
+                    <span><i class="fa fa-envelope-o"></i> <a class="js-mail" href="#" rel="nofollow" data-e="bW9jLmtvb2x0dW9ANG9ydG9pcG0="></a></span>
+                    <span><i class="fa fa-github"></i> <a href="https://github.com/mpiotro4" target="_blank" rel="noopener noreferrer">mpiotro4</a></span>
+                    <span><i class="fa fa-linkedin"></i> <a href="https://www.linkedin.com/in/marcin-piotrowski-a0b7951a3/" target="_blank" rel="noopener noreferrer">LinkedIn</a></span>
+                    <span><i class="fa fa-language"></i> {% if current_lang == 'pl' %}Polski (ojczysty), Angielski (C1){% else %}Polish (native), English (C1){% endif %}</span>
+                </div>
             </div>
             <div class="about-summary">
                 <h2 class="about-name">Marcin Piotrowski</h2>
@@ -17,18 +24,19 @@
                 </p>
                 <p class="about-text">
                     {% if current_lang == 'pl' %}
-                    Programista z ponad 4-letnim doświadczeniem komercyjnym, specjalizujący się w tworzeniu backendu w Javie. Brałem udział w dużych projektach sektora publicznego, obejmujących systemy celne i podatkowe obsługujące miliony transakcji, oraz uzyskałem tytuł magistra informatyki na Politechnice Warszawskiej.
+                    Jestem programistą z ponad 4-letnim doświadczeniem komercyjnym, specjalizuję się w tworzeniu backendu w Javie. Brałem udział w dużych projektach sektora publicznego — systemach celnych i podatkowych obsługujących bardzo duże wolumeny transakcji. Ukończyłem studia magisterskie z informatyki na Politechnice Warszawskiej.
+                    <br> <br>
+                    Stworzyłem tę stronę, bo informatyka i inżynieria oprogramowania to nie tylko moja praca, lecz także pasja. Publikuję tutaj wpisy o tym, czym aktualnie się zajmuję bądź co mnie zainteresuje — od nowych technologii i dobrych praktyk programistycznych po zgłębianie podstaw tego, jak działa sztuczna inteligencja.
+                    <br> <br>
+                    Jeśli coś na mojej stronie Cię zainteresuje bądź masz jakieś pytania, zapraszam do kontaktu 🙂
                     {% else %}
-                    Software developer with 4+ years of commercial experience specialising in Java backend development. I've contributed to large-scale public sector systems handling customs and tax operations for millions of transactions, and hold a Master's degree in Computer Science from Warsaw University of Technology.
+                    I'm a software developer with 4+ years of commercial experience, specialising in Java backend development. I've contributed to large-scale public sector projects — customs and tax systems handling very large transaction volumes — and hold a Master's degree in Computer Science from Warsaw University of Technology.
+                    <br> <br>
+                    I built this site because computer science and software engineering aren't just my job, but also my passion. Here I publish posts about what I'm currently working on or interested in — from new technologies and good coding practices to exploring the fundamentals of how artificial intelligence works.
+                    <br> <br>
+                    If something on my site catches your interest, or you have any questions, feel free to get in touch 🙂
                     {% endif %}
                 </p>
-                <div class="about-contact">
-                    <span><i class="fa fa-map-marker"></i> Warsaw, Poland</span>
-                    <span><i class="fa fa-envelope-o"></i> <a class="js-mail" href="#" rel="nofollow" data-e="bW9jLmtvb2x0dW9ANG9ydG9pcG0="></a></span>
-                    <span><i class="fa fa-github"></i> <a href="https://github.com/mpiotro4" target="_blank" rel="noopener noreferrer">mpiotro4</a></span>
-                    <span><i class="fa fa-linkedin"></i> <a href="https://www.linkedin.com/in/marcin-piotrowski-a0b7951a3/" target="_blank" rel="noopener noreferrer">LinkedIn</a></span>
-                    <span><i class="fa fa-language"></i> {% if current_lang == 'pl' %}Polski (ojczysty), Angielski (C1){% else %}Polish (native), English (C1){% endif %}</span>
-                </div>
             </div>
         </div>
 
@@ -41,7 +49,7 @@
                 <div class="about-skill-card">
                     <h3><i class="fa fa-code"></i> {% if current_lang == 'pl' %}Backend{% else %}Backend Development{% endif %}</h3>
                     <div class="about-skill-tags">
-                        <span class="about-skill-tag">Java 17</span>
+                        <span class="about-skill-tag">Java 25</span>
                         <span class="about-skill-tag">Spring Framework</span>
                         <span class="about-skill-tag">REST API</span>
                         <span class="about-skill-tag">{% if current_lang == 'pl' %}Mikroserwisy{% else %}Microservices{% endif %}</span>
@@ -53,6 +61,7 @@
                     <div class="about-skill-tags">
                         <span class="about-skill-tag">PostgreSQL</span>
                         <span class="about-skill-tag">SQL</span>
+                        <span class="about-skill-tag">Redis</span>
                         <span class="about-skill-tag">Apache Kafka</span>
                     </div>
                 </div>
@@ -76,6 +85,7 @@
                     <h3><i class="fa fa-server"></i> {% if current_lang == 'pl' %}DevOps i infrastruktura{% else %}DevOps & Infrastructure{% endif %}</h3>
                     <div class="about-skill-tags">
                         <span class="about-skill-tag">Kubernetes</span>
+                        <span class="about-skill-tag">Helm</span>
                         <span class="about-skill-tag">Docker</span>
                         <span class="about-skill-tag">Jenkins</span>
                         <span class="about-skill-tag">CI/CD</span>
@@ -88,6 +98,7 @@
                         <span class="about-skill-tag">PHP</span>
                         <span class="about-skill-tag">VBA</span>
                         <span class="about-skill-tag">JavaScript</span>
+                        <span class="about-skill-tag">Python</span>
                     </div>
                 </div>
             </div>
@@ -104,6 +115,9 @@
                 <div class="about-company-header">
                     <h3 class="about-company-name">
                         <i class="fa fa-building-o"></i> Netcompany
+                        <span class="about-company-tagline">
+                            {% if current_lang == 'pl' %}duńska firma konsultingowa IT tworząca systemy dla sektora publicznego{% else %}Danish IT consultancy building large-scale public sector systems{% endif %}
+                        </span>
                     </h3>
                     <span class="about-company-period">
                         {% if current_lang == 'pl' %}lip 2022 – obecnie{% else %}Jul 2022 – Present{% endif %}
@@ -130,9 +144,9 @@
                                 <span class="about-project-tag">SOLON TAX</span>
                                 <p class="about-timeline-desc">
                                     {% if current_lang == 'pl' %}
-                                    Zostałem awansowany na starszego programistę, pozostając przy projekcie SOLON TAX. Obecnie pełnię silnie techniczną rolę skoncentrowaną na backendzie — prowadzę konsolidację mikroserwisów, szerokie zadanie obejmujące zarówno development, jak i DevOps.
+                                    W uznaniu za moje zasługi przy poprzednich projektach zostałem awansowany na starszego programistę, pozostając przy projekcie SOLON TAX. Obecnie pełnię silnie techniczną rolę skoncentrowaną na backendzie — prowadzę inicjatywę upraszczania architektury systemu, szerokie zadanie obejmujące zarówno development, jak i DevOps.
                                     {% else %}
-                                    Promoted to senior software engineer while remaining on SOLON TAX. Now in a strong, hands-on technical role focused on backend development — leading microservice consolidation, a wide-reaching task spanning everything from development to DevOps.
+                                    In recognition of my contributions on previous projects, I was promoted to senior software engineer while remaining on SOLON TAX. I'm now in a strong, hands-on technical role focused on backend development — leading an initiative to simplify the system architecture, a wide-reaching task spanning everything from development to DevOps.
                                     {% endif %}
                                 </p>
                             </div>
@@ -150,9 +164,9 @@
                                 <span class="about-project-tag">SOLON TAX</span>
                                 <p class="about-timeline-desc">
                                     {% if current_lang == 'pl' %}
-                                    Platforma Netcompany do rozliczania podatków pośrednich w wielu jurysdykcjach, oparta na mikroserwisach. Dostosowałem rozwiązanie do wymagań konkretnych klientów przed wdrożeniem produkcyjnym.
+                                    Gdy mój epizod w ERMIS dobiegł końca, zostałem przydzielony do zespołu SOLON TAX, odpowiedzialnego za rozliczanie podatków pośrednich w wielu jurysdykcjach. Dostosowałem rozwiązanie do wymagań konkretnych klientów przed wdrożeniem produkcyjnym.
                                     {% else %}
-                                    Netcompany's multi-jurisdiction indirect tax platform, built on microservices. Tailored the solution to client-specific requirements ahead of go-live.
+                                    When my time on ERMIS came to an end, I joined the SOLON TAX team, responsible for multi-jurisdiction indirect tax settlement. I tailored the solution to client-specific requirements ahead of go-live.
                                     {% endif %}
                                 </p>
                             </div>
@@ -170,9 +184,9 @@
                                 <span class="about-project-tag">ERMIS</span>
                                 <p class="about-timeline-desc">
                                     {% if current_lang == 'pl' %}
-                                    Wiodąca europejska platforma celna oparta na mikroserwisach, obsługująca pełen cykl życia zgłoszenia celnego. Analizowałem, projektowałem i wdrażałem nowe funkcjonalności zgodnie ze zmieniającym się prawodawstwem celnym UE.
+                                    Po pewnym czasie zostałem ponownie przeniesiony z powrotem do ERMISa. Tym razem analizowałem, projektowałem i wdrażałem nowe funkcjonalności zgodnie ze zmieniającym się prawodawstwem celnym UE. Zaprojektowałem szereg procesów BPMN wspierających obsługę deklaracji celnych w wielu krajach Unii Europejskiej.
                                     {% else %}
-                                    Europe's leading microservices-based customs platform, covering the full customs declaration lifecycle. Analysed, designed, and implemented new features to keep pace with evolving EU customs legislation.
+                                    After a while, I was transferred back to ERMIS. This time I analysed, designed, and implemented new features to keep pace with evolving EU customs legislation. I designed a range of BPMN processes supporting customs declaration handling across many EU countries.
                                     {% endif %}
                                 </p>
                             </div>
@@ -190,9 +204,9 @@
                                 <span class="about-project-tag">DIAS</span>
                                 <p class="about-timeline-desc">
                                     {% if current_lang == 'pl' %}
-                                    Kompleksowa cyfrowa platforma podatkowa dla korporacji. Zbudowałem integracje REST API do pobierania danych podatkowych, wdrożyłem mechanizm rozdziału obowiązków ograniczający ryzyko nadużyć oraz usprawniłem monitorowanie terminów.
+                                    Po pomyślnym go-live ERMISa zostałem oddelegowany do nowego projektu — DIAS, kompleksowej cyfrowej platformy podatkowej dla korporacji. Zbudowałem integracje systemowe do wymiany danych podatkowych, wdrożyłem mechanizmy kontroli wewnętrznej zgodne z wymaganiami bezpieczeństwa klienta oraz usprawniłem procesy monitorowania terminów. W międzyczasie obroniłem tytuł magistra informatyki na Politechnice Warszawskiej. Projekt ten rozwinął moje kompetencje w pracy z dużym klientem z sektora publicznego oraz w utrzymaniu i rozwoju złożonych systemów korporacyjnych.
                                     {% else %}
-                                    A comprehensive digital corporate tax platform. Built REST API integrations for tax data retrieval, implemented separation-of-duty controls to reduce fraud risk, and improved deadline-monitoring mechanisms.
+                                    After ERMIS successfully went live, I was assigned to a new project — DIAS, a comprehensive digital corporate tax platform. I built system integrations for exchanging tax data, implemented internal control mechanisms aligned with the client's security requirements, and improved deadline-monitoring processes. In the meantime, I earned my Master's degree in Computer Science from Warsaw University of Technology. The project grew my skills in working with a large public-sector client and in maintaining and evolving complex enterprise systems.
                                     {% endif %}
                                 </p>
                             </div>
@@ -210,29 +224,11 @@
                                 <span class="about-project-tag">ERMIS</span>
                                 <p class="about-timeline-desc">
                                     {% if current_lang == 'pl' %}
-                                    Mój pierwszy projekt w Netcompany, przy wiodącej europejskiej platformie celnej. Byłem głównie odpowiedzialny za automatyzacje testów, implementacje drobnych funkcjonalności oraz wsparcie techniczne zespołów testerskich.
+                                    Mój pierwszy projekt w Netcompany, przy wiodącej europejskiej platformie celnej. Byłem głównie odpowiedzialny za automatyzację testów, implementację drobnych funkcjonalności oraz wsparcie techniczne zespołów testerskich. W tym samym czasie miałem okazję zaznajomić się z pracą w dużej międzynarodowej korporacji — wielokrotnie odwiedziłem Kopenhagę, aby brać udział w szkoleniach i lepiej zintegrować się z zespołem.
                                     {% else %}
-                                    My first project at Netcompany, working on a leading European customs platform. I was primarily responsible for test automation, implementing small-scale features, and providing technical support to the testing teams.
+                                    My first project at Netcompany, working on a leading European customs platform. I was primarily responsible for test automation, implementing small-scale features, and providing technical support to the testing teams. Around the same time, I got a taste of working in a large international corporation — I visited Copenhagen many times to attend training sessions and integrate better with the team.
                                     {% endif %}
                                 </p>
-                                <div class="about-contributions">
-                                    <p class="about-contributions-label">
-                                        {% if current_lang == 'pl' %}Wspólnie dla wszystkich projektów Netcompany{% else %}Across all Netcompany projects{% endif %}
-                                    </p>
-                                    <ul class="about-contributions-list">
-                                        {% if current_lang == 'pl' %}
-                                        <li>Praca z mikroserwisami i monolitami — projektowanie API, integracje, zarządzanie bazą danych, testowanie i code review</li>
-                                        <li>Dokumentacja techniczna dla zespołów wewnętrznych i klientów zewnętrznych</li>
-                                        <li>Współpraca z zespołami międzynarodowymi; seminaria techniczne i programy podnoszenia kwalifikacji</li>
-                                        <li>Kubernetes, Docker, Jenkins, CI/CD</li>
-                                        {% else %}
-                                        <li>Microservices and monoliths — API design, integrations, database management, testing, and code reviews</li>
-                                        <li>Technical documentation for internal and external stakeholders</li>
-                                        <li>Collaboration with international teams; technical seminars and upskilling programmes</li>
-                                        <li>Kubernetes, Docker, Jenkins, CI/CD</li>
-                                        {% endif %}
-                                    </ul>
-                                </div>
                             </div>
                         </div>
 
@@ -248,6 +244,13 @@
                                 <h3 class="about-timeline-title">
                                     {% if current_lang == 'pl' %}Zatrudnienie: Programista Java (Konsultant IT){% else %}Joined as Java Developer (IT Consultant){% endif %}
                                 </h3>
+                                <p class="about-timeline-desc">
+                                    {% if current_lang == 'pl' %}
+                                    Po ukończeniu studiów inżynierskich zdecydowałem się na podjęcie kolejnego kroku w mojej karierze. Choć w TRUMPFie pracowało mi się naprawdę dobrze, marzyłem o tym, aby być częścią projektów o większej skali, dlatego zdecydowałem się na pracę w dużej duńskiej korporacji Netcompany.
+                                    {% else %}
+                                    After completing my engineering degree, I decided to take the next step in my career. Although I really enjoyed my time at TRUMPF, I dreamed of being part of larger-scale projects, so I decided to join the large Danish corporation Netcompany.
+                                    {% endif %}
+                                </p>
                             </div>
                         </div>
 
@@ -260,6 +263,9 @@
                 <div class="about-company-header">
                     <h3 class="about-company-name">
                         <i class="fa fa-building-o"></i> TRUMPF Huettinger
+                        <span class="about-company-tagline">
+                            {% if current_lang == 'pl' %}niemiecki producent zaawansowanych zasilaczy przemysłowych{% else %}German manufacturer of advanced industrial power supplies{% endif %}
+                        </span>
                     </h3>
                     <span class="about-company-period">
                         {% if current_lang == 'pl' %}kwi 2021 – cze 2022{% else %}Apr 2021 – Jun 2022{% endif %}
@@ -282,9 +288,9 @@
                                 </h3>
                                 <p class="about-timeline-desc">
                                     {% if current_lang == 'pl' %}
-                                    Tworzyłem wewnętrzne aplikacje webowe w PHP dla zakładu produkcyjnego, usprawniając procesy operacyjne.
+                                    W trakcie mojego stażu wyszedłem z inicjatywą zastąpienia wolnych i podatnych na błędy arkuszy kalkulacyjnych pełnoprawną aplikacją webową z bazą danych. Okazało się to być strzałem w dziesiątkę, gdyż rozwiązało to wszystkie dotychczasowe bolączki i stworzyło przestrzeń na dalsze usprawnienia. Gdy staż dobiegł końca, zaproponowano mi dalszą pracę na pół etatu, którą godziłem ze studiami, abym mógł dalej rozwijać aplikację.
                                     {% else %}
-                                    Built internal PHP web applications for the production facility, improving process efficiency.
+                                    During my internship, I took the initiative to replace slow, error-prone spreadsheets with a full-fledged web application backed by a database. It turned out to be a bullseye — it solved all the existing pain points and opened the door to further improvements. When the internship ended, I was offered a part-time role, which I combined with my studies so I could keep developing the application.
                                     {% endif %}
                                 </p>
                             </div>
@@ -304,9 +310,9 @@
                                 </h3>
                                 <p class="about-timeline-desc">
                                     {% if current_lang == 'pl' %}
-                                    Automatyzowałem ręczne procesy biurowe przy użyciu VBA.
+                                    Będąc na trzecim roku studiów, dostałem się na staż do firmy produkującej zaawansowane zasilacze. Początek był niepozorny — moim głównym zadaniem było utrzymywanie arkuszy kalkulacyjnych wykorzystujących makra w Visual Basicu. Nauczyłem się wtedy sporo o pracy w dużej firmie.
                                     {% else %}
-                                    Automated manual office workflows using VBA.
+                                    In my third year of studies, I landed an internship at a company producing advanced power supplies. It started small — my main task was maintaining spreadsheets that relied on Visual Basic macros. I learned a lot about working in a large company during that time.
                                     {% endif %}
                                 </p>
                             </div>

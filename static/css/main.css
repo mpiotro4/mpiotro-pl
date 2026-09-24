@@ -1404,6 +1404,15 @@ img.left {
 
 .about-photo {
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+@media (max-width: 600px) {
+  .about-photo {
+    align-items: center;
+  }
 }
 .about-photo img {
   width: 200px;
@@ -1471,10 +1480,18 @@ img.left {
 
 .about-contact {
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
   font-size: 13px;
   color: rgba(255, 255, 255, 0.7);
+  text-align: left;
+}
+@media (max-width: 600px) {
+  .about-contact {
+    align-items: center;
+    text-align: center;
+  }
 }
 .about-contact span {
   display: flex;
@@ -1485,11 +1502,6 @@ img.left {
   color: rgb(100, 124, 100);
   width: 14px;
   text-align: center;
-}
-@media (max-width: 600px) {
-  .about-contact {
-    justify-content: center;
-  }
 }
 
 .about-section-title {
@@ -1564,6 +1576,19 @@ img.left {
 .about-company-name i {
   color: rgb(100, 124, 100);
   font-size: 13px;
+}
+
+.about-company-tagline {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0;
+  text-transform: none;
+}
+@media (max-width: 600px) {
+  .about-company-tagline {
+    flex-basis: 100%;
+  }
 }
 
 .about-company-period {

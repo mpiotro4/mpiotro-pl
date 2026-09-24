@@ -15,7 +15,7 @@ image: /static/images/projects/uml-bpmn/Wyplata.png
 
 W procesie wytwarzania oprogramowania analitycy biznesowi modelują procesy w notacji BPMN, a architekci systemu definiują wymagania funkcjonalne za pomocą przypadków użycia UML. Problem polega na tym, że oba modele operują na różnych poziomach abstrakcji i nie da się ich ze sobą bezpośrednio porównać. Ręczna weryfikacja, czy proces biznesowy faktycznie realizuje to, co opisuje przypadek użycia, jest czasochłonna i podatna na błędy.
 
-Przegląd literatury pokazał, że choć istnieją próby konwersji między tymi notacjami (np. Lubke et al. proponowali wizualizację przypadków użycia jako procesów BPMN, Bouzidi et al. badali odwrotny kierunek), nikt dotąd nie zaproponował narzędzia do **weryfikacji zgodności** między istniejącymi diagramami obu typów.
+Przegląd literatury pokazał, że choć istnieją próby łączenia obu notacji — Lübke i in. proponowali wizualizację przypadków użycia jako procesów BPMN [1], Bouzidi i in. badali kierunek odwrotny [2], Wautelet i Poelmans integrowali oba modele w ramach wspólnej metodyki modelowania przedsiębiorstwa [3], Arifin i Siahaan mierzyli podobieństwo diagramów UML [4], a Yotyawilai i Suwannasart generowali przypadki testowe bezpośrednio z BPMN [5] — nikt dotąd nie zaproponował narzędzia do **weryfikacji zgodności** między istniejącymi diagramami obu typów.
 
 Stworzyłem narzędzie, które automatyzuje ten proces — przekształca oba typy diagramów w struktury grafowe, a następnie porównuje je za pomocą autorskiego algorytmu, generując raport zgodności.
 
@@ -287,12 +287,13 @@ Narzędzie w obecnej wersji ma kilka uproszczeń:
 
 Gdybym miał to rozwijać dalej, skupiłbym się na wsparciu pełnego zestawu symboli BPMN, analizie semantycznej nazw kroków (np. z użyciem embeddingów) oraz możliwości pracy z wieloma przypadkami użycia jednocześnie.
 
-## Źródła
+## Bibliografia
 
-- [Repozytorium projektu](https://github.com/mpiotro4/bpmn_test_tool)
-- [BPMN Specification](https://www.bpmn.org)
-- [UML Specification](https://www.omg.org/spec/UML/2.5.1/PDF)
-- [NetworkX — Python graph library](https://networkx.org)
+1. D. Lübke, K. Schneider, M. Weidlich, *Visualizing Use Case Sets as BPMN Processes*, w: 2008 Requirements Engineering Visualization, 2008, s. 21–25, DOI: 10.1109/REV.2008.8.
+2. A. Bouzidi, N. Haddar, M. B. Abdallah, K. Haddar, *Deriving Use Case Models from BPMN Models*, w: 2017 IEEE/ACS 14th International Conference on Computer Systems and Applications (AICCSA), 2017, s. 238–243, DOI: 10.1109/AICCSA.2017.49.
+3. Y. Wautelet, S. Poelmans, *An Integrated Enterprise Modeling Framework Using the RUP/UML Business Use-Case Model and BPMN*, w: *The Practice of Enterprise Modeling*, red. G. Poels, F. Gailly, E. Serral Asensio, M. Snoeck, Cham: Springer International Publishing, 2017, s. 299–315, ISBN: 978-3-319-70241-4.
+4. M. N. Arifin, D. Siahaan, *Structural and Semantic Similarity Measurement of UML Use Case Diagram*, Lontar Komputer: Jurnal Ilmiah Teknologi Informasi, t. 11, nr 2, s. 88–100, lip. 2020, ISSN: 2541-5832, DOI: 10.24843/LKJITI.2020.v11.i02.p03.
+5. P. Yotyawilai, T. Suwannasart, *Design of a tool for generating test cases from BPMN*, w: 2014 International Conference on Data and Software Engineering (ICODSE), 2014, s. 1–6, DOI: 10.1109/ICODSE.2014.7062692.
 
 ## EN
 
@@ -300,7 +301,7 @@ Gdybym miał to rozwijać dalej, skupiłbym się na wsparciu pełnego zestawu sy
 
 In software development, business analysts model processes in BPMN while system architects define functional requirements through UML use cases. The catch is that these two models operate at different levels of abstraction — they can't be directly compared. Verifying by hand whether a business process actually delivers what a use case describes is tedious and error-prone.
 
-A literature review revealed that while there have been attempts to convert between the two notations (Lubke et al. proposed visualizing use cases as BPMN processes; Bouzidi et al. explored the reverse direction), nobody has offered a tool for **consistency verification** between existing diagrams of both types.
+A literature review revealed several attempts to connect the two notations — Lübke et al. proposed visualizing use cases as BPMN processes [1], Bouzidi et al. explored the reverse direction [2], Wautelet and Poelmans integrated both models within a shared enterprise modeling methodology [3], Arifin and Siahaan measured similarity between UML use case diagrams [4], and Yotyawilai and Suwannasart generated test cases directly from BPMN [5] — but nobody had offered a tool for **consistency verification** between existing diagrams of both types.
 
 I built a tool that automates this process: it transforms both diagram types into graph structures and compares them using a custom algorithm, producing a consistency report.
 
@@ -567,9 +568,10 @@ The current version has a few simplifications: it only supports basic BPMN eleme
 
 If I were to develop this further, I'd focus on full BPMN symbol support, semantic name matching (e.g. using embeddings), and the ability to handle multiple use cases simultaneously.
 
-## References
+## Bibliography
 
-- [Project repository](https://github.com/mpiotro4/bpmn_test_tool)
-- [BPMN Specification](https://www.bpmn.org)
-- [UML Specification](https://www.omg.org/spec/UML/2.5.1/PDF)
-- [NetworkX — Python graph library](https://networkx.org)
+1. D. Lübke, K. Schneider, M. Weidlich, *Visualizing Use Case Sets as BPMN Processes*, in: 2008 Requirements Engineering Visualization, 2008, pp. 21–25, DOI: 10.1109/REV.2008.8.
+2. A. Bouzidi, N. Haddar, M. B. Abdallah, K. Haddar, *Deriving Use Case Models from BPMN Models*, in: 2017 IEEE/ACS 14th International Conference on Computer Systems and Applications (AICCSA), 2017, pp. 238–243, DOI: 10.1109/AICCSA.2017.49.
+3. Y. Wautelet, S. Poelmans, *An Integrated Enterprise Modeling Framework Using the RUP/UML Business Use-Case Model and BPMN*, in: *The Practice of Enterprise Modeling*, eds. G. Poels, F. Gailly, E. Serral Asensio, M. Snoeck, Cham: Springer International Publishing, 2017, pp. 299–315, ISBN: 978-3-319-70241-4.
+4. M. N. Arifin, D. Siahaan, *Structural and Semantic Similarity Measurement of UML Use Case Diagram*, Lontar Komputer: Jurnal Ilmiah Teknologi Informasi, vol. 11, no. 2, pp. 88–100, Jul. 2020, ISSN: 2541-5832, DOI: 10.24843/LKJITI.2020.v11.i02.p03.
+5. P. Yotyawilai, T. Suwannasart, *Design of a tool for generating test cases from BPMN*, in: 2014 International Conference on Data and Software Engineering (ICODSE), 2014, pp. 1–6, DOI: 10.1109/ICODSE.2014.7062692.
