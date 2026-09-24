@@ -1487,12 +1487,6 @@ img.left {
   color: rgba(255, 255, 255, 0.7);
   text-align: left;
 }
-@media (max-width: 600px) {
-  .about-contact {
-    align-items: center;
-    text-align: center;
-  }
-}
 .about-contact span {
   display: flex;
   align-items: center;
@@ -1502,6 +1496,12 @@ img.left {
   color: rgb(100, 124, 100);
   width: 14px;
   text-align: center;
+}
+@media (max-width: 600px) {
+  .about-contact {
+    align-items: center;
+    text-align: center;
+  }
 }
 
 .about-section-title {
@@ -1581,7 +1581,7 @@ img.left {
 .about-company-tagline {
   font-size: 12px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.7);
   letter-spacing: 0;
   text-transform: none;
 }
